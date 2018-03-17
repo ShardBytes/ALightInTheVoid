@@ -7,6 +7,6 @@
     "socket.io": "^1.7.3"
   },
   "scripts": {
-    "start": "node sslgen.js"
+    "start": "node server.js"
   }
 }
