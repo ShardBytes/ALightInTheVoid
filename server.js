@@ -30,8 +30,10 @@ app.use('/.well-known', express.static(__dirname + '/.well-known', {dotfiles:'al
 
 // game ->
 app.use('/game', express.static(__dirname + '/game'))
+app.use('/assets', express.static(__dirname + '/assets'))
+
 app.get('/game', function(req, res) {
-  res.sendFile(__dirname + '/game/index.html');
+  res.sendFile(__dirname + '/game/game.html');
 })
 
 // page ->
