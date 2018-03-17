@@ -123,8 +123,6 @@ window.addEventListener('resize', function() {
   w = window.innerWidth;
   h = window.innerHeight;
 
-  console.log(app.renderer.view.style.width)
-
   app.renderer.view.style.width = w + "px";
   app.renderer.view.style.height = h + "px";
   app.renderer.resize(w,h);
