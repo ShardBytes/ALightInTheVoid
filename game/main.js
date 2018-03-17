@@ -73,16 +73,14 @@ function setup() {
   /* -- INIT GAME --- */
 
   let dbg = true;
+  camera.yoffset = 200;
 
   a = new DynamicEntity('a', resources.saf.texture);
   a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
   a.collider.debug(dbg);
   a.position.set(300, 300);
-  a.scale.set(0.5, 0.5);
+  a.scale.set(0.2, 0.2);
   a.collider.updateSize();
-  a.colliding = (dt, t, dx, dy, ang) => {
-    a.bounceBoxVelocityToAngle(ang);
-  };
   world.addChild(a);
 
   b = new Entity('b', resources.saf.texture);
@@ -95,7 +93,7 @@ function setup() {
   a.collider.addToDetectionPool(b);
 
 
-  dcontroller = new SimpleDynamicEntityController(mkeys, a, 300);
+  dcontroller = new SimpleEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/
 
@@ -108,12 +106,14 @@ function setup() {
 function update() {
   requestAnimationFrame(update);
   if ( fmeter ) fmeter.tick()
-
 }
 
 function tick(dt) {
+  dcontroller.update(dt);
   a.update(dt);
   a.move(dt);
+  camera.follow(a);
+  camera.followRotation(a);
 }
 
 // add some other listeners in the end

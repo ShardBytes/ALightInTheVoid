@@ -5,11 +5,11 @@ class SimpleEntityController {
   constructor(mkeys, targetentity, movespeed) {
     this.k = mkeys;
     this.t = targetentity;
-    this.ms = movespeed;
+    this.ms = movespeed; // [px per sec]
   }
 
   update(dt) {
-    let d = dt*this.ms;
+    let d = this.ms*(dt/60);
     if (this.k.up.down) this.t.y -= d;
     if (this.k.down.down) this.t.y += d;
     if (this.k.left.down) this.t.x -= d;

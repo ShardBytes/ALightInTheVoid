@@ -16,18 +16,25 @@ class Camera {
   get x() {return this.c.pivot.x;}
   get y() {return this.c.pivot.y;}
 
+  set xoffset(val) {this._xoffset = val; this.centerToRenderer(); }
+  set yoffset(val) {this._yoffset = val; this.centerToRenderer(); }
+
   constructor(c) { // c = container to influence
     this.c = c;
-    this.centerToRenderer();
     this.scale = 0.7 // default scale
+
+    this._xoffset = 0;
+    this._yoffset = 0;
+
+    this.centerToRenderer();
   }
 
   centerToRenderer() {
     /* position the camera to center of the renderer
      * -> call this on RESIZE !!
      * -> the camera x and y are relative to center, right my dude ? yes*/
-    this.c.position.x = app.renderer.width/2;
-    this.c.position.y = app.renderer.height/2;
+    this.c.position.x = app.renderer.width/2  + this._xoffset;
+    this.c.position.y = app.renderer.height/2 + this._yoffset;
   }
 
   follow(target) {
