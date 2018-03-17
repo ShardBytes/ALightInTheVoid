@@ -35,7 +35,7 @@ let dcontroller;
 /* PIXI loader */
 
 let resDef = [
-  ['rk', '/assets/sprites/aquaroket.png']
+  ['rk', 'sprites/aquaroket.png']
 ];
 
 resDef.forEach(t => {
