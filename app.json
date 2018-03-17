@@ -1,0 +1,12 @@
+{
+  "name": "A Light in the Void",
+  "description": "our game",
+  "website": "https://alightinthevoid.fr.openode.io",
+  "repository": "https://github.com/ShardBytes/ALightInTheVoid",
+  "success_url": "/",
+  "author": "Plasmoxy",
+  "scripts": {
+  },
+  "addons": [
+  ],
+}

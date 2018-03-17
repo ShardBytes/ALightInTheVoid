@@ -1,0 +1,12 @@
+{
+  "name": "A Light in the Void",
+  "version": "1.0.0",
+  "description": "our game",
+  "dependencies": {
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  },
+  "scripts": {
+    "start": "node sslgen.js"
+  }
+}
