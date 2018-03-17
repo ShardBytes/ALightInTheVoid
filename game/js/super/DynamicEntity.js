@@ -1,5 +1,5 @@
 /* DynamicEntity class by Plasmoxy, override this m8 */
-/* uses Victor.js vector lib (can come in handy) */
+/* uses Victor.js vector lib (may come in handy) */
 
 /* this can move and stuff */
 
