@@ -6,8 +6,8 @@ class KeyboardKey {
     this.down = false;
 
     /* these ought to be overridden */
-    this.press = undefined;
-    this.release = undefined;
+    this.pressed = undefined;
+    this.released = undefined;
 
     window.addEventListener(
       'keydown', this.downHandler.bind(this), false

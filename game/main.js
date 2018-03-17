@@ -72,25 +72,27 @@ function setup() {
 
   /* -- INIT GAME --- */
 
-  a = new Entity('a', resources.saf.texture);
-  a.collider = new BoxCollider(a, a.width, a.height);
-  a.collider.debug(true);
-  a.colliding = (dt, t, dx, dy, ang) => {
-    console.log('col');
-  };
+  let dbg = true;
+
+  a = new DynamicEntity('a', resources.saf.texture);
+  a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
+  a.collider.debug(dbg);
+  a.position.set(300, 300);
   a.scale.set(0.5, 0.5);
-  a.collider.updateSize()
+  a.collider.updateSize();
   world.addChild(a);
 
   b = new Entity('b', resources.saf.texture);
-  b.collider = new BoxCollider(b, b.width, b.height);
-  b.collider.debug(true);
+  b.collider = new BoxCollider(b, b.width + 30, b.height + 30);
+  b.collider.debug(dbg);
+  b.scale.set(0.3, 0.3);
+  b.collider.updateSize();
   world.addChild(b);
 
   a.collider.addToDetectionPool(b);
 
 
-  dcontroller = new DebugEntityController(mkeys, a, 5);
+  dcontroller = new SimpleDynamicEntityController(mkeys, a, 5);
 
   /* --- end INIT GAME ---*/
 
@@ -107,8 +109,8 @@ function update() {
 }
 
 function tick(dt) {
-  dcontroller.update(dt);
-  a.collider.update(dt);
+  a.update(dt);
+  a.move(dt);
 }
 
 // add some other listeners in the end

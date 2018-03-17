@@ -1,6 +1,6 @@
 /* Simple entity debug controller by Plasmoxy */
 
-class DebugEntityController {
+class SimpleEntityController {
 
   constructor(mkeys, targetentity, movespeed) {
     this.k = mkeys;
