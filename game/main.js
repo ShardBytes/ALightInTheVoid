@@ -74,6 +74,13 @@ function setup() {
 
   let dbg = true;
 
+  b = new Entity('b', resources.saf.texture);
+  b.collider = new BoxCollider(b, b.width + 30, b.height + 30);
+  b.collider.debug(dbg);
+  b.scale.set(0.3, 0.3);
+  b.collider.updateSize();
+  world.addChild(b);
+
   a = new DirectionalEntity('a', resources.saf.texture);
   a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
   a.collider.debug(dbg);
@@ -81,17 +88,10 @@ function setup() {
   a.scale.set(0.2, 0.2);
   a.collider.updateSize();
   a.colliding = (dt, t, dx, dy, ang) => {
-    console.log(ang);
+    a.rotation = -ang;
   };
   a.rotation = 0;
   world.addChild(a);
-
-  b = new Entity('b', resources.saf.texture);
-  b.collider = new BoxCollider(b, b.width + 30, b.height + 30);
-  b.collider.debug(dbg);
-  b.scale.set(0.3, 0.3);
-  b.collider.updateSize();
-  world.addChild(b);
 
   a.collider.addToDetectionPool(b);
 
