@@ -23,7 +23,10 @@ class Entity extends Container {
     this.collider = undefined;
   }
 
-  update(dt) {}
-  colliding(dt, t, dx, dy, ang) {}
+  update(dt) {
+    if (this.collider) this.collider.update(dt);
+  }
+
+  colliding(dt, t, dx, dy, ang) {} // template for collision
 
 }
