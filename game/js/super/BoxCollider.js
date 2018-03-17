@@ -31,12 +31,18 @@ class BoxCollider extends Collider {
   debug(state) {
     super.debug(state);
     if (!this.debugGraphics) return; // add this check if dG are off
+    /* !!! ->  dgraphics will be scaled with the entity container, therefore to get a true rectangle size relative to parent even after scaling, we have to revert the scale. */
     this.debugGraphics.drawRect(
-      -this.w/2,
-      -this.h/2,
-      this.w,
-      this.h
+      -this.w/this.ent.scale.x/2,
+      -this.h/this.ent.scale.y/2,
+      this.w/this.ent.scale.x,
+      this.h/this.ent.scale.y
     );
+  }
+
+  updateSize() { // IMPORTANT -> call this after scaling entity !
+    this.w = this.ent.width;
+    this.h = this.ent.height;
   }
 
 }

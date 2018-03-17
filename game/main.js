@@ -35,7 +35,8 @@ let dcontroller;
 /* PIXI loader */
 
 let resDef = [
-  ['rk', 'sprites/aquaroket.png']
+  ['rk', 'sprites/aquaroket.png'],
+  ['saf', 'sprites/safarik.png']
 ];
 
 resDef.forEach(t => {
@@ -71,30 +72,23 @@ function setup() {
 
   /* -- INIT GAME --- */
 
-  a = new Entity('A', resources.rk.texture);
+  a = new Entity('a', resources.saf.texture);
   a.collider = new BoxCollider(a, a.width, a.height);
   a.collider.debug(true);
   a.colliding = (dt, t, dx, dy, ang) => {
-    console.log('COLLISION : ' + a.id + ' -> ' + t.id + ' : ' + ang*180/Math.PI);
-    a.x += 6*Math.sin(ang)*dt;
-    a.y += 6*Math.cos(ang)*dt;
+    console.log('col');
   };
+  a.scale.set(0.5, 0.5);
+  a.collider.updateSize()
   world.addChild(a);
 
-  b = new Entity('B', resources.rk.texture);
-  b.y = 100;
+  b = new Entity('b', resources.saf.texture);
   b.collider = new BoxCollider(b, b.width, b.height);
   b.collider.debug(true);
   world.addChild(b);
 
-  c = new Entity('C', resources.rk.texture);
-  c.y = 150;
-  c.collider = new BoxCollider(c, c.width, c.height);
-  c.collider.debug(true);
-  world.addChild(c);
-
   a.collider.addToDetectionPool(b);
-  a.collider.addToDetectionPool(c);
+
 
   dcontroller = new DebugEntityController(mkeys, a, 5);
 
