@@ -80,6 +80,10 @@ function setup() {
   a.position.set(300, 300);
   a.scale.set(0.5, 0.5);
   a.collider.updateSize();
+  a.colliding = (dt, t, dx, dy, ang) => {
+         if (ang <= 3*Math.PI/4 && ang >= Math.PI/4) a.v.x = -a.v.x;
+    else if (ang < Math.PI/4 && ang > -Math.PI/4 ) a.v.y = -a.v.y;
+  };
   world.addChild(a);
 
   b = new Entity('b', resources.saf.texture);

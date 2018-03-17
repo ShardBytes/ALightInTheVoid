@@ -22,7 +22,7 @@ class DynamicEntity extends Entity {
 
     this.collider = undefined;
 
-    this.speed = 100; // speed [points per second]
+    this.speed = 300; // speed [points per second]
     this.v = new Victor(); // velocity vector
 
   }
