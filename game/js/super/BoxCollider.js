@@ -22,7 +22,7 @@ class BoxCollider extends Collider {
         /* !! -> angle = at what angle is THIS entity colliding with TARGET entity ?
          * ( we're looking at this entity from perspective of target entity )
          */
-        angle = ( Math.atan2(dx, dy) + 2*PI ) % (2*PI); // get angle from 0 to 2PI as in circle.png
+        angle = ( Math.atan2(dx, dy) + PI ) % (2*PI); // get angle from 0 to 2PI as in circle.png
         this.ent.colliding(dt, t, dx, dy, angle);
       }
     }
@@ -30,7 +30,7 @@ class BoxCollider extends Collider {
 
   debug(state) {
     super.debug(state);
-    if (!this.debugGraphics) return; // add this check if dG are off
+    if (!this.debugGraphics) return; // return if dG are off
     /* !!! ->  dgraphics will be scaled with the entity container, therefore to get a true rectangle size relative to parent even after scaling, we have to revert the scale. */
     this.debugGraphics.drawRect(
       -this.w/this.ent.scale.x/2,
