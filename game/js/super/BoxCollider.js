@@ -14,7 +14,6 @@ class BoxCollider extends Collider {
     let dx = this.ent.x - t.x;
     let dy = this.ent.y - t.y;
     if ( tcl instanceof BoxCollider ) {
-
       if (
         ( Math.abs(dx)*2 < (this.w + tcl.w) ) &&
         ( Math.abs(dy)*2 < (this.h + tcl.h) )
