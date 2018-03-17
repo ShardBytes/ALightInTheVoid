@@ -11,20 +11,9 @@ class DynamicEntity extends Entity {
   set y(val) {this.position.y = val;}
 
   constructor(id, sprite_texture) {
-    super();
+    super(id, sprite_texture);
 
-    this.id = id;
-
-    // load sprite for entity
-    this.sprite = new Sprite(sprite_texture);
-    this.sprite.anchor.set(0.5, 0.5); // set sprite anchor to center
-    this.addChild(this.sprite);
-
-    this.collider = undefined;
-
-    this.speed = 300; // speed [points per second]
     this.v = new Victor(); // velocity vector
-
   }
 
   move(dt) {
@@ -37,14 +26,14 @@ class DynamicEntity extends Entity {
   }
 
   bounceBoxVelocityToAngle(ang) {
-        if (
+    if (
           ( ang <= 3*PI/4 && ang >= PI/4 ) ||
           ( ang <= -PI/4 && ang >= -3*PI/4)
-        ) this.v.x = -this.v.x;
+    ) this.v.x = -this.v.x;
     else if (
-        ( ang < PI/4 && ang > -PI/4 ) ||
-        ( (ang < -3*PI/4 && ang > -PI ) || (ang > 3*PI/4 && ang < PI) )
-      ) this.v.y = -this.v.y;
+          ( ang < PI/4 && ang > -PI/4 ) ||
+          ( (ang < -3*PI/4 && ang > -PI ) || (ang > 3*PI/4 && ang < PI) )
+    ) this.v.y = -this.v.y;
   }
 
 }
