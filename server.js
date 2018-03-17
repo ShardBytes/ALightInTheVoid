@@ -35,3 +35,12 @@ app.use('/game', express.static(__dirname + '/game'))
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
+
+
+
+server.listen(443, function() {
+  console.log('https server listening on port 443')
+})
+redirectServer.listen(80, function() {
+  console.log('redirect http server listening on port 80')
+})
