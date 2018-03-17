@@ -75,12 +75,15 @@ function setup() {
   let dbg = true;
   camera.yoffset = 200;
 
-  a = new DynamicEntity('a', resources.saf.texture);
+  a = new DirectionalEntity('a', resources.saf.texture);
   a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
   a.collider.debug(dbg);
   a.position.set(300, 300);
   a.scale.set(0.2, 0.2);
   a.collider.updateSize();
+  a.colliding = (dt, t, dx, dy, ang) => {
+    console.log(ang);
+  };
   world.addChild(a);
 
   b = new Entity('b', resources.saf.texture);
@@ -91,8 +94,7 @@ function setup() {
   world.addChild(b);
 
   a.collider.addToDetectionPool(b);
-
-
+  
   dcontroller = new SimpleEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/

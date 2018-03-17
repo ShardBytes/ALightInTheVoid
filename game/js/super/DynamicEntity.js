@@ -1,7 +1,6 @@
 /* DynamicEntity class by Plasmoxy, override this m8 */
 /* uses Victor.js vector lib (may come in handy) */
-
-/* this can move and stuff */
+/* this entity has velocity and moves to it */
 
 class DynamicEntity extends Entity {
 
@@ -23,17 +22,6 @@ class DynamicEntity extends Entity {
 
   update(dt) {
     super.update(dt);
-  }
-
-  bounceBoxVelocityToAngle(ang) {
-    if (
-          ( ang <= 3*PI/4 && ang >= PI/4 ) ||
-          ( ang <= -PI/4 && ang >= -3*PI/4)
-    ) this.v.x = -this.v.x;
-    else if (
-          ( ang < PI/4 && ang > -PI/4 ) ||
-          ( (ang < -3*PI/4 && ang > -PI ) || (ang > 3*PI/4 && ang < PI) )
-    ) this.v.y = -this.v.y;
   }
 
 }
