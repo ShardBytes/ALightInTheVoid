@@ -9,5 +9,6 @@ let Application = PIXI.Application,
     Sprite = PIXI.Sprite,
     Text = PIXI.Text,
     TextStyle = PIXI.TextStyle,
-    Rectangle = PIXI.Rectangle
+    Rectangle = PIXI.Rectangle,
+    PI = Math.PI;
 ;

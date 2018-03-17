@@ -3,19 +3,21 @@
 class SimpleDynamicEntityController {
 
   constructor(mkeys, targetentity, movespeed) {
-    let k = mkeys, t = targetentity, ms = targetentity.speed;
+    this.k = mkeys;
+    this.t = targetentity;
+    this.ms = movespeed;
 
-    k.up.pressed = () => { t.v.y -= ms; };
-    k.up.released = () => { t.v.y = 0; };
+    this.k.up.pressed = () => { this.t.v.y -= this.ms; };
+    this.k.up.released = () => { this.t.v.y = 0; };
 
-    k.down.pressed = () => { t.v.y += ms; };
-    k.down.released = () => { t.v.y = 0; };
+    this.k.down.pressed = () => { this.t.v.y += this.ms; };
+    this.k.down.released = () => { this.t.v.y = 0; };
 
-    k.left.pressed = () => { t.v.x -= ms; };
-    k.left.released = () => { t.v.x = 0; };
+    this.k.left.pressed = () => { this.t.v.x -= this.ms; };
+    this.k.left.released = () => { this.t.v.x = 0; };
 
-    k.right.pressed = () => { t.v.x += ms; };
-    k.right.released = () => { t.v.x = 0; };
+    this.k.right.pressed = () => { this.t.v.x += this.ms; };
+    this.k.right.released = () => { this.t.v.x = 0; };
 
   }
 }

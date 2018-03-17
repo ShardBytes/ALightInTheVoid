@@ -36,4 +36,15 @@ class DynamicEntity extends Entity {
     super.update(dt);
   }
 
+  bounceBoxVelocityToAngle(ang) {
+        if (
+          ( ang <= 3*PI/4 && ang >= PI/4 ) ||
+          ( ang <= -PI/4 && ang >= -3*PI/4)
+        ) this.v.x = -this.v.x;
+    else if (
+        ( ang < PI/4 && ang > -PI/4 ) ||
+        ( (ang < -3*PI/4 && ang > -PI ) || (ang > 3*PI/4 && ang < PI) )
+      ) this.v.y = -this.v.y;
+  }
+
 }
