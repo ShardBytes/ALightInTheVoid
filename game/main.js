@@ -98,7 +98,7 @@ function setup() {
 
   /* -- INIT GAME --- */
 
-  cameratween = new Tween(camera, 'scale', 0.5);
+  cameratween = new Tween(camera, 'scale', 1);
   cameratween.start();
 
   b = new Entity('b', resources.saf.texture);

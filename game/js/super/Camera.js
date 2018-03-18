@@ -21,7 +21,7 @@ class Camera {
 
   constructor(c) { // c = container to influence
     this.c = c;
-    this.scale = 0.7 // default scale
+    this.scale = 1 // default scale
 
     this._xoffset = 0;
     this._yoffset = 0;
