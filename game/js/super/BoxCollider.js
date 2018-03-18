@@ -1,4 +1,5 @@
 /* this collider is a fully meaningful one - a box */
+/* ahhh and it workss and it finally has checks, events, offsets, all the stuff mmmmm <3 */
 
 class BoxCollider extends Collider {
 

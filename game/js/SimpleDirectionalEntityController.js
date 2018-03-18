@@ -7,11 +7,11 @@ class SimpleDirectionalEntityController {
     this.ms = movespeed; // [px per sec]
     this.rs = Math.PI; // rotation speed [rad per sec]
 
-    this.k.up.pressed = () => this.t.speed = this.ms;
-    this.k.up.released = () => this.t.speed = 0;
+    this.k.up.pressed = () => this.t.speed += this.ms;
+    this.k.up.released = () => this.t.speed -= this.ms;
 
-    this.k.down.pressed = () => this.t.speed = -this.ms;
-    this.k.down.released = () => this.t.speed = 0;
+    this.k.down.pressed = () => this.t.speed -= this.ms;
+    this.k.down.released = () => this.t.speed += this.ms;
   }
 
   update(dt) {
