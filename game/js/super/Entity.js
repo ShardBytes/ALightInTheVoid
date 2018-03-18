@@ -3,6 +3,8 @@
 /* -> the basic advantage of my entity is based on Container polymorphism */
 /*   -> therefore, you can add effects, internal entity graphics, and all that stuff to it */
 
+/* btw, call updateSize() on collider after scaling if you want the collider to adapt to scale !!! */
+
 class Entity extends Container {
 
   get x() {return this.position.x;}

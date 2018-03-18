@@ -1,7 +1,7 @@
-/* pixibase by Plasmoxy */
+/* Game engine by Plasmoxy based on PIXI.js */
 /* uses my pixialiases.js snippet for shorter names */
 
-console.log('--- The amazing Plasmoxy\'s game engine for Pixi, written in less than 20 days lmao ---');
+console.log('--- The amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
 
 let fmeter = new FPSMeter();
 
