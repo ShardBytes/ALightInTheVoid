@@ -37,10 +37,10 @@ class Collider {
   }
 
   update(dt) {
-    if (this.debugGraphics) this.updateDebugGraphics();
     this.detectPool.forEach( (t,i) => {
       this.detect(dt, t);
     });
+    if (this.debugGraphics) this.updateDebugGraphics();
   }
 
 }

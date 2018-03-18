@@ -111,8 +111,8 @@ function update() {
 
 function tick(dt) {
   dcontroller.update(dt);
-  a.update(dt);
   a.move(dt);
+  a.update(dt);
 }
 
 // add some other listeners in the end
