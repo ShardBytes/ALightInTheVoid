@@ -34,6 +34,7 @@ let a,b;
 let dcontroller;
 let cameratween;
 let dbg = true;
+let swarm;
 
 class Roket extends DirectionalEntity {
   constructor() {
@@ -110,6 +111,21 @@ function setup() {
   a = new Roket();
   world.addChild(a);
 
+  swarm = new ProjectileSwarm();
+
+  let proj = new Projectile(swarm, '@proj', resources.rk.texture, 0, 0, PI, 100);
+  proj.scale.set(0.5, 0.5);
+  proj.collider.updateSize();
+  proj.sprite.rotation = PI;
+  proj.collider.debug(true);
+  proj.collider.addToDetectionPool(a);
+  proj.collider.collided = (t, dx, dy, ang) => {
+    proj.destroy();
+  }
+  swarm.addChild(proj);
+
+  world.addChild(swarm);
+
   dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/
@@ -130,6 +146,7 @@ function tick(dt) {
   a.rotateToDirection();
   a.move(dt);
   a.update(dt);
+  swarm.update(dt);
   cameratween.update(dt);
   camera.follow(a);
 }

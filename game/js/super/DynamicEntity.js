@@ -7,7 +7,7 @@ class DynamicEntity extends Entity {
   constructor(id, sprite_texture) {
     super(id, sprite_texture);
 
-    this.v = new Victor(); // velocity vector
+    this.v = new Vector(); // velocity vector
   }
 
   move(dt) {
