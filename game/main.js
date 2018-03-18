@@ -90,6 +90,7 @@ function setup() {
     console.log(ang);
   };
   a.rotation = 0;
+  a.sprite.rotation = PI;
   a.collider.debug(dbg);
   world.addChild(a);
 
