@@ -81,21 +81,25 @@ function setup() {
   world.addChild(b);
 
   a = new DirectionalEntity('a', resources.saf.texture);
+
   a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
   a.position.set(300, 300);
   a.scale.set(0.5, 0.5);
   a.collider.updateSize();
   a.colliding = (dt, t, dx, dy, ang) => {
     a.rotation = -ang;
-    console.log(ang);
+    a.direction = ang + PI/2;
   };
+
   a.rotation = 0;
   a.sprite.rotation = PI;
+
+  a.speed = 100;
+
   a.collider.debug(dbg);
   world.addChild(a);
 
   a.collider.addToDetectionPool(b);
-
   dcontroller = new SimpleEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/
@@ -113,8 +117,8 @@ function update() {
 
 function tick(dt) {
   dcontroller.update(dt);
-  a.move(dt);
   a.update(dt);
+  a.move(dt);
 }
 
 // add some other listeners in the end
