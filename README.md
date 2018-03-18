@@ -1,3 +1,3 @@
 # ALightInTheVoid
 
-our game, currently in alpha----- stage veri bad
+our game, currently in alpha----- stage = i have an engine
