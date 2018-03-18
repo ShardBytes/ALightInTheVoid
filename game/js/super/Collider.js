@@ -8,11 +8,17 @@ class Collider {
   constructor(ent) {
     this.ent = ent;
     this.detectPool = [];
+    this.collisions = []; // list of objects with which this is colliding
     this.debugActive = false;
   }
 
   // t = target entity
   detect(dt, t) {}
+
+  // OVERRIDE METHODS :
+  colliding(dt, t, dx, dy, ang) {} // executes on every update if there is a collision
+  collided(dt, t, dx, dy, ang) {} // event, executes on collision
+  discollided(t, dx, dy, ang) {} // event, executes when target leaves collision
 
   // this setups the debug graphics, call super.debug() on override to save 3 lines of code lmao
   // ! -> to be used only for internal testing
@@ -46,6 +52,19 @@ class Collider {
       this.detect(dt, t);
     });
     if (this.debugActive && this.debugGraphics) this.updateDebugGraphics();
+  }
+
+  isColliding(target) {
+    return this.collisions.includes(target);
+  }
+
+  // add and remove are unsafe to improve performance, check if isColliding() when using them !!!
+  addCollision(target) {
+    this.collisions.push(target);
+  }
+
+  removeCollision(target) {
+    this.collisions.splice(this.collisions.indexOf(target), 1);
   }
 
 }

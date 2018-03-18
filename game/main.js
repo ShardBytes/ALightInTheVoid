@@ -41,6 +41,19 @@ class Roket extends DirectionalEntity {
     this.collider.updateSize();
     this.rotation = 0;
     this.sprite.rotation = PI;
+
+    this.collider.addToDetectionPool(b);
+    this.collider.debug(true);
+  }
+
+  update(dt) {
+    super.update(dt);
+    if (this.collider.isColliding(b)) {
+      camera.scale = 0.5;
+      this.speed = 1000;
+    } else {
+      camera.scale = 1;
+    }
   }
 }
 
@@ -84,21 +97,14 @@ function setup() {
 
   /* -- INIT GAME --- */
 
-  let dbg = true;
-
   b = new Entity('b', resources.saf.texture);
   b.collider = new BoxCollider(b, 600, 600);
   b.scale.set(1, 1);
   b.collider.updateSize();
-  b.collider.debug(dbg);
+  b.collider.debug(true);
   world.addChild(b);
 
   a = new Roket();
-  a.collider.addToDetectionPool(b);
-  a.collider.debug(dbg);
-  a.collider.collided = (dt, t, dx, dy, ang) => {
-    dcontroller.ms = 500;
-  };
   world.addChild(a);
 
   dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
