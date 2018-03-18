@@ -8,20 +8,25 @@ class Collider {
   constructor(ent) {
     this.ent = ent;
     this.detectPool = [];
+
+    this.debugActive = false;
   }
 
   // t = target entity
   detect(dt, t) {}
 
   // this setups the debug graphics, call super.debug() on override to save 3 lines of code lmao
-  debug(state) {
-    if (state) {
+  // ! -> to be used only for internal testing
+  debug(active) {
+    if (active) {
       this.debugGraphics = new PIXI.Graphics;
-      this.debugGraphics.lineStyle(2, 0xFF0000, 1);
+      this.debugGraphics.lineStyle(2, 0xe32fff, 1);
       this.ent.addChild(this.debugGraphics);
     } else {
+      this.ent.removeChild(this.debugGraphics);
       this.debugGraphics = undefined;
     }
+    this.debugActive = active;
   }
 
   // rotate the internal dgraphics opposite to entity rotation (because collider is not rotating)
@@ -41,7 +46,7 @@ class Collider {
     this.detectPool.forEach( (t,i) => {
       this.detect(dt, t);
     });
-    if (this.debugGraphics) this.updateDebugGraphics();
+    if (this.debugActive && this.debugGraphics) this.updateDebugGraphics();
   }
 
 }

@@ -32,6 +32,25 @@ let bg, world, gui, camera, mkeys; // basic
 let a,b;
 let dcontroller;
 
+class Roket extends DirectionalEntity {
+  constructor() {
+    super('XD', resources.rk.texture);
+    this.collider = new BoxCollider(this, this.width + 20, this.height + 20);
+    this.position.set(30, -300);
+    this.scale.set(0.5, 0.5);
+    this.collider.updateSize();
+    this.colliding = (dt, t, dx, dy, ang) => {
+      this.rotation = - ( ang + PI/2 ) ;
+      this.direction = ang + PI/2;
+    };
+
+    this.rotation = 0;
+    this.sprite.rotation = PI;
+
+    this.speed = 100;
+  }
+}
+
 /* PIXI loader */
 
 let resDef = [
@@ -80,24 +99,11 @@ function setup() {
   b.collider.updateSize();
   world.addChild(b);
 
-  a = new DirectionalEntity('a', resources.rk.texture);
-
-  a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
-  a.position.set(30, -300);
-  a.scale.set(0.5, 0.5);
-  a.collider.updateSize();
-  a.colliding = (dt, t, dx, dy, ang) => {
-    a.rotation = - ( ang + PI/2 ) ;
-    a.direction = ang + PI/2;
-  };
-
-  a.rotation = 0;
-  a.sprite.rotation = PI;
-
-  a.speed = 100;
-
-  a.collider.debug(dbg);
+  a = new Roket();
+  a.collider.addToDetectionPool(b);
+  a.collider.debug(true);
   world.addChild(a);
+
 
   a.collider.addToDetectionPool(b);
   dcontroller = new SimpleEntityController(mkeys, a, 300);
