@@ -1,3 +1,4 @@
+/* BoxCollider class by Plasmoxy */
 /* this collider is a fully meaningful one - a box */
 /* ahhh and it workss and it finally has checks, events, offsets, all the stuff mmmmm <3 */
 
