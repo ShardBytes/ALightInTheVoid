@@ -1,6 +1,6 @@
 /*
  * Centered camera class by Plasmoxy
- * -> This sets the container rotation and pivot relative
+ * -> This can set the container (world) rotation and pivot relative
  * to camera, causing it to be moved and follow target
  */
 
@@ -19,7 +19,7 @@ class Camera {
   set xoffset(val) {this._xoffset = val; this.centerToRenderer(); }
   set yoffset(val) {this._yoffset = val; this.centerToRenderer(); }
 
-  constructor(c) { // c = container to influence
+  constructor(c) { // c = container to influence = world or something
     this.c = c;
     this.scale = 1 // default scale
 
@@ -48,7 +48,7 @@ class Camera {
   }
 
 
-  followDirection(rcont, offset) {
+  followDirection(rcont, offset) { // rcont = rotation container, offset = rotation offset [radians]
     if (!offset) offset = Math.PI;
     this.c.rotation = rcont.direction + offset;
   }
