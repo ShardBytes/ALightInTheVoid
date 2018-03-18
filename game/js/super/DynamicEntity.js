@@ -4,11 +4,6 @@
 
 class DynamicEntity extends Entity {
 
-  get x() {return this.position.x;}
-  set x(val) {this.position.x = val;}
-  get y() {return this.position.y;}
-  set y(val) {this.position.y = val;}
-
   constructor(id, sprite_texture) {
     super(id, sprite_texture);
 
