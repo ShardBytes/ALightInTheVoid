@@ -87,6 +87,7 @@ function setup() {
   a.collider.updateSize();
   a.colliding = (dt, t, dx, dy, ang) => {
     a.rotation = -ang;
+    console.log(ang);
   };
   a.rotation = 0;
   a.collider.debug(dbg);
