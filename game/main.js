@@ -36,7 +36,7 @@ class Roket extends DirectionalEntity {
   constructor() {
     super('XD', resources.rk.texture);
     this.collider = new BoxCollider(this, this.width + 20, this.height + 20);
-    this.position.set(-1000, -1000);
+    this.position.set(-500, -500);
     this.scale.set(0.5, 0.5);
     this.collider.updateSize();
     this.rotation = 0;
@@ -45,14 +45,16 @@ class Roket extends DirectionalEntity {
     this.collider.addToDetectionPool(b);
     this.collider.debug(true);
 
-    this.speedtween = new Tween(this.speed, 50);
+    this.speedtween = new Tween(this, 'speed', 50);
+    this.speedtween.start();
+    this.speedtween.target = 1000;
 
     this.collider.collided = (t, dx, dy, ang) => {
-      if (t == b) this.speed += 1000;
+
     }
 
     this.collider.discollided = (t, dx, dy, ang) => {
-      if (t == b) this.speed -= 1000;
+
     }
   }
 }
@@ -107,7 +109,7 @@ function setup() {
   a = new Roket();
   world.addChild(a);
 
-  dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
+  //dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/
 
@@ -123,7 +125,8 @@ function update() {
 }
 
 function tick(dt) {
-  dcontroller.update(dt);
+  //dcontroller.update(dt);
+  a.speedtween.update(dt);
   a.rotateToDirection();
   a.move(dt);
   a.update(dt);
