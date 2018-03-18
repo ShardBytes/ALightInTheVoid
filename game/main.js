@@ -45,12 +45,12 @@ class Roket extends DirectionalEntity {
     this.collider.addToDetectionPool(b);
     this.collider.debug(true);
 
-    this.speedtween = new Tween(this, 'speed', 50);
+    this.speedtween = new Tween(this, 'speed', 100);
     this.speedtween.start();
-    this.speedtween.target = 1000;
+    this.speedtween.target = 200;
 
     this.collider.collided = (t, dx, dy, ang) => {
-
+      this.speedtween.reset();
     }
 
     this.collider.discollided = (t, dx, dy, ang) => {

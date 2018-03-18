@@ -2,27 +2,38 @@
 // this is just sooo amazing. it can animate any value. wow.
 // i'll leave it to linear for now
 
-// -> it uses Javascript's amazing reflection abilities to access object's property by name
+// -> it uses Javascript's amazing reflection abilities to access object's property by name using array notation
 // this had to be done because js is pass by value so we need references not values
 // therefore, you need to pass a reference of object to which the property belongs to
 
 class Tween {
 
-  constructor(object, propertyname, speed) {
+  constructor(object, propertyname, speed, stopOnFinish) {
     this.pn = propertyname;
     this.o = object; // target object reference
     this.s = speed; // speed of change [unit per second]
 
+    // this means that the tween will stop injecting values after reaching target
+    this.stopOnFinish = stopOnFinish;
+
     this.target = this.o[propertyname]; // target (unchanged on init)
-    this.active = false;
+    this.default = this.target; // save default value for this tween
+
+    this.active = false; // off by default
   }
 
-  start() {
+  start() { // start injecting value
     this.active = true;
   }
 
-  stop() {
+  stop() { // stop injecting value
     this.active = false;
+  }
+
+  // resets the property too !
+  reset() {
+    this.target = this.default;
+    this.o[this.pn] = this.default;
   }
 
   update(dt) {
@@ -32,11 +43,15 @@ class Tween {
       // round property to target when there is minimal difference
       // this is important because the we're working with decimal numbers
       // and it could happen that we'd never reach the target precisely
-      //if (this.p > this.target - d && this.p < this.target + d) this.p = this.target;
+      // ALSO : stop tween when on target if stopOnFinish
+      if (this.p > this.target - d && this.p < this.target + d) {
+        this.p = this.target;
+        if (this.stopOnFinish) this.stop();
+      }
 
       if (this.o[this.pn] < this.target) {
         this.o[this.pn] += d;
-        console.log('INCREASING!!!');
+        console.log('I');
       }
       else if(this.o[this.pn] > this.target) this.o[this.pn] -= d;
     }
