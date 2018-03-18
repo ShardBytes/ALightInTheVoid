@@ -26,7 +26,7 @@ class BoxCollider extends Collider {
 
     if ( tcl instanceof BoxCollider ) {
 
-      // if colliders overline
+      // if colliders intersect (rectangle intersect )
       if (
         ( Math.abs(dx)*2 < (this.w + tcl.w) ) &&
         ( Math.abs(dy)*2 < (this.h + tcl.h) )
@@ -42,7 +42,7 @@ class BoxCollider extends Collider {
       // if target is not colliding, remove target
       // (isColliding means there is a colision in collisions[]
       // so we need to remove it)
-      // will execute only on discollision
+      // will execute only on discollision (yes amazing name of event)
       } else if(this.isColliding(t)) {
           this.removeCollision(t);
           this.discollided(t, dx, dy, angle);
@@ -66,7 +66,7 @@ class BoxCollider extends Collider {
   }
 
   // IMPORTANT -> call this after scaling entity !
-  // because this is scaled with ent, i'm gonna rely on ent.sprite
+  // sets collider width relative to entire entity ! ( women and children too :/ )
   updateSize() {
     this.w = this.ent.width + this.wo;
     this.h = this.ent.height + this.ho;
