@@ -7,7 +7,7 @@ class Collider {
   // collider is attached to an entity
   constructor(ent) {
     this.ent = ent;
-    this.detectPool = [];
+    this.detectPool = []; // array of entities with colliders which this collider detects
     this.collisions = []; // list of objects with which this is colliding
     this.debugActive = false;
   }
