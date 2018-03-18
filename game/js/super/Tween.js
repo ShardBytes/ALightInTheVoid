@@ -13,11 +13,13 @@ class Tween {
     this.o = object; // target object reference
     this.s = speed; // speed of change [unit per second]
 
+    // ! OPTIONAL parameter in constructor
     // this means that the tween will stop injecting values after reaching target
+    // ( it will stop caring about the value )
     this.stopOnFinish = stopOnFinish;
 
     this.target = this.o[propertyname]; // target (unchanged on init)
-    this.default = this.target; // save default value for this tween
+    this.defaultValue = this.target; // save default value for this tween
 
     this.active = false; // off by default
   }
@@ -32,8 +34,8 @@ class Tween {
 
   // resets the property too !
   reset() {
-    this.target = this.default;
-    this.o[this.pn] = this.default;
+    this.target = this.defaultValue;
+    this.o[this.pn] = this.defaultValue;
   }
 
   update(dt) {

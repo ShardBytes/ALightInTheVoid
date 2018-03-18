@@ -42,7 +42,6 @@ class Roket extends DirectionalEntity {
     this.position.set(0, -300);
     this.scale.set(0.5, 0.5);
     this.collider.updateSize();
-    this.rotation = 0;
     this.sprite.rotation = PI;
 
     this.collider.addToDetectionPool(b);
