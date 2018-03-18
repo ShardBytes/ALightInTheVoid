@@ -51,7 +51,6 @@ class Tween {
 
       if (this.o[this.pn] < this.target) {
         this.o[this.pn] += d;
-        console.log('I');
       }
       else if(this.o[this.pn] > this.target) this.o[this.pn] -= d;
     }
