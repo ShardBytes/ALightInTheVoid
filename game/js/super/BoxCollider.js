@@ -1,11 +1,14 @@
+/* this collider is a fully meaningful one - a box */
 
 class BoxCollider extends Collider {
 
-  constructor(ent, w, h) {
+  constructor(ent, wOffset, hOffset) {
     super(ent);
 
-    this.w = w;
-    this.h = h;
+    this.wo = wOffset;
+    this.ho = wOffset;
+
+    this.updateSize();
   }
 
 
@@ -40,8 +43,8 @@ class BoxCollider extends Collider {
   }
 
   updateSize() { // IMPORTANT -> call this after scaling entity !
-    this.w = this.ent.width;
-    this.h = this.ent.height;
+    this.w = this.ent.width + this.wo;
+    this.h = this.ent.height + this.ho;
   }
 
 }

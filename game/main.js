@@ -75,19 +75,19 @@ function setup() {
   let dbg = true;
 
   b = new Entity('b', resources.saf.texture);
-  b.collider = new BoxCollider(b, b.width + 30, b.height + 30);
+  b.collider = new BoxCollider(b, b.width + 200, b.height + 200);
   b.collider.debug(dbg);
   b.collider.updateSize();
   world.addChild(b);
 
-  a = new DirectionalEntity('a', resources.saf.texture);
+  a = new DirectionalEntity('a', resources.rk.texture);
 
   a.collider = new BoxCollider(a, a.width + 20, a.height + 20);
-  a.position.set(300, 300);
+  a.position.set(30, -300);
   a.scale.set(0.5, 0.5);
   a.collider.updateSize();
   a.colliding = (dt, t, dx, dy, ang) => {
-    a.rotation = -ang;
+    a.rotation = - ( ang + PI/2 ) ;
     a.direction = ang + PI/2;
   };
 

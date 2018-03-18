@@ -1,5 +1,6 @@
 /* Simple collider superclass by Plasmoxy */
 /* also this is just abstract class, need to derive it */
+/* its just like hey yo im a collider but i have no meaning in life ;_; */
 
 class Collider {
 
