@@ -51,9 +51,7 @@ class Tween {
         if (this.stopOnFinish) this.stop();
       }
 
-      if (this.o[this.pn] < this.target) {
-        this.o[this.pn] += d;
-      }
+      if (this.o[this.pn] < this.target) this.o[this.pn] += d;
       else if(this.o[this.pn] > this.target) this.o[this.pn] -= d;
     }
   }
