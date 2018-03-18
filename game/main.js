@@ -58,6 +58,20 @@ class Roket extends DirectionalEntity {
   }
 }
 
+class Bullet extends Projectile {
+  constructor(swarm, x, y, direction) {
+    super(swarm, '@bullet', resources.rk.texture, x, y, direction, 1000);
+    this.scale.set(0.3, 0.3);
+    this.collider.updateSize();
+    this.sprite.rotation = PI;
+    this.collider.debug(true);
+    this.collider.addToDetectionPool(b);
+    this.collider.collided = (t, dx, dy, ang) => {
+      this.destroy();
+    }
+  }
+}
+
 /* PIXI loader */
 
 let resDef = [
@@ -92,7 +106,8 @@ function setup() {
     up: new KeyboardKey(38),
     down: new KeyboardKey(40),
     left: new KeyboardKey(37),
-    right: new KeyboardKey(39)
+    right: new KeyboardKey(39),
+    space: new KeyboardKey(32)
   };
 
 
@@ -112,26 +127,20 @@ function setup() {
   world.addChild(a);
 
   swarm = new ProjectileSwarm();
-
-  let proj = new Projectile(swarm, '@proj', resources.rk.texture, 0, 0, PI, 100);
-  proj.scale.set(0.5, 0.5);
-  proj.collider.updateSize();
-  proj.sprite.rotation = PI;
-  proj.collider.debug(true);
-  proj.collider.addToDetectionPool(a);
-  proj.collider.collided = (t, dx, dy, ang) => {
-    proj.destroy();
-  }
-  swarm.addChild(proj);
-
   world.addChild(swarm);
 
   dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/
 
-  /* setup ticker */
-  app.ticker.add(tick);
+  /* setup tickers */
+
+  setInterval(() => {
+    if (mkeys.space.down) swarm.addChild(new Bullet(swarm, a.x, a.y, a.direction));
+  }, 100);
+
+
+  app.ticker.add(tick); // main tick function
   /* start rendering */
   update();
 }
@@ -149,6 +158,7 @@ function tick(dt) {
   swarm.update(dt);
   cameratween.update(dt);
   camera.follow(a);
+
 }
 
 // add some other listeners in the end
