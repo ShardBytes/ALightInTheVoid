@@ -32,10 +32,10 @@ class Tween {
     this.active = false;
   }
 
-  // resets the property too !
-  reset() {
+  // resets the property value too if you pass true to it
+  reset(valueToo) {
     this.target = this.defaultValue;
-    this.o[this.pn] = this.defaultValue;
+    if(valueToo) this.o[this.pn] = this.defaultValue;
   }
 
   update(dt) {
