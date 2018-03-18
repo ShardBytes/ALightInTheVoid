@@ -20,13 +20,11 @@ class Entity extends Container {
     this.sprite.anchor.set(0.5, 0.5); // set sprite anchor to center
     this.addChild(this.sprite);
 
-    this.collider = undefined;
+    this.collider = undefined; // add collider if you want
   }
 
   update(dt) {
     if (this.collider) this.collider.update(dt);
   }
-
-  colliding(dt, t, dx, dy, ang) {} // template for collision
 
 }

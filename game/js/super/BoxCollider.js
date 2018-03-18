@@ -24,7 +24,7 @@ class BoxCollider extends Collider {
          * ( we're looking at target entity from perspective of this entity and we see it under an angle -> )
          */
         angle = ( Math.atan2(dx, dy) + 2*PI ) % (2*PI); // get angle from 0 to 2PI as in circle.png
-        this.ent.colliding(dt, t, dx, dy, angle);
+        this.collided(dt, t, dx, dy, angle);
       }
     }
   }

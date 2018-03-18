@@ -8,7 +8,6 @@ class Collider {
   constructor(ent) {
     this.ent = ent;
     this.detectPool = [];
-
     this.debugActive = false;
   }
 

@@ -96,7 +96,7 @@ function setup() {
   a = new Roket();
   a.collider.addToDetectionPool(b);
   a.collider.debug(dbg);
-  a.colliding = (dt, t, dx, dy, ang) => {
+  a.collider.collided = (dt, t, dx, dy, ang) => {
     dcontroller.ms = 500;
   };
   world.addChild(a);
