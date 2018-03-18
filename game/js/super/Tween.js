@@ -44,8 +44,8 @@ class Tween {
       // this is important because the we're working with decimal numbers
       // and it could happen that we'd never reach the target precisely
       // ALSO : stop tween when on target if stopOnFinish
-      if (this.p > this.target - d && this.p < this.target + d) {
-        this.p = this.target;
+      if (this.o[this.pn] > this.target - d && this.o[this.pn] < this.target + d) {
+        this.o[this.pn] = this.target;
         if (this.stopOnFinish) this.stop();
       }
 

@@ -26,35 +26,34 @@ function loadProgressHandler(ldr, res) { // loader, resource
   console.log('LOADING [ '+Math.round(ldr.progress)+'% ] : ' + res.name + ' -> ' + res.url);
 }
 
-/* define game variables */
+/* -------- define game variables --------- */
+
 let bg, world, gui, camera, mkeys; // basic
 
 let a,b;
 let dcontroller;
+let cameratween;
+let dbg = true;
 
 class Roket extends DirectionalEntity {
   constructor() {
     super('XD', resources.rk.texture);
-    this.collider = new BoxCollider(this, this.width + 20, this.height + 20);
-    this.position.set(-500, -500);
+    this.collider = new BoxCollider(this);
+    this.position.set(0, -300);
     this.scale.set(0.5, 0.5);
     this.collider.updateSize();
     this.rotation = 0;
     this.sprite.rotation = PI;
 
     this.collider.addToDetectionPool(b);
-    this.collider.debug(true);
-
-    this.speedtween = new Tween(this, 'speed', 100);
-    this.speedtween.start();
-    this.speedtween.target = 200;
+    this.collider.debug(dbg);
 
     this.collider.collided = (t, dx, dy, ang) => {
-      this.speedtween.reset();
+      cameratween.target = 0.5;
     }
 
     this.collider.discollided = (t, dx, dy, ang) => {
-
+      cameratween.target = 1;
     }
   }
 }
@@ -99,17 +98,20 @@ function setup() {
 
   /* -- INIT GAME --- */
 
+  cameratween = new Tween(camera, 'scale', 0.5);
+  cameratween.start();
+
   b = new Entity('b', resources.saf.texture);
-  b.collider = new BoxCollider(b, 600, 600);
+  b.collider = new BoxCollider(b, 200, 200);
   b.scale.set(1, 1);
   b.collider.updateSize();
-  b.collider.debug(true);
+  b.collider.debug(dbg);
   world.addChild(b);
 
   a = new Roket();
   world.addChild(a);
 
-  //dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
+  dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
 
   /* --- end INIT GAME ---*/
 
@@ -125,11 +127,11 @@ function update() {
 }
 
 function tick(dt) {
-  //dcontroller.update(dt);
-  a.speedtween.update(dt);
+  dcontroller.update(dt);
   a.rotateToDirection();
   a.move(dt);
   a.update(dt);
+  cameratween.update(dt);
   camera.follow(a);
 }
 

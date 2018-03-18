@@ -1,4 +1,4 @@
-
+// just for debug, not compat with tweens :(
 class SimpleDirectionalEntityController {
 
   constructor(mkeys, targetentity, movespeed) {
