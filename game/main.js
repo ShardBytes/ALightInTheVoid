@@ -94,9 +94,10 @@ function setup() {
   let dbg = true;
 
   b = new Entity('b', resources.saf.texture);
-  b.collider = new BoxCollider(b, b.width + 200, b.height + 200);
-  b.collider.debug(dbg);
+  b.collider = new BoxCollider(b, 600, 600);
+  b.scale.set(1, 1);
   b.collider.updateSize();
+  b.collider.debug(dbg);
   world.addChild(b);
 
   a = new Roket();
@@ -125,6 +126,8 @@ function tick(dt) {
   dcontroller.update(dt);
   a.update(dt);
   a.move(dt);
+  camera.follow(a);
+  camera.followDirection(a);
 }
 
 // add some other listeners in the end

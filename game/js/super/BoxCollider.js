@@ -6,8 +6,7 @@ class BoxCollider extends Collider {
     super(ent);
 
     this.wo = wOffset;
-    this.ho = wOffset;
-
+    this.ho = hOffset;
     this.updateSize();
   }
 
@@ -44,7 +43,9 @@ class BoxCollider extends Collider {
     );
   }
 
-  updateSize() { // IMPORTANT -> call this after scaling entity !
+  // IMPORTANT -> call this after scaling entity !
+  // because this is scaled with ent, i'm gonna rely on ent.sprite
+  updateSize() {
     this.w = this.ent.width + this.wo;
     this.h = this.ent.height + this.ho;
   }

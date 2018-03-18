@@ -4,6 +4,9 @@ class DirectionalEntity extends DynamicEntity {
   set direction(val) { this._direction = val; this.updateVelocity(); }
   set speed(val) { this._speed = val; this.updateVelocity(); }
 
+  get direction() { return this._direction; }
+  get speed() { return this._speed; }
+  
   constructor(id, sprite_texture) {
     super(id, sprite_texture);
 

@@ -48,8 +48,9 @@ class Camera {
   }
 
 
-  followRotation(cont) {
-    this.c.rotation = cont.rotation;
+  followDirection(rcont, offset) {
+    if (!offset) offset = Math.PI;
+    this.c.rotation = rcont.direction + offset;
   }
 
 }
