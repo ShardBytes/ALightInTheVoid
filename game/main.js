@@ -70,7 +70,7 @@ function setup() {
     down: new KeyboardKey(40),
     left: new KeyboardKey(37),
     right: new KeyboardKey(39),
-    space: new KeyboardKey(32)
+    shoot: new KeyboardKey(32)
   };
 
 
@@ -102,11 +102,6 @@ function setup() {
   /* --- end INIT GAME ---*/
 
   /* setup tickers */
-
-  setInterval(() => {
-    if (mkeys.space.down) swarm.addChild(new Bullet(swarm, [safarik],player.x, player.y, player.direction));
-  }, 100);
-
 
   app.ticker.add(tick); // main tick function
   /* start rendering */
