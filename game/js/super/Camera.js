@@ -32,7 +32,7 @@ class Camera {
   centerToRenderer() {
     /* position the camera to center of the renderer
      * -> call this on RESIZE !!
-     * -> the camera x and y are relative to center, right my dude ? yes*/
+     * -> the camera position is centered relative to stage, right my dude ? yes*/
     this.c.position.x = app.renderer.width/2  + this._xoffset;
     this.c.position.y = app.renderer.height/2 + this._yoffset;
   }
@@ -40,7 +40,7 @@ class Camera {
   follow(target) {
     /* set container origin to target position
      * IMPORTANT : this doesn't affect the internal container coordinate system,
-     * it just changes the origin relative to parent.
+     * it just changes container's origin(pivot) relative to parent.
      */
     this.c.pivot.x = target.position.x;
     this.c.pivot.y = target.position.y;
@@ -49,7 +49,7 @@ class Camera {
 
 
   followDirection(rcont, offset) { // rcont = rotation container, offset = rotation offset [radians]
-    if (!offset) offset = Math.PI;
+    if (!offset) offset = Math.PI; // front on directional entity = up on camera
     this.c.rotation = rcont.direction + offset;
   }
 
