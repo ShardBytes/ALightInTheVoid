@@ -32,7 +32,7 @@ let bg, world, gui, camera, mkeys; // basic
 
 let player, safarik;
 let dcontroller;
-let dbg = true;
+let dbg = false;
 let bullets;
 
 /* PIXI loader */
@@ -77,7 +77,7 @@ function setup() {
   /* -- INIT GAME --- */
 
   safarik = new Entity('safarik', resources.saf.texture);
-  safarik.collider = new BoxCollider(safarik, 200, 200);
+  safarik.collider = new BoxCollider(safarik);
   safarik.scale.set(1, 1);
   safarik.collider.updateSize();
   safarik.collider.debug(dbg);
@@ -85,6 +85,14 @@ function setup() {
 
   player = new Player('ja');
   world.addChild(player);
+
+  player.collider.collided = (t, dx, dy, ang) => {
+    camera.scale = 0.5;
+  };
+
+  player.collider.discollided = (t, dx, dy, ang) => {
+    camera.scale = 1;
+  };
 
   swarm = new EntitySwarm();
   world.addChild(swarm);
@@ -116,6 +124,7 @@ function tick(dt) {
   player.collider.update(dt);
   swarm.update(dt);
   camera.follow(player);
+  camera.followDirection(player);
 }
 
 // add some other listeners in the end
