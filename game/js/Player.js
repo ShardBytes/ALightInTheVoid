@@ -56,6 +56,7 @@ class Player extends DirectionalEntity {
         new Bullet(bullets, this.x, this.y, this.direction, 10)
       );
     }
+    this.deltaShoot += (dt/60);
 
     let dr = this.rotationSpeed*(dt/60); // rotation difference
     // if up and down are down, set target speed to 0
@@ -65,7 +66,6 @@ class Player extends DirectionalEntity {
     if (this.cont.left.down) this.direction += dr;
     if (this.cont.right.down) this.direction -= dr;
 
-    this.deltaShoot += (dt/60);
   }
 
   update(dt) {
