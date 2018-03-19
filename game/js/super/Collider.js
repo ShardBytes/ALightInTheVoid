@@ -17,7 +17,7 @@ class Collider {
 
   // OVERRIDE METHODS :
   colliding(dt, t, dx, dy, ang) {} // executes on every update if there is a collision
-  collided(dt, t, dx, dy, ang) {} // event, executes on collision
+  collided(t, dx, dy, ang) {} // event, executes on collision
   discollided(t, dx, dy, ang) {} // event, executes when target leaves collision
 
   // this setups the debug graphics, call super.debug() on override to save 3 lines of code lmao

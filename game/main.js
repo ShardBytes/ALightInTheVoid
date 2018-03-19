@@ -86,6 +86,7 @@ function setup() {
   world.addChild(safarik);
 
   player = new Player(mkeys, 'ja');
+  player.collider.addToDetectionPool(safarik);
   world.addChild(player);
 
   player.collider.collided = (t, dx, dy, ang) => {
