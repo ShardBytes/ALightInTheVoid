@@ -3,7 +3,7 @@
 
 class Projectile extends DirectionalEntity {
 
-  constructor(swarm, genericId, texture, x, y, direction, speed) {
+  constructor(superContainer, genericId, texture, x, y, direction, speed) {
     super(genericId, texture);
 
     this.x = x;
@@ -11,7 +11,7 @@ class Projectile extends DirectionalEntity {
 
     this.direction = direction;
     this.speed = speed;
-    this.swarm = swarm;
+    this.sc = superContainer;
 
     this.collider = new BoxCollider(this);
 
@@ -21,7 +21,7 @@ class Projectile extends DirectionalEntity {
   }
 
   destroy() {
-    this.swarm.removeChild(this);
+    if (this.sc.children.includes(this)) this.sc.removeChild(this);
   }
 
   update(dt) {

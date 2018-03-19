@@ -126,7 +126,7 @@ function setup() {
   a = new Roket();
   world.addChild(a);
 
-  swarm = new ProjectileSwarm();
+  swarm = new EntitySwarm();
   world.addChild(swarm);
 
   dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
