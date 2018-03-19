@@ -32,7 +32,7 @@ let bg, world, gui, camera, mkeys; // basic
 
 let player, safarik;
 let dcontroller;
-let dbg = false;
+let dbg = true;
 let bullets;
 
 /* PIXI loader */

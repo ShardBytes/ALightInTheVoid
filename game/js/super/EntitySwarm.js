@@ -1,5 +1,5 @@
 // EntitySwarm class by Plasmoxy
-// it'just a container with update chain
+// it'just a container with update chain for every entity in it
 
 class EntitySwarm extends Container {
 

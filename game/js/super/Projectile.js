@@ -28,7 +28,7 @@ class Projectile extends DirectionalEntity {
     super.update(dt);
     this.rotateToDirection();
     this.move(dt);
-    this.lifeTime += (dt/60) ;
+    this.lifeTime += (dt/60);
     if (this.lifeTime >= this.deathTime) {
       this.destroy();
     }
