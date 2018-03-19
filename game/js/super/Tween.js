@@ -8,10 +8,10 @@
 
 class Tween {
 
-  constructor(object, propertyname, speed, stopOnFinish) {
+  constructor(object, propertyname, changeRate, stopOnFinish) {
     this.pn = propertyname;
     this.o = object; // target object reference
-    this.s = speed; // speed of change [unit per second]
+    this.rate = changeRate; // rate of change [unit per second]
 
     // ! OPTIONAL parameter in constructor
     // this means that the tween will stop injecting values after reaching target
@@ -40,7 +40,7 @@ class Tween {
 
   update(dt) {
     if (this.active) {
-      let d = this.s*(dt/60);
+      let d = this.rate*(dt/60);
 
       // round property to target when there is minimal difference
       // this is important because the we're working with decimal numbers

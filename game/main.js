@@ -30,10 +30,10 @@ function loadProgressHandler(ldr, res) { // loader, resource
 
 let background, world, gui, camera, mkeys; // basic
 
-let player, safarik;
-let dcontroller;
-let dbg = true;
-let bullets;
+let player, safarik; // objects
+let dcontroller; // debug controller
+let dbg = true; // debug for colliders
+let bullets; // swarm of bullets
 
 /* PIXI loader */
 
@@ -85,7 +85,7 @@ function setup() {
   safarik.collider.debug(dbg);
   world.addChild(safarik);
 
-  player = new Player('ja');
+  player = new Player(mkeys, 'ja');
   world.addChild(player);
 
   player.collider.collided = (t, dx, dy, ang) => {
@@ -96,10 +96,8 @@ function setup() {
     camera.scale = 1;
   };
 
-  swarm = new EntitySwarm();
-  world.addChild(swarm);
-
-  dcontroller = new SimpleDirectionalEntityController(mkeys, player, 300);
+  bullets = new EntitySwarm();
+  world.addChild(bullets);
 
   /* --- end INIT GAME ---*/
 
@@ -116,12 +114,10 @@ function update() {
 }
 
 function tick(dt) {
-  dcontroller.update(dt);
   player.update(dt);
   player.collider.update(dt);
-  swarm.update(dt);
+  bullets.update(dt);
   camera.follow(player);
-  camera.followDirection(player);
   background.centerTo(world);
   background.rotateTo(world);
 }
