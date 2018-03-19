@@ -3,9 +3,15 @@
 
 class Player extends DirectionalEntity {
 
-  constructor(controls, id) {
+  constructor(container, controls, id, x, y, team) {
     super(id, resources.rk.texture);
+    this.superContainer = container;
+    this.x = x;
+    this.y = y;
+    this.team = team;
     this.cont = controls;
+
+    this.alive = true;
 
     // this updates speed to target speed constantly
     this.speedtw = new Tween(this, 'speed', 500); // rate = acceleration
@@ -30,6 +36,19 @@ class Player extends DirectionalEntity {
     this.fireRate = 10; // 3 per second
   }
 
+  spawn() {
+    if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
+    this.alive = true;
+  }
+
+  despawn() {
+    this.alive = false;
+    // at the end, remove child
+    // (but not dereference if we have one spare reference from outside)
+    // (you should have that.)
+    if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
+  }
+
   control(dt) {
     if (this.deltaShoot > 1.0/this.fireRate) {
       this.deltaShoot = 0;
@@ -50,11 +69,13 @@ class Player extends DirectionalEntity {
   }
 
   update(dt) {
-    super.update(dt);
-    if (this.controlsActive) this.control(dt);
-    this.speedtw.update(dt);
-    this.move(dt);
-    this.rotateToDirection();
+    if (this.alive) {
+      super.update(dt);
+      if (this.controlsActive) this.control(dt);
+      this.speedtw.update(dt);
+      this.move(dt);
+      this.rotateToDirection();
+    }
   }
 
 }

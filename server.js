@@ -54,9 +54,9 @@ let players = [];
 
 class ServerPlayer { // prototype for server player
   constructor(id, x, y, team) {
-    this.id = obj.id;
-    this.x = obj.x;
-    this.y = obj.y;
+    this.id = id;
+    this.x = x;
+    this.y = y;
     this.team = team;
   }
 }
@@ -77,6 +77,7 @@ io.sockets.on('connection', function(socket) {
   // obj -> {id, team}
   socket.on('requestPlayer', function(request) { // get ServerPlayer object from client
 
+    console.log('\n >>> incoming requestPlayer, trying to create player')
     // check for existing player
     for (i=0; i<players.length;i++) {
       if (players[i] && players[i].id == request.id) {
@@ -95,13 +96,17 @@ io.sockets.on('connection', function(socket) {
     );
     updatePlayers(); // now a new players has been added so update the players
 
+    // deploy the player to client
     console.log('? new player accepted : ' + socket.player.id);
     socket.emit('deployPlayer', socket.player);
 
-    socket.broadcast.emit('playerconnected', socket.player) // send the new ServerPlayer to other clients
-    socket.emit('allPlayers', players) // return all players list to socket
+    // send the new ServerPlayer to other clients
+    socket.broadcast.emit('playerconnected', socket.player)
 
-    console.log('#ALL PLAYERS <ServerPlayer> :: '); console.log(players);
+    // return all players list to socket
+    socket.emit('allPlayers', players)
+
+    console.log('\n >>> #ALL PLAYERS <ServerPlayer> :: '); console.log(players);
   });
 
 
@@ -115,8 +120,6 @@ io.sockets.on('connection', function(socket) {
   });
 
   socket.on('playerMove', function(data) {
-
-
 
   });
 });

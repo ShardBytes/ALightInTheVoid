@@ -1,7 +1,29 @@
-/* Game engine by Plasmoxy based on PIXI.js */
+
+/* (c) ShardBytes 2018-<end of the world>
+/* A Light In The Void => simple game made just using pixi in a small amount of time */
+
+/* Game engine by Plasmoxy based on PIXI.js, made in less than 20 days*/
 /* uses my pixialiases.js snippet for shorter names */
 
-console.log('--- The amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
+let urlParams = new URLSearchParams(window.location.search);
+let NAME, TEAM;
+let GAME_SITE = 'https://localhost';
+let socket;
+
+if (urlParams.has('name') && urlParams.has('team')) {
+  NAME = urlParams.get('name');
+  TEAM = urlParams.get('team');
+} else {
+  $('#loading').html('YO FAG NAME OR TEAM NOT SPECIFED xDDD');
+  throw new Error('ERROR M8: NO NAME URL PARAM SPECIFIED FAGGIT'); // I'm so good
+}
+
+function clientlog(obj) {
+  console.log('< '+ obj + ' >');
+}
+
+console.log('--- ShardBytes:')
+console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
 
 let fmeter = new FPSMeter();
 
@@ -31,16 +53,16 @@ function loadProgressHandler(ldr, res) { // loader, resource
 let background, world, gui, camera, mkeys; // basic
 
 let player, safarik; // objects
-let dcontroller; // debug controller
 let dbg = true; // debug for colliders
+
+let otherplayers = [];
 let bullets; // swarm of bullets
 
-/* PIXI loader */
+/* ------------------ PIXI loader --------------------- */
 
 let resDef = [
   ['rk', 'sprites/aquaroket.png'],
-  ['saf', 'sprites/safarik.png'],
-  ['XD', 'sprites/XD.json']
+  ['saf', 'sprites/safarik.png']
 ];
 
 resDef.forEach(t => {
@@ -75,8 +97,7 @@ function setup() {
     shoot: new KeyboardKey(32)
   };
 
-
-  /* -- INIT GAME --- */
+  /* ------------------------- INIT GAME ----------------------- */
 
   safarik = new Entity('safarik', resources.saf.texture);
   safarik.collider = new BoxCollider(safarik);
@@ -85,13 +106,32 @@ function setup() {
   safarik.collider.debug(dbg);
   world.addChild(safarik);
 
-  player = new Player(mkeys, 'ja');
-  world.addChild(player);
-
   bullets = new EntitySwarm();
   world.addChild(bullets);
 
-  /* --- end INIT GAME ---*/
+  // ze word is now complet
+
+  // connect to game server
+  clientlog('CONNECTING TO SERVER : ' + GAME_SITE);
+  socket = io.connect(GAME_SITE, { transports: ['websocket']});
+
+  // request a player
+  socket.emit('requestPlayer', {
+    id: NAME,
+    team: TEAM
+  });
+
+  // when player is deployed from server
+  // plr -> ServerPlayer
+  socket.on('deployPlayer', function(plr) {
+    clientlog('PLAYER DEPLOYED, SPAWNING');
+    player = new Player(world,mkeys, plr.id, plr.x, plr.y, plr.team);
+    player.spawn();
+    clientlog('PLAYER SPAWNED');
+  });
+
+
+  /* ----------------------- end INIT GAME ----------------------*/
 
   /* setup tickers */
 
@@ -106,10 +146,15 @@ function update() {
 }
 
 function tick(dt) {
-  player.update(dt);
-  player.collider.update(dt);
+  if (player){
+    player.update(dt);
+    player.collider.update(dt);
+  }
+
   bullets.update(dt);
-  camera.follow(player);
+
+
+  if (player) camera.follow(player);
   background.centerTo(world);
   background.rotateTo(world);
 }
