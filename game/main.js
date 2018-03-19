@@ -22,7 +22,7 @@ function clientlog(obj) {
   console.log('< '+ obj + ' >');
 }
 
-console.log('--- ShardBytes:')
+console.log('--- ShardBytes: A Light In The Void ---')
 console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
 
 let fmeter = new FPSMeter();
