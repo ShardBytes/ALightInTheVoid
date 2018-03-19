@@ -113,6 +113,7 @@ function update() {
 function tick(dt) {
   dcontroller.update(dt);
   player.update(dt);
+  player.collider.update(dt);
   swarm.update(dt);
   camera.follow(player);
 }

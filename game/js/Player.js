@@ -9,11 +9,12 @@ class Player extends DirectionalEntity {
     this.scale.set(0.5, 0.5);
     this.collider.updateSize();
     this.sprite.rotation = PI;
-    
+
     this.collider.debug(dbg);
   }
 
   update(dt) {
+    super.update(dt);
     this.move(dt);
     this.rotateToDirection();
   }
