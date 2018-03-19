@@ -30,47 +30,10 @@ function loadProgressHandler(ldr, res) { // loader, resource
 
 let bg, world, gui, camera, mkeys; // basic
 
-let a,b;
+let player, safarik;
 let dcontroller;
-let cameratween;
 let dbg = true;
-let swarm;
-
-class Roket extends DirectionalEntity {
-  constructor() {
-    super('XD', resources.rk.texture);
-    this.collider = new BoxCollider(this);
-    this.position.set(0, -300);
-    this.scale.set(0.5, 0.5);
-    this.collider.updateSize();
-    this.sprite.rotation = PI;
-
-    this.collider.addToDetectionPool(b);
-    this.collider.debug(dbg);
-
-    this.collider.collided = (t, dx, dy, ang) => {
-      cameratween.target = 0.5;
-    }
-
-    this.collider.discollided = (t, dx, dy, ang) => {
-      cameratween.target = 1;
-    }
-  }
-}
-
-class Bullet extends Projectile {
-  constructor(swarm, x, y, direction) {
-    super(swarm, '@bullet', resources.rk.texture, x, y, direction, 1000);
-    this.scale.set(0.3, 0.3);
-    this.collider.updateSize();
-    this.sprite.rotation = PI;
-    this.collider.debug(true);
-    this.collider.addToDetectionPool(b);
-    this.collider.collided = (t, dx, dy, ang) => {
-      this.destroy();
-    }
-  }
-}
+let bullets;
 
 /* PIXI loader */
 
@@ -113,30 +76,27 @@ function setup() {
 
   /* -- INIT GAME --- */
 
-  cameratween = new Tween(camera, 'scale', 1);
-  cameratween.start();
+  safarik = new Entity('safarik', resources.saf.texture);
+  safarik.collider = new BoxCollider(safarik, 200, 200);
+  safarik.scale.set(1, 1);
+  safarik.collider.updateSize();
+  safarik.collider.debug(dbg);
+  world.addChild(safarik);
 
-  b = new Entity('b', resources.saf.texture);
-  b.collider = new BoxCollider(b, 200, 200);
-  b.scale.set(1, 1);
-  b.collider.updateSize();
-  b.collider.debug(dbg);
-  world.addChild(b);
-
-  a = new Roket();
-  world.addChild(a);
+  player = new Player('ja');
+  world.addChild(player);
 
   swarm = new EntitySwarm();
   world.addChild(swarm);
 
-  dcontroller = new SimpleDirectionalEntityController(mkeys, a, 300);
+  dcontroller = new SimpleDirectionalEntityController(mkeys, player, 300);
 
   /* --- end INIT GAME ---*/
 
   /* setup tickers */
 
   setInterval(() => {
-    if (mkeys.space.down) swarm.addChild(new Bullet(swarm, a.x, a.y, a.direction));
+    if (mkeys.space.down) swarm.addChild(new Bullet(swarm, [safarik],player.x, player.y, player.direction));
   }, 100);
 
 
@@ -152,13 +112,9 @@ function update() {
 
 function tick(dt) {
   dcontroller.update(dt);
-  a.rotateToDirection();
-  a.move(dt);
-  a.update(dt);
+  player.update(dt);
   swarm.update(dt);
-  cameratween.update(dt);
-  camera.follow(a);
-
+  camera.follow(player);
 }
 
 // add some other listeners in the end
