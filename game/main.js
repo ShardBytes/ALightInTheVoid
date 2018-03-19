@@ -86,16 +86,7 @@ function setup() {
   world.addChild(safarik);
 
   player = new Player(mkeys, 'ja');
-  player.collider.addToDetectionPool(safarik);
   world.addChild(player);
-
-  player.collider.collided = (t, dx, dy, ang) => {
-    camera.scale = 0.5;
-  };
-
-  player.collider.discollided = (t, dx, dy, ang) => {
-    camera.scale = 1;
-  };
 
   bullets = new EntitySwarm();
   world.addChild(bullets);
