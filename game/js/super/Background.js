@@ -2,7 +2,7 @@ class Background extends Container {
 
   constructor(parallax) {
     super();
-    this.parallax = parallax;
+    this.parallax = parallax ? parallax : 1;
 
     this.defaultScale = 1;
     this.scale.set(this.defaultScale, this.defaultScale);
@@ -11,9 +11,9 @@ class Background extends Container {
   }
 
   centerTo(c) {
-    /* this centers the background pivot to a container */
-    this.pivot.x = this.parallax * c.position.x;
-    this.pivot.y = this.parallax * c.position.y;
+    /* this centers the background pivot to the container */
+    this.pivot.x = this.parallax * c.pivot.x;
+    this.pivot.y = this.parallax * c.pivot.y;
   }
 
   rendCenter() {
