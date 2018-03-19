@@ -28,7 +28,7 @@ function loadProgressHandler(ldr, res) { // loader, resource
 
 /* -------- define game variables --------- */
 
-let bg, world, gui, camera, mkeys; // basic
+let background, world, gui, camera, mkeys; // basic
 
 let player, safarik;
 let dcontroller;
@@ -39,7 +39,8 @@ let bullets;
 
 let resDef = [
   ['rk', 'sprites/aquaroket.png'],
-  ['saf', 'sprites/safarik.png']
+  ['saf', 'sprites/safarik.png'],
+  ['XD', 'sprites/XD.json']
 ];
 
 resDef.forEach(t => {
@@ -58,6 +59,7 @@ function setup() {
   app.view.style.display = "block";
 
   /* INIT CONTAINERS - order is important ! */
+  background = new Background(0.5); app.stage.addChild(background);
   world = new World(); app.stage.addChild(world);
   gui = new Gui(); app.stage.addChild(gui);
 
@@ -120,6 +122,8 @@ function tick(dt) {
   swarm.update(dt);
   camera.follow(player);
   camera.followDirection(player);
+  background.centerTo(world);
+  background.rotateTo(world);
 }
 
 // add some other listeners in the end
