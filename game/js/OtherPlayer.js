@@ -1,4 +1,8 @@
 
+// OtherPlayer class by Plasmoxy
+// this is like a mannequin, it moves around and shoots fake projectiles
+// (self hit checking will be done on client to improve authenticity)
+
 class OtherPlayer extends Entity {
 
   constructor(container, id, x, y, team) {

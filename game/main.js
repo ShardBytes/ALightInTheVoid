@@ -138,6 +138,7 @@ function setup() {
 
   testother = new OtherPlayer(world, 'other', -200, -200, '1');
   testother.spawn();
+  testother.tx = 0;
 
   /* ----------------------- end INIT GAME ----------------------*/
 
@@ -157,9 +158,14 @@ function tick(dt) {
   if (player){
     player.update(dt);
     player.collider.update(dt);
+    testother.tx = player.x - Math.sin(player.direction)*100;
+    testother.ty = player.y - Math.cos(player.direction)*100;
   }
 
-  if (testother) testother.update(dt);
+  if (testother) {
+    testother.interpolate(dt);
+    testother.update(dt);
+  }
 
   bullets.update(dt);
 
