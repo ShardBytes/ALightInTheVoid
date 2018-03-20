@@ -154,6 +154,16 @@ io.sockets.on('connection', function(socket) {
     }
   });
 
+  // on player action
+  socket.on('playerAction', function(action) {
+
+    socket.broadcast.emit('playerAction', {
+      id: socket.player.id,
+      action: action
+    });
+
+  });
+
 });
 
 console.log('[ SERVER LOADED ]');

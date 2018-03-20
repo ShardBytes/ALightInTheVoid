@@ -102,4 +102,8 @@ class Player extends DirectionalEntity {
     socket.emit('playerDir', this.direction);
   }
 
+  emitShoot() {
+    socket.emit('playerAction', 'shoot');
+  }
+
 }

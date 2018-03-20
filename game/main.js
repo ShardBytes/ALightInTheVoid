@@ -75,6 +75,14 @@ function removeOtherPlayer(op) {
   otherplayers.slice(otherplayers.indexOf(op), 1);
 }
 
+function getOtherPlayerById(id) {
+  for (let i = 0; i<otherplayers.length; i++) {
+    if (otherplayers[i].id == id) {
+      return otherplayers[i];
+    }
+  }
+}
+
 /* ------------------ PIXI loader --------------------- */
 
 let resDef = [
@@ -176,29 +184,28 @@ function setup() {
     clientlog('A player has disconnected. Farewell, cruel world. -> ' + plrId);
 
     // remove otherplayer
-    for (let i = 0; i<otherplayers.length; i++) {
-      if (otherplayers[i].id == plrId) {
-        removeOtherPlayer(otherplayers[i]);
-      }
-    }
+    let plr = getOtherPlayerById(plrId);
+    if (plr) removeOtherPlayer(plr);
   });
 
   // handle movement >>>
   socket.on('playerPos', function(data) {
-    for (let i = 0; i<otherplayers.length; i++) {
-      if (otherplayers[i].id == data.id) {
-        otherplayers[i].tx = data.x;
-        otherplayers[i].ty = data.y;
-      }
+    let plr = getOtherPlayerById(data.id);
+    if (plr) {
+      plr.tx = data.x;
+      plr.ty = data.y;
     }
   });
 
   socket.on('playerDir', function(data) {
-    for (let i = 0; i<otherplayers.length; i++) {
-      if (otherplayers[i].id == data.id) {
-        otherplayers[i].rotation = -data.dir; // adapt to inverse rotation logic with minus
-      }
+    let plr = getOtherPlayerById(data.id);
+    if (plr) {
+      plr.rotation = -data.dir; // adapt to inverse rotation logic with minus
     }
+  });
+
+  socket.on('playerAction', function(data) {
+
   });
 
   //--- end events ----
