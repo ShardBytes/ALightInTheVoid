@@ -41,13 +41,16 @@ let app = new Application({
   resolution: 1
 });
 
-app.view.style.display = "none";
-document.body.appendChild(app.view);
+// add pixi to pixi container, !! which is hidden by default
+document.getElementById('pixi').appendChild(app.view);
 
+// some nice background for renderer
 app.renderer.backgroundColor = 0x111111;
 
 function loadProgressHandler(ldr, res) { // loader, resource
-  console.log('LOADING [ '+Math.round(ldr.progress)+'% ] : ' + res.name + ' -> ' + res.url);
+  let progr = 'LOADING [ '+Math.round(ldr.progress)+'% ] : ' + res.name + ' -> ' + res.url;
+  console.log(progr);
+  $('#loading').html(progr);
 }
 
 /* -------- define game variables --------- */
@@ -59,9 +62,6 @@ let dbg = true; // debug for colliders
 
 let otherplayers = [];
 let bullets; // swarm of bullets
-
-
-let testother;
 
 /* ------------------ PIXI loader --------------------- */
 
@@ -80,10 +80,6 @@ loader
 ;
 
 function setup() {
-
-  /* hide loading and show app */
-  document.getElementById('loading').style.display = 'none';
-  app.view.style.display = "block";
 
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
@@ -115,6 +111,9 @@ function setup() {
   world.addChild(bullets);
 
   // ze word is now complet
+  // hide loading and show pixi
+  $('#loading').css('display', 'none');
+  $('#pixi').css('display', 'block');
 
   // connect to game server
   clientlog('CONNECTING TO SERVER : ' + GAME_SITE);
@@ -136,9 +135,6 @@ function setup() {
   });
 
 
-  testother = new OtherPlayer(world, 'other', -200, -200, '1');
-  testother.spawn();
-  testother.tx = 0;
 
   /* ----------------------- end INIT GAME ----------------------*/
 
@@ -158,13 +154,6 @@ function tick(dt) {
   if (player){
     player.update(dt);
     player.collider.update(dt);
-    testother.tx = player.x - Math.sin(player.direction)*100;
-    testother.ty = player.y - Math.cos(player.direction)*100;
-  }
-
-  if (testother) {
-    testother.interpolate(dt);
-    testother.update(dt);
   }
 
   bullets.update(dt);
