@@ -3,6 +3,9 @@
 
 // Node.js gameserver by Plasmoxy
 
+console.log('--- A Light In The Void SERVER by Plasmoxy ---')
+console.log('LOADING...');
+
 var express = require('express');
 var http = require('http');
 var https = require('https');
@@ -105,11 +108,11 @@ io.sockets.on('connection', function(socket) {
     console.log('? new player accepted : ' + socket.player.id);
     socket.emit('deployPlayer', socket.player);
 
-    // send the new ServerPlayer to other clients
-    socket.broadcast.emit('playerconnected', socket.player)
-
     // return all players list to socket
     socket.emit('allPlayers', players)
+
+    // send the new ServerPlayer to other clients
+    socket.broadcast.emit('playerconnected', socket.player)
 
     console.log('\n >>> #ALL PLAYERS <ServerPlayer> :: '); console.log(players);
   });
@@ -119,7 +122,7 @@ io.sockets.on('connection', function(socket) {
     console.log('\n? CLIENT DISCONNECTED : ' + socket.handshake.address + (socket.player ? ' -> player : ' + socket.player.id : ''));
 
     if(socket.player) {
-      io.emit('playerDisconnected', socket.player.id); //
+      io.emit('playerDisconnected', socket.player.id); // tell other clients that a player has disconnected
       updatePlayers();
     }
   });
@@ -127,15 +130,18 @@ io.sockets.on('connection', function(socket) {
   socket.on('playerMove', function(data) {
 
   });
+
 });
+
+console.log('[ SERVER LOADED ]');
 
 // ---------      ------------
 
 
 
-server.listen(443, function() {
-  console.log('https server listening on port 443')
-})
 redirectServer.listen(80, function() {
-  console.log('redirect http server listening on port 80')
+  console.log('* redirect http server listening on port 80')
+})
+server.listen(443, function() {
+  console.log('[DONE] -> Https server listening on port 443')
 })

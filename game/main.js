@@ -15,11 +15,11 @@ if (urlParams.has('name') && urlParams.has('team')) {
   NAME = urlParams.get('name');
   TEAM = urlParams.get('team');
   if (TEAM != '1' && TEAM != '2') {
-    $('#loading').html('BAD TEAM NAME');
+    $('#info').html('BAD TEAM NAME');
     throw new Error('BAD TEAM NAME');
   }
 } else {
-  $('#loading').html('YO FAG NAME OR TEAM NOT SPECIFED xDDD');
+  $('#info').html('YO FAG NAME OR TEAM NOT SPECIFED xDDD');
   throw new Error('ERROR M8: NO NAME URL PARAM SPECIFIED FAGGIT'); // I'm so good
 }
 
@@ -50,7 +50,7 @@ app.renderer.backgroundColor = 0x111111;
 function loadProgressHandler(ldr, res) { // loader, resource
   let progr = 'LOADING [ '+Math.round(ldr.progress)+'% ] : ' + res.name + ' -> ' + res.url;
   console.log(progr);
-  $('#loading').html(progr);
+  $('#info').html(progr);
 }
 
 /* -------- define game variables --------- */
@@ -112,18 +112,14 @@ function setup() {
 
   // ze word is now complet
   // hide loading and show pixi
-  $('#loading').css('display', 'none');
+  $('#info').css('display', 'none');
   $('#pixi').css('display', 'block');
 
   // connect to game server
   clientlog('CONNECTING TO SERVER : ' + GAME_SITE);
   socket = io.connect(GAME_SITE, { transports: ['websocket']});
 
-  // request a player
-  socket.emit('requestPlayer', {
-    id: NAME,
-    team: TEAM
-  });
+  // --- EVENTS ----
 
   // when player is deployed from server
   // plr -> ServerPlayer
@@ -132,6 +128,31 @@ function setup() {
     player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
     player.spawn();
     clientlog('PLAYER SPAWNED');
+  });
+
+  socket.on('serverError', function(err) {
+    $('#pixi').css('display', 'none');
+    $('#info').html(err);
+    $('#info').css('display', 'block');
+    throw new Error(err);
+  });
+
+  socket.on('allPlayers', function(serverPlayers) {
+    clientlog('-> received allplayers list, creating otherplayers');
+    otherplayers = [];
+    serverPlayers.forEach(function(plr, i) {
+      if (plr.id != player.id) otherplayers.push(
+        new OtherPlayer(plr.id, plr.x, plr.y, plr.team)
+      );
+    });
+  });
+
+  //--- ent events ----
+
+  // request a player
+  socket.emit('requestPlayer', {
+    id: NAME,
+    team: TEAM
   });
 
 
