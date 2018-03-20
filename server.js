@@ -1,3 +1,8 @@
+/* (c) ShardBytes 2018-<end of the world>
+/* A Light In The Void => simple game made just using pixi in a small amount of time */
+
+// Node.js gameserver by Plasmoxy
+
 var express = require('express');
 var http = require('http');
 var https = require('https');
@@ -50,7 +55,7 @@ class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
 let spawn1Pos = new Point(0,0); // team 1
 let spawn2Pos = new Point(100, 0); // team 2
 
-let players = [];
+let players = []; // players on server, needs to be updated by updatePlayers()
 
 class ServerPlayer { // prototype for server player
   constructor(id, x, y, team) {

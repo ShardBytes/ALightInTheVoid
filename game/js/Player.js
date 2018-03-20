@@ -18,7 +18,7 @@ class Player extends DirectionalEntity {
     this.speedtw.start();
 
     this.maxSpeed = 300; // points per sec
-    this.rotationSpeed = Math.PI; // rads per sec
+    this.rotationSpeed = 2.5; // rads per sec
 
     // define controls ( they control the speed tween )
     this.controlsActive = true;
@@ -53,7 +53,7 @@ class Player extends DirectionalEntity {
     if (this.deltaShoot > 1.0/this.fireRate) {
       this.deltaShoot = 0;
       if (this.cont.shoot.down) bullets.addChild(
-        new Bullet(bullets, this.x, this.y, this.direction, 10)
+        new Bullet(bullets, this, this.x, this.y, this.direction, false)
       );
     }
     this.deltaShoot += (dt/60);

@@ -8,11 +8,16 @@
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = 'https://localhost';
+let INTERP_RATIO = 1/4;
 let socket;
 
 if (urlParams.has('name') && urlParams.has('team')) {
   NAME = urlParams.get('name');
   TEAM = urlParams.get('team');
+  if (TEAM != '1' && TEAM != '2') {
+    $('#loading').html('BAD TEAM NAME');
+    throw new Error('BAD TEAM NAME');
+  }
 } else {
   $('#loading').html('YO FAG NAME OR TEAM NOT SPECIFED xDDD');
   throw new Error('ERROR M8: NO NAME URL PARAM SPECIFIED FAGGIT'); // I'm so good
@@ -25,10 +30,7 @@ function clientlog(obj) {
 console.log('--- ShardBytes: A Light In The Void ---')
 console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
 
-let fmeter = new FPSMeter();
-
-/* constants/aliases */
-const pi = Math.PI;
+let fmeter = new FPSMeter(); // comment this out to turn off fpsmeter
 
 /* setup pixi */
 let app = new Application({
@@ -57,6 +59,9 @@ let dbg = true; // debug for colliders
 
 let otherplayers = [];
 let bullets; // swarm of bullets
+
+
+let testother;
 
 /* ------------------ PIXI loader --------------------- */
 
@@ -125,11 +130,14 @@ function setup() {
   // plr -> ServerPlayer
   socket.on('deployPlayer', function(plr) {
     clientlog('PLAYER DEPLOYED, SPAWNING');
-    player = new Player(world,mkeys, plr.id, plr.x, plr.y, plr.team);
+    player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
     player.spawn();
     clientlog('PLAYER SPAWNED');
   });
 
+
+  testother = new OtherPlayer(world, 'other', -200, -200, '1');
+  testother.spawn();
 
   /* ----------------------- end INIT GAME ----------------------*/
 
@@ -150,6 +158,8 @@ function tick(dt) {
     player.update(dt);
     player.collider.update(dt);
   }
+
+  if (testother) testother.update(dt);
 
   bullets.update(dt);
 
