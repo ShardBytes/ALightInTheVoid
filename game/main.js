@@ -7,7 +7,7 @@
 
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
-let GAME_SITE = 'https://localhost';
+let GAME_SITE = '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let INTERP_RATIO = 1/4;
 let socket;
 
@@ -87,7 +87,8 @@ function getOtherPlayerById(id) {
 
 let resDef = [
   ['rk', 'sprites/aquaroket.png'],
-  ['saf', 'sprites/safarik.png']
+  ['saf', 'sprites/safarik.png'],
+  ['bootlegstars', 'sprites/bootlegstars.png']
 ];
 
 resDef.forEach(t => {
@@ -119,6 +120,12 @@ function setup() {
   };
 
   /* ------------------------- INIT GAME ----------------------- */
+
+  (function() {
+    let bgs = new TilingSprite(resources.bootlegstars.texture, 10000, 10000);
+    bgs.position.set(-5000, -5000);
+    background.addChild(bgs);
+  })()
 
   safarik = new Entity('safarik', resources.saf.texture);
   safarik.collider = new BoxCollider(safarik);
