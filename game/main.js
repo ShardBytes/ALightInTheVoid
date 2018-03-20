@@ -42,7 +42,7 @@ let app = new Application({
 });
 
 app.view.style.display = "none";
-document.body.appendChild(app.view);
+document.getElementById('pixi').appendChild(app.view);
 
 app.renderer.backgroundColor = 0x111111;
 
@@ -59,9 +59,6 @@ let dbg = true; // debug for colliders
 
 let otherplayers = [];
 let bullets; // swarm of bullets
-
-
-let testother;
 
 /* ------------------ PIXI loader --------------------- */
 
@@ -80,10 +77,6 @@ loader
 ;
 
 function setup() {
-
-  /* hide loading and show app */
-  document.getElementById('loading').style.display = 'none';
-  app.view.style.display = "block";
 
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
@@ -120,10 +113,13 @@ function setup() {
   clientlog('CONNECTING TO SERVER : ' + GAME_SITE);
   socket = io.connect(GAME_SITE, { transports: ['websocket']});
 
-  // request a player
-  socket.emit('requestPlayer', {
-    id: NAME,
-    team: TEAM
+  // FIRST, DEFINE SOCKET EVENTS !
+
+  socket.on('playerAlreadyInGameError', function(err) {
+    clientlog(err);
+    $('#pixi').css('display', 'none');
+    $('#loading').html(err);
+    $('#loading').css('display', 'block');
   });
 
   // when player is deployed from server
@@ -135,10 +131,25 @@ function setup() {
     clientlog('PLAYER SPAWNED');
   });
 
+  socket.on('allPlayers', function(serverPlayers) {
+    clientlog('-> received allplayers list, creating otherplayers');
+    otherplayers = [];
+    serverPlayers.forEach(function(plr, i) {
+      if (plr.id != player.id) otherplayer.push(
+        new OtherPlayer(plr.id, plr.x, plr.y, plr.team)
+      );
+    });
+  });
 
-  testother = new OtherPlayer(world, 'other', -200, -200, '1');
-  testother.spawn();
-  testother.tx = 0;
+  // Done events
+
+  // request a player
+  socket.emit('requestPlayer', {
+    id: NAME,
+    team: TEAM
+  });
+
+  
 
   /* ----------------------- end INIT GAME ----------------------*/
 
@@ -158,13 +169,6 @@ function tick(dt) {
   if (player){
     player.update(dt);
     player.collider.update(dt);
-    testother.tx = player.x - Math.sin(player.direction)*100;
-    testother.ty = player.y - Math.cos(player.direction)*100;
-  }
-
-  if (testother) {
-    testother.interpolate(dt);
-    testother.update(dt);
   }
 
   bullets.update(dt);

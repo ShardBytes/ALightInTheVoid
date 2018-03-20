@@ -86,8 +86,8 @@ io.sockets.on('connection', function(socket) {
     // check for existing player
     for (i=0; i<players.length;i++) {
       if (players[i] && players[i].id == request.id) {
-        console.log('? ERROR - player with such name is already in game : ' + plr.id);
-        socket.emit('serverError', 'SERVER ERROR : player with such name is already in game : ' + plr.id)
+        console.log('? ERROR - player with such name is already in game : ' + request.id);
+        socket.emit('playerAlreadyInGameError', 'SERVER ERROR : player with such name is already in game : ' + request.id);
         return; // this breaks out of both for and socket.on the function
       }
     }
@@ -108,7 +108,7 @@ io.sockets.on('connection', function(socket) {
     // send the new ServerPlayer to other clients
     socket.broadcast.emit('playerconnected', socket.player)
 
-    // return all players list to socket
+    // return all server players list to socket
     socket.emit('allPlayers', players)
 
     console.log('\n >>> #ALL PLAYERS <ServerPlayer> :: '); console.log(players);
