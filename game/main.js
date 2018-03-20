@@ -196,7 +196,7 @@ function setup() {
   socket.on('playerDir', function(data) {
     for (let i = 0; i<otherplayers.length; i++) {
       if (otherplayers[i].id == data.id) {
-        otherplayers[i].rotation = -data.dir;
+        otherplayers[i].rotation = -data.dir; // adapt to inverse rotation logic with minus
       }
     }
   });

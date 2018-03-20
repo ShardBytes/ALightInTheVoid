@@ -63,6 +63,7 @@ class Player extends DirectionalEntity {
     if (!this.cont.up.down && !this.cont.down.down) this.speedtw.target = 0;
 
     // move sideways ( change direction )
+    // the direction additions are changed depending whether its moving forward or backward
     if (this.cont.left.down) {
       this.direction += dr;
       this.emitDirectionChange();
@@ -88,7 +89,8 @@ class Player extends DirectionalEntity {
     }
   }
 
-  // these methods send position and direction data to server
+  // --- these methods send data to server ---
+
   emitPositionChange() {
     socket.emit('playerPos', {
       x: this.x,

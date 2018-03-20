@@ -24,7 +24,7 @@ class DirectionalEntity extends DynamicEntity {
   }
 
   rotateToDirection() {
-    this.rotation = -this.direction;
+    this.rotation = -this.direction; // rotation works in the other way, this is because of the trig logic
   }
 
 }
