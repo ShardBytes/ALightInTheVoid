@@ -27,9 +27,9 @@ class Bullet extends Projectile {
     this.sprite.rotation = PI;
     this.collider.debug(false);
     this.collider.collided = (t, dx, dy, ang) => {
-      // kill player if not fake
+      // TODO : hit player if not fake
       if (!this.isFake && t instanceof OtherPlayer) {
-        console.log('PALYER HIT OTHERPLAYER');
+        
       }
       // destroy this bullet on hit
       this.destroy();

@@ -23,8 +23,9 @@ if (urlParams.has('name') && urlParams.has('team')) {
   throw new Error('ERROR M8: NO NAME URL PARAM SPECIFIED FAGGIT'); // I'm so good
 }
 
+// just some console utility
 function clientlog(obj) {
-  console.log('< '+ obj + ' >');
+  console.log('[ '+ obj + ' ]');
 }
 
 console.log('--- ShardBytes: A Light In The Void ---')
@@ -53,7 +54,7 @@ function loadProgressHandler(ldr, res) { // loader, resource
   $('#info').html(progr);
 }
 
-/* -------- define game variables --------- */
+/* -------- define game variables and functions --------- */
 
 let background, world, gui, camera, mkeys; // basic
 
@@ -62,6 +63,17 @@ let dbg = true; // debug for colliders
 
 let otherplayers = [];
 let bullets; // swarm of bullets
+
+
+function addOtherPlayer(op) {
+  op.spawn();
+  otherplayers.push(op);
+}
+
+function removeOtherPlayer(op) {
+  op.despawn();
+  otherplayers.slice(otherplayers.indexOf(op), 1);
+}
 
 /* ------------------ PIXI loader --------------------- */
 
@@ -111,10 +123,9 @@ function setup() {
   world.addChild(bullets);
 
   // ze word is now complet
-  // hide loading and show pixi
-  $('#info').css('display', 'none');
-  $('#pixi').css('display', 'block');
 
+
+  $('#info').html('Connecting ...');
   // connect to game server
   clientlog('CONNECTING TO SERVER : ' + GAME_SITE);
   socket = io.connect(GAME_SITE, { transports: ['websocket']});
@@ -124,12 +135,17 @@ function setup() {
   // when player is deployed from server
   // plr -> ServerPlayer
   socket.on('deployPlayer', function(plr) {
-    clientlog('PLAYER DEPLOYED, SPAWNING');
+    clientlog('PLAYER DEPLOYED FROM SERVER, SPAWNING');
     player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
     player.spawn();
     clientlog('PLAYER SPAWNED');
+
+    // !!! -> hide loading and show pixi after the player is spawned
+    $('#info').css('display', 'none');
+    $('#pixi').css('display', 'block');
   });
 
+  // show reported server errors on client
   socket.on('serverError', function(err) {
     $('#pixi').css('display', 'none');
     $('#info').html(err);
@@ -137,25 +153,62 @@ function setup() {
     throw new Error(err);
   });
 
+  // parse players array on connection and create otherplayers
   socket.on('allPlayers', function(serverPlayers) {
     clientlog('-> received allplayers list, creating otherplayers');
     otherplayers = [];
     serverPlayers.forEach(function(plr, i) {
-      if (plr.id != player.id) otherplayers.push(
-        new OtherPlayer(plr.id, plr.x, plr.y, plr.team)
+      if (plr.id != player.id) addOtherPlayer(
+        new OtherPlayer(world, plr.id, plr.x, plr.y, plr.team)
       );
     });
+    clientlog('-> other players created');
   });
 
-  //--- ent events ----
+  // when other player connects
+  socket.on('playerConnected', function(plr) {
+    clientlog('A player has connected. Welcome ! -> ' + plr.id);
+    addOtherPlayer(new OtherPlayer(world, plr.id, plr.x, plr.y, plr.team));
+  });
+
+  // when other player disconnects
+  socket.on('playerDisconnected', function(plrId) {
+    clientlog('A player has disconnected. Farewell, cruel world. -> ' + plrId);
+
+    // remove otherplayer
+    for (let i = 0; i<otherplayers.length; i++) {
+      if (otherplayers[i].id == plrId) {
+        removeOtherPlayer(otherplayers[i]);
+      }
+    }
+  });
+
+  // handle movement >>>
+  socket.on('playerPos', function(data) {
+    for (let i = 0; i<otherplayers.length; i++) {
+      if (otherplayers[i].id == data.id) {
+        otherplayers[i].tx = data.x;
+        otherplayers[i].ty = data.y;
+      }
+    }
+  });
+
+  socket.on('playerDir', function(data) {
+    for (let i = 0; i<otherplayers.length; i++) {
+      if (otherplayers[i].id == data.id) {
+        otherplayers[i].rotation = -data.dir;
+      }
+    }
+  });
+
+  //--- end events ----
 
   // request a player
+  clientlog('SENDING PLAYER REQUEST');
   socket.emit('requestPlayer', {
     id: NAME,
     team: TEAM
   });
-
-
 
   /* ----------------------- end INIT GAME ----------------------*/
 
@@ -177,16 +230,19 @@ function tick(dt) {
     player.collider.update(dt);
   }
 
-  bullets.update(dt);
+  otherplayers.forEach(function(plr, i) {
+    plr.interpolate(dt);
+    plr.update(dt);
+  });
 
+  bullets.update(dt);
 
   if (player) camera.follow(player);
   background.centerTo(world);
   background.rotateTo(world);
 }
 
-// add some other listeners in the end
-
+// add resizelistener to window
 window.addEventListener('resize', function() {
   w = window.innerWidth;
   h = window.innerHeight;

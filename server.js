@@ -55,8 +55,8 @@ class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
 
 // !!! teams -> 1 or 2
 
-let spawn1Pos = new Point(0,0); // team 1
-let spawn2Pos = new Point(100, 0); // team 2
+let spawn1Pos = new Point(-100,-300); // team 1
+let spawn2Pos = new Point(100, -300); // team 2
 
 let players = []; // players on server, needs to be updated by updatePlayers()
 
@@ -65,6 +65,7 @@ class ServerPlayer { // prototype for server player
     this.id = id;
     this.x = x;
     this.y = y;
+    this.dir = 0; // direction
     this.team = team;
   }
 }
@@ -79,7 +80,7 @@ function updatePlayers(){ // scan connected sockets and push the connected playe
 
 io.sockets.on('connection', function(socket) {
   console.log();
-  console.log('? CLIENT CONNECTED : ' + socket.handshake.address);
+  console.log(' ****** CLIENT CONNECTED : ' + socket.handshake.address + ' ******');
 
 
   // obj -> {id, team}
@@ -87,10 +88,10 @@ io.sockets.on('connection', function(socket) {
 
     console.log('\n >>> incoming requestPlayer, trying to create player')
     // check for existing player
-    for (i=0; i<players.length;i++) {
+    for (let i=0; i<players.length;i++) {
       if (players[i] && players[i].id == request.id) {
-        console.log('? ERROR - player with such name is already in game : ' + plr.id);
-        socket.emit('serverError', 'SERVER ERROR : player with such name is already in game : ' + plr.id)
+        console.log('? ERROR - player with such name is already in game : ' + request.id);
+        socket.emit('serverError', 'SERVER ERROR : player with such name is already in game : ' + request.id)
         return; // this breaks out of both for and socket.on the function
       }
     }
@@ -98,8 +99,8 @@ io.sockets.on('connection', function(socket) {
     // create serverplayer bound to socket
     socket.player = new ServerPlayer(
       request.id,
-      request.team == 1 ? spawn1Pos.x : spawn2Pos.x,
-      request.team == 1 ? spawn1Pos.y : spawn2Pos.y,
+      (request.team == '1' ? spawn1Pos.x : spawn2Pos.x),
+      (request.team =='1' ? spawn1Pos.y : spawn2Pos.y),
       request.team
     );
     updatePlayers(); // now a new players has been added so update the players
@@ -112,14 +113,14 @@ io.sockets.on('connection', function(socket) {
     socket.emit('allPlayers', players)
 
     // send the new ServerPlayer to other clients
-    socket.broadcast.emit('playerconnected', socket.player)
+    socket.broadcast.emit('playerConnected', socket.player)
 
     console.log('\n >>> #ALL PLAYERS <ServerPlayer> :: '); console.log(players);
   });
 
 
   socket.on('disconnect', function() {
-    console.log('\n? CLIENT DISCONNECTED : ' + socket.handshake.address + (socket.player ? ' -> player : ' + socket.player.id : ''));
+    console.log('\n****** CLIENT DISCONNECTED : ' + socket.handshake.address + (socket.player ? ' -> player : ' + socket.player.id : '') + ' ******');
 
     if(socket.player) {
       io.emit('playerDisconnected', socket.player.id); // tell other clients that a player has disconnected
@@ -127,8 +128,30 @@ io.sockets.on('connection', function(socket) {
     }
   });
 
-  socket.on('playerMove', function(data) {
+  // on player position change
+  // data -> x,y object
+  socket.on('playerPos', function(data) {
+    if (socket.player) {
+      socket.player.x = data.x;
+      socket.player.y = data.y;
+      socket.broadcast.emit('playerPos', {
+        id: socket.player.id,
+        x: data.x,
+        y: data.y
+      });
+    }
+  });
 
+  // on player direction change
+  // data -> angle value
+  socket.on('playerDir', function(data) {
+    if (socket.player) {
+      socket.player.dir = data;
+      socket.broadcast.emit('playerDir', {
+        id: socket.player.id,
+        dir: data
+      });
+    }
   });
 
 });

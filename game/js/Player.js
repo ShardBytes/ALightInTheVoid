@@ -26,7 +26,6 @@ class Player extends DirectionalEntity {
     this.cont.down.pressed = () => { if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2; };
 
     this.collider = new BoxCollider(this);
-    this.position.set(0, -300);
     this.scale.set(0.5, 0.5);
     this.collider.updateSize();
     this.sprite.rotation = PI;
@@ -50,6 +49,7 @@ class Player extends DirectionalEntity {
   }
 
   control(dt) {
+    // shoot if shoot control is on
     if (this.deltaShoot > 1.0/this.fireRate) {
       this.deltaShoot = 0;
       if (this.cont.shoot.down) bullets.addChild(
@@ -63,8 +63,15 @@ class Player extends DirectionalEntity {
     if (!this.cont.up.down && !this.cont.down.down) this.speedtw.target = 0;
 
     // move sideways ( change direction )
-    if (this.cont.left.down) this.direction += dr;
-    if (this.cont.right.down) this.direction -= dr;
+    if (this.cont.left.down) {
+      this.direction += dr;
+      this.emitDirectionChange();
+    }
+
+    if (this.cont.right.down) {
+      this.direction -= dr;
+      this.emitDirectionChange();
+    }
 
   }
 
@@ -75,7 +82,22 @@ class Player extends DirectionalEntity {
       this.speedtw.update(dt);
       this.move(dt);
       this.rotateToDirection();
+
+      // send position data to server
+      this.emitPositionChange();
     }
+  }
+
+  // these methods send position and direction data to server
+  emitPositionChange() {
+    socket.emit('playerPos', {
+      x: this.x,
+      y: this.y
+    });
+  }
+
+  emitDirectionChange() {
+    socket.emit('playerDir', this.direction);
   }
 
 }
