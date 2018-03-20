@@ -43,9 +43,9 @@ class OtherPlayer extends SegmentedTargetEntity {
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
         if (this.shooting) {
-          // shoot a fake bullet
+          // shoot a fake bullet, -rotation because of different logic between direction and rotation
           bullets.addChild(
-            new Bullet(bullets, this, this.x, this.y, this.rotation, true)
+            new Bullet(bullets, this, this.x, this.y, -this.rotation, true)
           );
         }
       }

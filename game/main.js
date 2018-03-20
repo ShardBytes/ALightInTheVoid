@@ -204,8 +204,9 @@ function setup() {
     }
   });
 
-  socket.on('playerAction', function(data) {
-
+  socket.on('playerShooting', function(data) {
+    let plr = getOtherPlayerById(data.id);
+    if (plr) plr.shooting = data.shooting;
   });
 
   //--- end events ----

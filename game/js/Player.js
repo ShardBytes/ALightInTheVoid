@@ -20,10 +20,12 @@ class Player extends DirectionalEntity {
     this.maxSpeed = 300; // points per sec
     this.rotationSpeed = 2.5; // rads per sec
 
-    // define controls ( they control the speed tween )
+    // define event controls
     this.controlsActive = true;
     this.cont.up.pressed = () => { if(this.controlsActive) this.speedtw.target = this.maxSpeed; };
     this.cont.down.pressed = () => { if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2; };
+    this.cont.shoot.pressed = () => { this.shooting = true; this.emitShooting(); }
+    this.cont.shoot.released = () => { this.shooting = false; this.emitShooting(); }
 
     this.collider = new BoxCollider(this);
     this.scale.set(0.5, 0.5);
@@ -31,6 +33,7 @@ class Player extends DirectionalEntity {
     this.sprite.rotation = PI;
     this.collider.debug(false);
 
+    this.shooting = false;
     this.deltaShoot = 0; // in seconds
     this.fireRate = 10; // 3 per second
   }
@@ -48,15 +51,8 @@ class Player extends DirectionalEntity {
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
   }
 
+  // controls which need to be updated with ticks
   control(dt) {
-    // shoot if shoot control is on
-    if (this.deltaShoot > 1.0/this.fireRate) {
-      this.deltaShoot = 0;
-      if (this.cont.shoot.down) bullets.addChild(
-        new Bullet(bullets, this, this.x, this.y, this.direction, false)
-      );
-    }
-    this.deltaShoot += (dt/60);
 
     let dr = this.rotationSpeed*(dt/60); // rotation difference
     // if up and down are down, set target speed to 0
@@ -84,6 +80,15 @@ class Player extends DirectionalEntity {
       this.move(dt);
       this.rotateToDirection();
 
+      // shoot if shooting
+      if (this.deltaShoot > 1.0/this.fireRate) {
+        this.deltaShoot = 0;
+        if (this.shooting) bullets.addChild(
+          new Bullet(bullets, this, this.x, this.y, this.direction, false)
+        );
+      }
+      this.deltaShoot += (dt/60);
+
       // send position data to server
       this.emitPositionChange();
     }
@@ -102,8 +107,8 @@ class Player extends DirectionalEntity {
     socket.emit('playerDir', this.direction);
   }
 
-  emitShoot() {
-    socket.emit('playerAction', 'shoot');
+  emitShooting() {
+    socket.emit('playerShooting', this.shooting);
   }
 
 }
