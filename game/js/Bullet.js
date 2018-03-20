@@ -1,5 +1,6 @@
+// by Plasmoxy
+// a very specific Bullet projectile for players
 
-// very specific
 class Bullet extends Projectile {
 
   constructor(swarm, emmiter, x, y, direction, isFake, directionalOffset) {
@@ -16,6 +17,7 @@ class Bullet extends Projectile {
 
     this.isFake = isFake; // if its fake, it will be harmless
 
+    // add all objects in the world as colliders, except the emmiter of course
     world.children.forEach((a,i) => {
       if ( a instanceof Entity && a != emmiter) this.collider.addToDetectionPool(a);
     });
@@ -29,6 +31,7 @@ class Bullet extends Projectile {
       if (!this.isFake && t instanceof OtherPlayer) {
         console.log('PALYER HIT OTHERPLAYER');
       }
+      // destroy this bullet on hit
       this.destroy();
     }
   }

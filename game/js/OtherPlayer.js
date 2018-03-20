@@ -3,31 +3,26 @@
 // this is like a mannequin, it moves around and shoots fake projectiles
 // (self hit checking will be done on client to improve authenticity)
 
-class OtherPlayer extends Entity {
+class OtherPlayer extends SegmentedTargetEntity {
 
   constructor(container, id, x, y, team) {
-    super(id, resources.rk.texture);
+    super(id, resources.rk.texture, x, y);
     this.superContainer = container;
-    this.x = x;
-    this.y = y;
     this.alive = false;
 
     this.scale.set(0.5, 0.5);
     this.sprite.rotation = PI;
     this.collider = new BoxCollider(this);
 
-    this.tx = x; // target x
-    this.ty = y; // target y
     this.team = team;
 
-    this.shooting = true; // this is to be updated by socket
+    this.shooting = false; // this is to be updated by socket
     this.deltaShoot = 0; // in seconds
     this.fireRate = 10; // 3 per second
   }
 
   interpolate(dt) {
-    this.x += (this.tx - this.x) * dt * INTERP_RATIO;
-    this.y += (this.ty - this.y) * dt * INTERP_RATIO;
+    this.move(dt, INTERP_RATIO);
   }
 
   spawn() { // same as Player
@@ -48,11 +43,10 @@ class OtherPlayer extends Entity {
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
         if (this.shooting) {
-
+          // shoot a fake bullet
           bullets.addChild(
             new Bullet(bullets, this, this.x, this.y, this.rotation, true)
           );
-
         }
       }
       this.deltaShoot += (dt/60);
