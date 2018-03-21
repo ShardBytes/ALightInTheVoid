@@ -8,6 +8,8 @@ class Player extends DirectionalEntity {
     this.superContainer = container;
     this.x = x;
     this.y = y;
+    this.spawnX = x;
+    this.spawnY = y;
     this.team = team;
     this.cont = controls;
 
@@ -32,6 +34,12 @@ class Player extends DirectionalEntity {
     this.collider.updateSize();
     this.sprite.rotation = PI;
     this.collider.debug(false);
+    this.collider.addToDetectionPool(safarik);
+
+    // collision handler
+    this.collider.collided = (t, dx, dy, ang) => {
+
+    };
 
     this.shooting = false;
     this.deltaShoot = 0; // in seconds
@@ -39,11 +47,18 @@ class Player extends DirectionalEntity {
   }
 
   spawn() {
+    // reset player stuff on spawn
+    console.log('Player spawned -> ' + this.id);
+    this.direction = 0;
+    this.speed = 0;
+    this.x = this.spawnX;
+    this.y = this.spawnY;
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
   }
 
   despawn() {
+    console.log('Player despawned -> ' + this.id);
     this.alive = false;
     // at the end, remove child
     // (but not dereference if we have one spare reference from outside)
@@ -73,7 +88,7 @@ class Player extends DirectionalEntity {
   }
 
   update(dt) {
-    if (this.alive) {
+    if (this.alive) { // update self if is alive, if not then nah
       super.update(dt);
       if (this.controlsActive) this.control(dt);
       this.speedtw.update(dt);
