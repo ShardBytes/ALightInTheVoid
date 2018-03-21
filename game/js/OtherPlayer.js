@@ -23,7 +23,7 @@ class OtherPlayer extends SegmentedTargetEntity {
 
     this.shooting = false; // this is to be updated by socket
     this.deltaShoot = 0; // in seconds
-    this.fireRate = 10; // 3 per second
+    this.fireRate = 10; // bullets per second
   }
 
   interpolate(dt) {
