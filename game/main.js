@@ -7,7 +7,7 @@
 
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
-let GAME_SITE = '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+let GAME_SITE = 'https://localhost'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let INTERP_RATIO = 1/4;
 let socket;
 
@@ -65,13 +65,13 @@ let otherplayers = [];
 let bullets; // swarm of bullets
 
 
+// add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
-  op.spawn();
   otherplayers.push(op);
 }
 
+// same
 function removeOtherPlayer(op) {
-  op.despawn();
   otherplayers.slice(otherplayers.indexOf(op), 1);
 }
 
@@ -151,8 +151,9 @@ function setup() {
   // plr -> ServerPlayer
   socket.on('deployPlayer', function(plr) {
     clientlog('PLAYER DEPLOYED FROM SERVER, SPAWNING');
+    // serverplayer x,y goes as player spawn x,y
     player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
-    player.spawn();
+    player.spawn(); // spawn the player ( server will chain the spawn to others)
 
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
@@ -172,9 +173,11 @@ function setup() {
     clientlog('-> received allplayers list, creating otherplayers');
     otherplayers = [];
     serverPlayers.forEach(function(plr, i) {
-      if (plr.id != player.id) addOtherPlayer(
-        new OtherPlayer(world, plr.id, plr.x, plr.y, plr.team)
-      );
+      if (plr.id != player.id) {
+        let newplr = new OtherPlayer(world, plr.id, plr.x, plr.y, plr.team);
+        addOtherPlayer(newplr);
+        newplr.spawn(); // we need to spawn others manualy when receiving allplayers as they have already emitted initial spawn before
+      }
     });
     clientlog('-> other players created');
   });
@@ -182,6 +185,7 @@ function setup() {
   // when other player connects
   socket.on('playerConnected', function(plr) {
     clientlog('A player has connected. Welcome ! -> ' + plr.id);
+    // add player to players list, but don't spawn yet
     addOtherPlayer(new OtherPlayer(world, plr.id, plr.x, plr.y, plr.team));
   });
 
@@ -189,12 +193,15 @@ function setup() {
   socket.on('playerDisconnected', function(plrId) {
     clientlog('A player has disconnected. Farewell, cruel world. -> ' + plrId);
 
-    // remove otherplayer
+    // remove otherplayer from list
     let plr = getOtherPlayerById(plrId);
-    if (plr) removeOtherPlayer(plr);
+    if (plr) {
+      if (plr.alive) plr.despawn(); // force despawn
+      removeOtherPlayer(plr);
+    }
   });
 
-  // handle movement >>>
+  // handle incoming others movement >>>
   socket.on('playerPos', function(data) {
     let plr = getOtherPlayerById(data.id);
     if (plr) {
@@ -214,6 +221,24 @@ function setup() {
     let plr = getOtherPlayerById(data.id);
     if (plr) plr.shooting = data.shooting;
   });
+
+  socket.on('playerSpawned', function(pid) {
+    let plr = getOtherPlayerById(pid);
+    if (plr) {
+      plr.spawn();
+      console.log('<'+pid+'> SPAWNED');
+    }
+  });
+
+  socket.on('playerDespawned', function(pid) {
+    let plr = getOtherPlayerById(pid);
+    if (plr) {
+      plr.despawn();
+      console.log('<'+pid+'> DESPAWNED');
+    }
+  });
+
+
 
   //--- end events ----
 
@@ -239,6 +264,7 @@ function update() {
 }
 
 function tick(dt) {
+
   if (player){
     player.update(dt);
     player.collider.update(dt);
@@ -254,6 +280,7 @@ function tick(dt) {
   if (player) camera.follow(player);
   background.centerTo(world);
   background.rotateTo(world);
+
 }
 
 // add resizelistener to window

@@ -3,13 +3,11 @@
 
 class Player extends DirectionalEntity {
 
-  constructor(container, controls, id, x, y, team) {
+  constructor(container, controls, id, spawnX, spawnY, team) {
     super(id, resources.rk.texture);
     this.superContainer = container;
-    this.x = x;
-    this.y = y;
-    this.spawnX = x;
-    this.spawnY = y;
+    this.spawnX = spawnX;
+    this.spawnY = spawnY;
     this.team = team;
     this.cont = controls;
 
@@ -38,7 +36,12 @@ class Player extends DirectionalEntity {
 
     // collision handler
     this.collider.collided = (t, dx, dy, ang) => {
-
+      if (t == safarik) {
+        this.despawn();
+        setTimeout(() => { // always use lambdas my friend, they keep the identity of object
+          this.spawn();
+        }, 2000);
+      }
     };
 
     this.shooting = false;
@@ -46,19 +49,25 @@ class Player extends DirectionalEntity {
     this.fireRate = 10; // 3 per second
   }
 
+  // by spawning the player, I mean reseting all of its states, placing it on spawn pos and adding it to the world
+  // and also broadcasting the event to server so the others will know ;)
   spawn() {
+    this.emitSpawned();
     // reset player stuff on spawn
-    console.log('Player spawned -> ' + this.id);
+    console.log('<Player> PLAYER SPAWNED');
     this.direction = 0;
     this.speed = 0;
     this.x = this.spawnX;
     this.y = this.spawnY;
+    // add player child to supercont
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
   }
 
+  // by despawning it i mean removing it from the world
   despawn() {
-    console.log('Player despawned -> ' + this.id);
+    this.emitDespawned();
+    console.log('<Player> PLAYER DESPAWNED');
     this.alive = false;
     // at the end, remove child
     // (but not dereference if we have one spare reference from outside)
@@ -124,6 +133,14 @@ class Player extends DirectionalEntity {
 
   emitShooting() {
     socket.emit('playerShooting', this.shooting);
+  }
+
+  emitSpawned() {
+    socket.emit('playerSpawn', true);
+  }
+
+  emitDespawned() {
+    socket.emit('playerSpawn', false);
   }
 
 }

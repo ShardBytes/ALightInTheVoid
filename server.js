@@ -105,14 +105,14 @@ io.sockets.on('connection', function(socket) {
     );
     updatePlayers(); // now a new players has been added so update the players
 
-    // deploy the player to client
+    // deploy the player to client, x and y will be parsed as spawnX and spawnY
     console.log('? new player accepted : ' + socket.player.id);
     socket.emit('deployPlayer', socket.player);
 
     // return all players list to socket
     socket.emit('allPlayers', players)
 
-    // send the new ServerPlayer to other clients
+    // send the new ServerPlayer to other clients, parse them as spawns too
     socket.broadcast.emit('playerConnected', socket.player)
 
     console.log('\n >>> #ALL PLAYERS <ServerPlayer> :: '); console.log(players);
@@ -161,6 +161,18 @@ io.sockets.on('connection', function(socket) {
         id: socket.player.id,
         shooting: shooting
       });
+    }
+  });
+
+  socket.on('playerSpawn', function(spawned) {
+    if (socket.player) {
+      if (spawned) {
+        socket.broadcast.emit('playerSpawned', socket.player.id);
+        console.log('PLAYER SPAWNED -> ' + socket.player.id);
+      } else {
+        socket.broadcast.emit('playerDespawned', socket.player.id);
+        console.log('PLAYER DESPAWNED -> ' + socket.player.id);
+      }
     }
   });
 
