@@ -129,8 +129,8 @@ function setup() {
   })()
 
   safarik = new Entity('safarik', resources.saf.texture);
-  safarik.collider = new BoxCollider(safarik);
-  safarik.scale.set(1, 1);
+  safarik.collider = new BoxCollider(safarik, 200, 200);
+  safarik.scale.set(0.5, 0.5);
   safarik.collider.updateSize();
   safarik.collider.debug(dbg);
   world.addChild(safarik);
