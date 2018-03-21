@@ -8,7 +8,7 @@ class Bullet extends Projectile {
       swarm,
       emmiter,
       '@bullet',
-      resources.rk.texture,
+      resources.bluelaser.texture,
       x + (directionalOffset ? Math.sin(direction)*directionalOffset : 0),
       y + (directionalOffset ? Math.cos(direction)*directionalOffset : 0),
       direction,
@@ -26,7 +26,7 @@ class Bullet extends Projectile {
       )this.collider.addToDetectionPool(a);
     });
 
-    this.scale.set(0.2, 0.2);
+    this.scale.set(0.5, 0.5);
     this.collider.updateSize();
     this.sprite.rotation = PI;
     this.collider.debug(false);

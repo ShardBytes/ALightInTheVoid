@@ -7,7 +7,7 @@
 class OtherPlayer extends SegmentedTargetEntity {
 
   constructor(container, id, spawnX, spawnY, team) {
-    super(id, resources.rk.texture, spawnX, spawnY);
+    super(id, team == '1' ? resources.cyanplayer.texture : resources.orangeplayer.texture , spawnX, spawnY);
     this.superContainer = container;
     this.alive = false;
 
@@ -56,9 +56,9 @@ class OtherPlayer extends SegmentedTargetEntity {
         this.deltaShoot = 0;
         if (this.shooting) {
           // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
-          bullets.addChild(
-            new Bullet(bullets, this, this.x, this.y, -this.rotation, false)
-          );
+          // some wild trigonometry to we can shoot 2 bullets, duh
+          bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false));
+          bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false));
         }
       }
       this.deltaShoot += (dt/60);

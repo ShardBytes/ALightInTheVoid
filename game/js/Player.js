@@ -7,7 +7,7 @@
 class Player extends DirectionalEntity {
 
   constructor(container, controls, id, spawnX, spawnY, team) {
-    super(id, resources.rk.texture);
+    super(id, team == '1' ? resources.cyanplayer.texture : resources.orangeplayer.texture);
 
     // --- basic stuff ---
     this.superContainer = container;
@@ -16,7 +16,6 @@ class Player extends DirectionalEntity {
     this.team = team;
     this.cont = controls;
     this.scale.set(0.5, 0.5);
-    this.sprite.rotation = PI;
 
     // --- specific player stuff ---
     this.alive = true;
@@ -29,7 +28,7 @@ class Player extends DirectionalEntity {
 
     this.shooting = false;
     this.deltaShoot = 0; // in seconds
-    this.fireRate = 10; // bullets per second
+    this.fireRate = 8; // bullets per second
 
     // --- movement stuff ---
     this.maxSpeed = 400; // points per sec
@@ -144,9 +143,11 @@ class Player extends DirectionalEntity {
       // shoot fake bullets if shooting
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
-        if (this.shooting) bullets.addChild(
-          new Bullet(bullets, this, this.x, this.y, this.direction, true)
-        );
+        if (this.shooting) {
+          // some wild trigonometry to we can shoot 2 bullets, duh
+          bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
+          bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(this.direction), this.y + 10*Math.sin(this.direction), this.direction, true));
+        }
       }
       this.deltaShoot += (dt/60);
 

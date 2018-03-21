@@ -97,9 +97,11 @@ function scaleCameraToScreenSize() {
 /* ------------------ PIXI loader --------------------- */
 
 let resDef = [
-  ['rk', 'sprites/aquaroket.png'],
-  ['saf', 'sprites/safarik.png'],
-  ['bootlegstars', 'sprites/bootlegstars.png']
+  ['cyanplayer', 'sprites/cyanplayer.png'],
+  ['orangeplayer', 'sprites/orangeplayer.png'],
+  ['bootlegstars', 'sprites/bootlegstars.png'],
+  ['bluelaser', 'sprites/bluelaser.png'],
+  ['safarik', 'sprites/safarik.png']
 ];
 
 let animationsDef = [
@@ -152,7 +154,7 @@ function setup() {
   stars.position.set(-5000, -5000);
   background.addChild(stars);
 
-  safarik = new Entity('safarik', resources.saf.texture);
+  safarik = new Entity('safarik', resources.safarik.texture);
   safarik.collider = new BoxCollider(safarik, 200, 200);
   safarik.scale.set(0.5, 0.5);
   safarik.collider.updateSize();
