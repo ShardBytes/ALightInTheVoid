@@ -1,24 +1,39 @@
-
-// uses -> bullets
+// Player class by Plasmoxy,
+// this is an ultra specific class definining player.
+// uses -> bullets as swarm of bullets and a lot more
 
 class Player extends DirectionalEntity {
 
   constructor(container, controls, id, spawnX, spawnY, team) {
     super(id, resources.rk.texture);
+
+    // --- basic stuff ---
     this.superContainer = container;
     this.spawnX = spawnX;
     this.spawnY = spawnY;
     this.team = team;
     this.cont = controls;
+    this.scale.set(0.5, 0.5);
+    this.sprite.rotation = PI;
 
+    // --- specific player stuff ---
     this.alive = true;
+    this.maxHealth = 100;
+    this.health = this.maxHealth;
+    this.maxEnergy = 100;
+    this.energy = this.maxEnergy;
 
-    // this updates speed to target speed constantly
-    this.speedtw = new Tween(this, 'speed', 300); // rate = acceleration
-    this.speedtw.start();
+    this.shooting = false;
+    this.deltaShoot = 0; // in seconds
+    this.fireRate = 10; // bullets per second
 
+    // --- movement stuff ---
     this.maxSpeed = 500; // points per sec
     this.rotationSpeed = 1.8; // rads per sec
+
+    // this tween updates speed to target speed constantly
+    this.speedtw = new Tween(this, 'speed', 300); // rate = acceleration
+    this.speedtw.start();
 
     // define event controls
     this.controlsActive = true;
@@ -27,10 +42,9 @@ class Player extends DirectionalEntity {
     this.cont.shoot.pressed = () => { this.shooting = true; this.emitShooting(); }
     this.cont.shoot.released = () => { this.shooting = false; this.emitShooting(); }
 
+    // --- setup collider ---
     this.collider = new BoxCollider(this);
-    this.scale.set(0.5, 0.5);
     this.collider.updateSize();
-    this.sprite.rotation = PI;
     this.collider.debug(false);
     this.collider.addToDetectionPool(safarik);
 
@@ -44,10 +58,7 @@ class Player extends DirectionalEntity {
       }
     };
 
-    this.shooting = false;
-    this.deltaShoot = 0; // in seconds
-    this.fireRate = 10; // 3 per second
-  }
+  } // end constructor
 
   // by spawning the player, I mean reseting all of its states, placing it on spawn pos and adding it to the world
   // and also broadcasting the event to server so the others will know ;)
@@ -59,6 +70,7 @@ class Player extends DirectionalEntity {
     this.speed = 0;
     this.x = this.spawnX;
     this.y = this.spawnY;
+    this.health = this.maxHealth;
     // add player child to supercont
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;

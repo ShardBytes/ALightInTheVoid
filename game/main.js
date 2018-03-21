@@ -65,6 +65,8 @@ let dbg = true; // debug for colliders
 let otherplayers = [];
 let bullets; // swarm of bullets
 
+// gui
+let playerBars;
 
 // add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
@@ -112,6 +114,8 @@ loader
 
 function setup() {
 
+  clientlog('### INITIALIZING GAME ###');
+
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
   world = new World(); app.stage.addChild(world);
@@ -128,6 +132,10 @@ function setup() {
     right: new KeyboardKey(39),
     shoot: new KeyboardKey(82) // R
   };
+
+  // setup GUI
+  playerBars = new PlayerBars();
+  gui.addChild(playerBars);
 
   /* ------------------------- INIT GAME ----------------------- */
 
@@ -147,7 +155,7 @@ function setup() {
   world.addChild(bullets);
 
   // ze word is now complet
-
+  /* ------------------ BEGIN GAME -------------------*/
 
   $('#info').html('Connecting ...');
   // connect to game server
@@ -247,8 +255,6 @@ function setup() {
     }
   });
 
-
-
   //--- end events ----
 
   // request a player
@@ -258,20 +264,22 @@ function setup() {
     team: TEAM
   });
 
-  /* ----------------------- end INIT GAME ----------------------*/
-
   /* setup tickers */
 
   app.ticker.add(tick); // main tick function
   /* start rendering */
+  clientlog('### STARTING RENDERING ###');
   update();
 }
 
+// update fpsmeter and render
 function update() {
   requestAnimationFrame(update);
   if ( fmeter ) fmeter.tick()
 }
 
+// ----- THE MAIN TICK FUNCTION -----
+// ( all internal object ticking is chained to this )
 function tick(dt) {
 
   if (player){
@@ -292,6 +300,7 @@ function tick(dt) {
   }
   background.centerTo(world);
   background.rotateTo(world);
+  playerBars.redraw(player);
 
 }
 
@@ -304,4 +313,5 @@ window.addEventListener('resize', function() {
   app.renderer.view.style.height = h + "px";
   app.renderer.resize(w,h);
   if (camera) camera.centerToRenderer();
+  if (playerBars) playerBars.align();
 });
