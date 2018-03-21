@@ -1,4 +1,4 @@
-/* Entity class by Plasmoxy, override this m8 */
+/* Entity class by Plasmoxy, extend this m8 */
 
 /* -> the basic advantage of my entity is based on Container polymorphism */
 /*   -> therefore, you can add effects, internal entity graphics, and all that stuff to it */
