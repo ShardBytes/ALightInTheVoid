@@ -25,13 +25,20 @@ class Player extends DirectionalEntity {
     this.health = this.maxHealth;
     this.maxEnergy = 100;
     this.energy = this.maxEnergy;
+    this.energyRegen = 10; // p p s
+
+    // individual energy drains ->
+    this.energyDrain = {
+      boost: 0
+    };
 
     this.shooting = false;
     this.deltaShoot = 0; // in seconds
     this.fireRate = 8; // bullets per second
 
     // --- movement stuff ---
-    this.maxSpeed = 400; // points per sec
+    this.defaultMaxSpeed = 400; // points per sec
+    this.maxSpeed = 400;
     this.rotationSpeed = 2; // rads per sec
 
     // this tween updates speed to target speed constantly
@@ -39,11 +46,18 @@ class Player extends DirectionalEntity {
     this.speedtw.start();
 
     // define event controls
-    this.controlsActive = true;
+    this.controlsActive = true; // TODO: create check everywhere
+
     this.cont.up.pressed = () => { if(this.controlsActive) this.speedtw.target = this.maxSpeed; };
     this.cont.down.pressed = () => { if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2; };
-    this.cont.shoot.pressed = () => { this.shooting = true; this.emitShooting(); }
-    this.cont.shoot.released = () => { this.shooting = false; this.emitShooting(); }
+
+    // if shoot pressed, turn on fake shooting here and send shooting event
+    this.cont.shoot.pressed = () => { this.shooting = true; this.emitShooting(); };
+    this.cont.shoot.released = () => { this.shooting = false; this.emitShooting(); };
+
+    this.cont.boost.pressed = () => { this.boost(true); };
+    this.cont.boost.released = () => { this.boost(false); };
+
 
     // --- setup collider ---
     this.collider = new BoxCollider(this);
@@ -69,6 +83,7 @@ class Player extends DirectionalEntity {
     this.x = this.spawnX;
     this.y = this.spawnY;
     this.health = this.maxHealth;
+    this.energy = this.maxEnergy;
     // add player child to supercont
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
@@ -102,7 +117,20 @@ class Player extends DirectionalEntity {
 
   // after this player is hit
   hit(damage) {
-    this.health -= damage; // 20 dmg
+    this.health -= damage; // dmg from bullet
+  }
+
+  boost(active) {
+    if (active && this.energy >= 20) {
+      this.energy -= 20; // eat 20 energy
+      this.energyDrain.boost = 20; // 30 more for each aditional second in boost
+      this.maxSpeed = 1000;
+      this.speed = 1000;
+    } else {
+      this.energyDrain.boost = 0;
+      this.maxSpeed = this.defaultMaxSpeed;
+      this.speed = this.maxSpeed;
+    }
   }
 
   // controls which need to be updated with ticks
@@ -134,16 +162,36 @@ class Player extends DirectionalEntity {
         this.respawn();
       }
 
+      //if (this.energyDrain < 0) this.energyDrain = 0;
+
+      // drain energy
+      if (this.energy > 0) {
+        this.energy -= ( this.energyDrain.boost )*(dt/60);
+      }
+
+      // force stop all abilities if no energy and stop drain (which may else cause bugs)
+      if (this.energy <= 0) {
+        this.boost(false);
+        //this.energyDrain = 0;
+      }
+
+      // regenerate energy
+      if (this.energy < this.maxEnergy) {
+        this.energy += this.energyRegen*(dt/60);
+      }
+
       super.update(dt);
       if (this.controlsActive) this.control(dt);
       this.speedtw.update(dt);
       this.move(dt);
       this.rotateToDirection();
 
-      // shoot fake bullets if shooting
+      // SHOOT fake bullets if shooting
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
-        if (this.shooting) {
+        // if we have sufficient energy
+        if (this.shooting && this.energy >= 5) {
+          this.energy -= 5;
           // some wild trigonometry to we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
           bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(this.direction), this.y + 10*Math.sin(this.direction), this.direction, true));

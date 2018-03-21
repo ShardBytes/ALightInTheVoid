@@ -139,7 +139,8 @@ function setup() {
     down: new KeyboardKey(40),
     left: new KeyboardKey(37),
     right: new KeyboardKey(39),
-    shoot: new KeyboardKey(82) // R
+    shoot: new KeyboardKey(82), // R
+    boost: new KeyboardKey(81) // Q
   };
 
   // setup GUI
