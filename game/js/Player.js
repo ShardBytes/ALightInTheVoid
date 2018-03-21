@@ -18,7 +18,7 @@ class Player extends DirectionalEntity {
     this.speedtw.start();
 
     this.maxSpeed = 500; // points per sec
-    this.rotationSpeed = 1.5; // rads per sec
+    this.rotationSpeed = 1.8; // rads per sec
 
     // define event controls
     this.controlsActive = true;
@@ -73,6 +73,8 @@ class Player extends DirectionalEntity {
     // (but not dereference if we have one spare reference from outside)
     // (you should have that.)
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
+    // show despawn animation
+    new Apparition(world, 'expl', 5, this.x, this.y, 0.8, 0.2);
   }
 
   // controls which need to be updated with ticks

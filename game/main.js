@@ -258,11 +258,6 @@ function setup() {
     team: TEAM
   });
 
-
-  setTimeout(() => {
-    new Apparition(world, 'expl', 5, -200, -200, 0.5, 0.2);
-  }, 3000);
-
   /* ----------------------- end INIT GAME ----------------------*/
 
   /* setup tickers */

@@ -31,6 +31,8 @@ class Bullet extends Projectile {
       if (!this.isFake && t instanceof OtherPlayer) {
         
       }
+      // show hit animation
+      new Apparition(world, 'expl', 5, this.x, this.y, 0.2, 0.2);
       // destroy this bullet on hit
       this.destroy();
     }

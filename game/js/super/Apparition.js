@@ -15,6 +15,8 @@ class Apparition extends AnimatedSprite {
 
     super(frames);
 
+    this.x = x;
+    this.y = y;
     this.superContainer = container;
     this.anchor.set(0.5, 0.5);
     this.animationSpeed = speed;

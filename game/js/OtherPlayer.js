@@ -17,7 +17,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.scale.set(0.5, 0.5);
     this.sprite.rotation = PI;
     this.collider = new BoxCollider(this);
-    this.collider.debug(true);
+    this.collider.debug(false);
 
     this.team = team;
 
@@ -42,6 +42,8 @@ class OtherPlayer extends SegmentedTargetEntity {
   despawn() { // same as Player
     this.alive = false;
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
+    // show despawn animation
+    new Apparition(world, 'expl', 5, this.x, this.y, 0.8, 0.2);
   }
 
   update(dt) {
