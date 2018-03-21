@@ -53,7 +53,7 @@ app.get('/', function(req, res) {
 // --------- GAME ------------
 class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
 
-// !!! teams -> 1 or 2
+// !!! teams -> 1(blue) or 2(orange)
 
 const PI = Math.PI;
 let spawn1Pos = new Point(-100,-300); // team 1 spawn
