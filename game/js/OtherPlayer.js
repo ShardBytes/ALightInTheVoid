@@ -1,8 +1,8 @@
 
 // OtherPlayer class by Plasmoxy
-// this is like a mannequin, it moves around and shoots fake projectiles
+// this is like a mannequin, it moves around and shoots bullets
 // (self hit checking will be done on clients to improve authenticity)
-// this doesn't emit any events, it's just a mannequin
+// this can HURT the player - therefore player is hit only if someone else hits him with hi bullets
 
 class OtherPlayer extends SegmentedTargetEntity {
 
@@ -35,6 +35,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.y = this.spawnY;
     this.tx = this.x;
     this.ty = this.y;
+    this.rotation = PI;
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
   }
@@ -54,9 +55,9 @@ class OtherPlayer extends SegmentedTargetEntity {
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
         if (this.shooting) {
-          // shoot a fake bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
+          // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
           bullets.addChild(
-            new Bullet(bullets, this, this.x, this.y, -this.rotation, true)
+            new Bullet(bullets, this, this.x, this.y, -this.rotation, false)
           );
         }
       }

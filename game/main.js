@@ -57,13 +57,16 @@ function loadProgressHandler(ldr, res) { // loader, resource
 /* -------- define game variables and functions --------- */
 
 let background, world, gui, camera, mkeys; // basic
-let stars;
+let cameraTarget;
 
 let player, safarik; // objects
 let dbg = true; // debug for colliders
 
 let otherplayers = [];
 let bullets; // swarm of bullets
+
+// background
+let stars;
 
 // gui
 let playerBars;
@@ -294,8 +297,8 @@ function tick(dt) {
 
   bullets.update(dt);
 
-  if (player) {
-    camera.follow(player);
+  if (cameraTarget) {
+    camera.follow(cameraTarget);
     //camera.followDirection(player);
   }
   background.centerTo(world);

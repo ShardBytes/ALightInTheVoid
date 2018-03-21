@@ -2,6 +2,8 @@
 // this is an ultra specific class definining player.
 // uses -> bullets as swarm of bullets and a lot more
 
+// player will shoot fake bullets (so we can see them), and be hurt from bullets from other players
+
 class Player extends DirectionalEntity {
 
   constructor(container, controls, id, spawnX, spawnY, team) {
@@ -18,6 +20,8 @@ class Player extends DirectionalEntity {
 
     // --- specific player stuff ---
     this.alive = true;
+    this.respawnTime = 5000; // ms
+
     this.maxHealth = 100;
     this.health = this.maxHealth;
     this.maxEnergy = 100;
@@ -54,7 +58,7 @@ class Player extends DirectionalEntity {
         this.despawn();
         setTimeout(() => { // always use lambdas my friend, they keep the identity of object
           this.spawn();
-        }, 2000);
+        }, 5000);
       }
     };
 
@@ -66,7 +70,7 @@ class Player extends DirectionalEntity {
     this.emitSpawned();
     // reset player stuff on spawn
     console.log('<Player> PLAYER SPAWNED');
-    this.direction = 0;
+    this.direction = PI;
     this.speed = 0;
     this.x = this.spawnX;
     this.y = this.spawnY;
@@ -74,6 +78,7 @@ class Player extends DirectionalEntity {
     // add player child to supercont
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
+    cameraTarget = this;
   }
 
   // by despawning it i mean removing it from the world
@@ -87,6 +92,23 @@ class Player extends DirectionalEntity {
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
     new Apparition(world, 'expl', 5, this.x, this.y, 0.8, 0.2);
+
+    // target camera to safarik
+    setTimeout(() => {
+      cameraTarget = safarik;
+    }, 1000);
+  }
+
+  respawn() {
+    this.despawn();
+    setTimeout(() => {
+      this.spawn();
+    }, this.respawnTime);
+  }
+
+  // after this player is hit
+  hit(damage) {
+    this.health -= damage; // 20 dmg
   }
 
   // controls which need to be updated with ticks
@@ -112,17 +134,23 @@ class Player extends DirectionalEntity {
 
   update(dt) {
     if (this.alive) { // update self if is alive, if not then nah
+
+      // check if ded
+      if (this.health <= 0) {
+        this.respawn();
+      }
+
       super.update(dt);
       if (this.controlsActive) this.control(dt);
       this.speedtw.update(dt);
       this.move(dt);
       this.rotateToDirection();
 
-      // shoot if shooting
+      // shoot fake bullets if shooting
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
         if (this.shooting) bullets.addChild(
-          new Bullet(bullets, this, this.x, this.y, this.direction, false)
+          new Bullet(bullets, this, this.x, this.y, this.direction, true)
         );
       }
       this.deltaShoot += (dt/60);

@@ -14,7 +14,7 @@ class Bullet extends Projectile {
       direction,
       1000
     );
-
+    this.damage = 10;
     this.isFake = isFake; // if its fake, it will be harmless
 
     // add all objects in the world as colliders, except the emmiter of course
@@ -28,8 +28,8 @@ class Bullet extends Projectile {
     this.collider.debug(false);
     this.collider.collided = (t, dx, dy, ang) => {
       // TODO : hit player if not fake
-      if (!this.isFake && t instanceof OtherPlayer) {
-        
+      if (!this.isFake && t instanceof Player) {
+        t.hit(this.damage);
       }
       // show hit animation
       new Apparition(world, 'expl', 5, this.x, this.y, 0.2, 0.2);

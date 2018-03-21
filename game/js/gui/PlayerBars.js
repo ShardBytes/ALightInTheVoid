@@ -15,12 +15,16 @@ class PlayerBars extends Container {
     if (player) {
       let g = this.gr;
       let w = app.renderer.width;
-      g.clear();
-      g.beginFill(this.healthColor);
-      g.drawRect( (-player.maxHealth/2)*w/300, 10, player.health*w/300, 5);
-      g.endFill();
-      g.beginFill(this.energyColor);
-      g.drawRect( (-player.maxEnergy/2)*w/300, 25, player.energy*w/300, 5);
+      if (player.alive) {
+        g.clear();
+        g.beginFill(this.healthColor);
+        g.drawRect( (-player.maxHealth/2)*w/300, 10, player.health*w/300, 5);
+        g.endFill();
+        g.beginFill(this.energyColor);
+        g.drawRect( (-player.maxEnergy/2)*w/300, 25, player.energy*w/300, 5);
+      } else {
+        g.clear();
+      }
     }
   }
 
