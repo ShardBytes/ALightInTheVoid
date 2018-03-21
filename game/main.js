@@ -7,7 +7,7 @@
 
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
-let GAME_SITE = 'https://localhost'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+let GAME_SITE = '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let INTERP_RATIO = 1/4;
 let socket;
 
@@ -264,5 +264,5 @@ window.addEventListener('resize', function() {
   app.renderer.view.style.width = w + "px";
   app.renderer.view.style.height = h + "px";
   app.renderer.resize(w,h);
-  camera.centerToRenderer();
+  if (camera) camera.centerToRenderer();
 });
