@@ -125,7 +125,7 @@ function setup() {
   gui = new Gui(); app.stage.addChild(gui);
 
   // link camera to world
-  camera = new Camera(world);
+  camera = new FollowerCamera(world, 1/4);
 
   /* define control */
   mkeys = {
@@ -298,7 +298,7 @@ function tick(dt) {
   bullets.update(dt);
 
   if (cameraTarget) {
-    camera.follow(cameraTarget);
+    camera.follow(dt, cameraTarget);
     //camera.followDirection(player);
   }
   background.centerTo(world);
