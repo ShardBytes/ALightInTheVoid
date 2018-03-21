@@ -14,11 +14,11 @@ class Player extends DirectionalEntity {
     this.alive = true;
 
     // this updates speed to target speed constantly
-    this.speedtw = new Tween(this, 'speed', 500); // rate = acceleration
+    this.speedtw = new Tween(this, 'speed', 300); // rate = acceleration
     this.speedtw.start();
 
-    this.maxSpeed = 300; // points per sec
-    this.rotationSpeed = 2.5; // rads per sec
+    this.maxSpeed = 500; // points per sec
+    this.rotationSpeed = 1.5; // rads per sec
 
     // define event controls
     this.controlsActive = true;

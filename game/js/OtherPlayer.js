@@ -17,6 +17,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.scale.set(0.5, 0.5);
     this.sprite.rotation = PI;
     this.collider = new BoxCollider(this);
+    this.collider.debug(true);
 
     this.team = team;
 

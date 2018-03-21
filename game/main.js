@@ -75,6 +75,7 @@ function removeOtherPlayer(op) {
   otherplayers.slice(otherplayers.indexOf(op), 1);
 }
 
+// better to use for as it can break when it finds what it looks for
 function getOtherPlayerById(id) {
   for (let i = 0; i<otherplayers.length; i++) {
     if (otherplayers[i].id == id) {
@@ -116,7 +117,7 @@ function setup() {
     down: new KeyboardKey(40),
     left: new KeyboardKey(37),
     right: new KeyboardKey(39),
-    shoot: new KeyboardKey(32)
+    shoot: new KeyboardKey(82) // R
   };
 
   /* ------------------------- INIT GAME ----------------------- */
@@ -277,7 +278,10 @@ function tick(dt) {
 
   bullets.update(dt);
 
-  if (player) camera.follow(player);
+  if (player) {
+    camera.follow(player);
+    //camera.followDirection(player);
+  }
   background.centerTo(world);
   background.rotateTo(world);
 
