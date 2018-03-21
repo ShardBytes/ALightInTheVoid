@@ -57,6 +57,7 @@ function loadProgressHandler(ldr, res) { // loader, resource
 /* -------- define game variables and functions --------- */
 
 let background, world, gui, camera, mkeys; // basic
+let stars;
 
 let player, safarik; // objects
 let dbg = true; // debug for colliders
@@ -130,11 +131,10 @@ function setup() {
 
   /* ------------------------- INIT GAME ----------------------- */
 
-  (function() {
-    let bgs = new TilingSprite(resources.bootlegstars.texture, 10000, 10000);
-    bgs.position.set(-5000, -5000);
-    background.addChild(bgs);
-  })()
+
+  stars = new TilingSprite(resources.bootlegstars.texture, 10000, 10000);
+  stars.position.set(-5000, -5000);
+  background.addChild(stars);
 
   safarik = new Entity('safarik', resources.saf.texture);
   safarik.collider = new BoxCollider(safarik, 200, 200);
