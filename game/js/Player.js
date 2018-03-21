@@ -32,11 +32,11 @@ class Player extends DirectionalEntity {
     this.fireRate = 10; // bullets per second
 
     // --- movement stuff ---
-    this.maxSpeed = 500; // points per sec
-    this.rotationSpeed = 1.8; // rads per sec
+    this.maxSpeed = 400; // points per sec
+    this.rotationSpeed = 2; // rads per sec
 
     // this tween updates speed to target speed constantly
-    this.speedtw = new Tween(this, 'speed', 300); // rate = acceleration
+    this.speedtw = new Tween(this, 'speed', 200); // rate = acceleration
     this.speedtw.start();
 
     // define event controls
@@ -54,12 +54,7 @@ class Player extends DirectionalEntity {
 
     // collision handler
     this.collider.collided = (t, dx, dy, ang) => {
-      if (t == safarik) {
-        this.despawn();
-        setTimeout(() => { // always use lambdas my friend, they keep the identity of object
-          this.spawn();
-        }, 5000);
-      }
+
     };
 
   } // end constructor

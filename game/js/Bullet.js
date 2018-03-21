@@ -17,12 +17,16 @@ class Bullet extends Projectile {
     this.damage = 10;
     this.isFake = isFake; // if its fake, it will be harmless
 
-    // add all objects in the world as colliders, except the emmiter of course
+    // add all objects in the world as colliders, except the emmiter of course and some others
     world.children.forEach((a,i) => {
-      if ( a instanceof Entity && a != emmiter) this.collider.addToDetectionPool(a);
+      if (
+        a instanceof Entity &&
+        a != emmiter &&
+        a != safarik
+      )this.collider.addToDetectionPool(a);
     });
 
-    this.scale.set(0.3, 0.3);
+    this.scale.set(0.2, 0.2);
     this.collider.updateSize();
     this.sprite.rotation = PI;
     this.collider.debug(false);

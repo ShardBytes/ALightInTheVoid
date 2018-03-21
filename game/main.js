@@ -90,6 +90,10 @@ function getOtherPlayerById(id) {
   }
 }
 
+function scaleCameraToScreenSize() {
+  camera.scale = 0.8 * ( app.renderer.width/1080 );
+}
+
 /* ------------------ PIXI loader --------------------- */
 
 let resDef = [
@@ -126,6 +130,7 @@ function setup() {
 
   // link camera to world
   camera = new FollowerCamera(world, 1/4);
+  scaleCameraToScreenSize();
 
   /* define control */
   mkeys = {
@@ -315,6 +320,7 @@ window.addEventListener('resize', function() {
   app.renderer.view.style.width = w + "px";
   app.renderer.view.style.height = h + "px";
   app.renderer.resize(w,h);
+  scaleCameraToScreenSize();
   if (camera) camera.centerToRenderer();
   if (playerBars) playerBars.align();
 });
