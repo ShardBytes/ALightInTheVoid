@@ -68,7 +68,7 @@ let bullets; // swarm of bullets
 let stars;
 
 // gui
-let playerBars;
+let playerBars, bigInfo;
 
 // add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
@@ -147,6 +147,9 @@ function setup() {
   playerBars = new PlayerBars();
   gui.addChild(playerBars);
 
+  bigInfo = new BigInfo();
+  gui.addChild(bigInfo);
+
   /* ------------------------- INIT GAME ----------------------- */
 
 
@@ -181,6 +184,11 @@ function setup() {
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
     $('#pixi').css('display', 'block');
+
+    bigInfo.text = 'Welcome, ' + plr.id;
+    setTimeout(() => {
+      bigInfo.text = '';
+    }, 1000);
   });
 
   // show reported server errors on client
