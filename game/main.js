@@ -92,8 +92,16 @@ let resDef = [
   ['bootlegstars', 'sprites/bootlegstars.png']
 ];
 
+let animationsDef = [
+  'sprites/anim/expl.json'
+];
+
 resDef.forEach(t => {
   loader.add(t[0], t[1]);
+});
+
+animationsDef.forEach(t => {
+  loader.add(t);
 });
 
 loader
@@ -249,6 +257,11 @@ function setup() {
     id: NAME,
     team: TEAM
   });
+
+
+  setTimeout(() => {
+    new Apparition(world, 'expl', 5, -200, -200, 0.5, 0.2);
+  }, 3000);
 
   /* ----------------------- end INIT GAME ----------------------*/
 
