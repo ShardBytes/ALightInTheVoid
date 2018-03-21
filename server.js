@@ -55,8 +55,8 @@ class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
 
 // !!! teams -> 1 or 2
 
-let spawn1Pos = new Point(-100,-300); // team 1
-let spawn2Pos = new Point(100, -300); // team 2
+let spawn1Pos = new Point(-100,-300); // team 1 spawn
+let spawn2Pos = new Point(100, -300); // team 2 spawn
 
 let players = []; // players on server, needs to be updated by updatePlayers()
 
