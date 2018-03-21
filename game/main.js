@@ -60,7 +60,6 @@ let background, world, gui, camera, mkeys; // basic
 let cameraTarget;
 
 let player, safarik; // objects
-let dbg = true; // debug for colliders
 
 let otherplayers = [];
 let bullets; // swarm of bullets
@@ -154,11 +153,7 @@ function setup() {
   stars.position.set(-5000, -5000);
   background.addChild(stars);
 
-  safarik = new Entity('safarik', resources.safarik.texture);
-  safarik.collider = new BoxCollider(safarik, 200, 200);
-  safarik.scale.set(0.5, 0.5);
-  safarik.collider.updateSize();
-  safarik.collider.debug(dbg);
+  safarik = new Safarik();
   world.addChild(safarik);
 
   bullets = new EntitySwarm();
@@ -204,6 +199,7 @@ function setup() {
         let newplr = new OtherPlayer(world, plr.id, plr.x, plr.y, plr.team);
         addOtherPlayer(newplr);
         newplr.spawn(); // we need to spawn others manualy when receiving allplayers as they have already emitted initial spawn before
+        newplr.rotation = -plr.dir; // fix rotations as playerDir hasn't been trigerred yet
       }
     });
     clientlog('-> other players created');

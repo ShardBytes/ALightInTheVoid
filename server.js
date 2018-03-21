@@ -55,8 +55,10 @@ class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
 
 // !!! teams -> 1 or 2
 
+const PI = Math.PI;
 let spawn1Pos = new Point(-100,-300); // team 1 spawn
 let spawn2Pos = new Point(100, -300); // team 2 spawn
+let spawnDirection = PI;
 
 let players = []; // players on server, needs to be updated by updatePlayers()
 
@@ -65,7 +67,7 @@ class ServerPlayer { // prototype for server player
     this.id = id;
     this.x = x;
     this.y = y;
-    this.dir = 0; // direction
+    this.dir = spawnDirection; // direction
     this.team = team;
   }
 }
@@ -111,6 +113,7 @@ io.sockets.on('connection', function(socket) {
 
     // return all players list to socket
     socket.emit('allPlayers', players)
+    console.log(players);
 
     // send the new ServerPlayer to other clients, parse them as spawns too
     socket.broadcast.emit('playerConnected', socket.player)
