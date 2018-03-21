@@ -153,7 +153,6 @@ function setup() {
     clientlog('PLAYER DEPLOYED FROM SERVER, SPAWNING');
     player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
     player.spawn();
-    clientlog('PLAYER SPAWNED');
 
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
