@@ -130,7 +130,7 @@ function setup() {
   gui = new Gui(); app.stage.addChild(gui);
 
   // link camera to world
-  camera = new FollowerCamera(world, 1/4);
+  camera = new FollowerCamera(world, 1/8);
   scaleCameraToScreenSize();
 
   /* define control */
@@ -290,6 +290,11 @@ function setup() {
 // update fpsmeter and render
 function update() {
   requestAnimationFrame(update);
+
+  background.centerTo(world);
+  background.rotateTo(world);
+  playerBars.redraw(player);
+
   if ( fmeter ) fmeter.tick()
 }
 
@@ -307,15 +312,12 @@ function tick(dt) {
     plr.update(dt);
   });
 
-  bullets.update(dt);
-
   if (cameraTarget) {
     camera.follow(dt, cameraTarget);
     //camera.followDirection(player);
   }
-  background.centerTo(world);
-  background.rotateTo(world);
-  playerBars.redraw(player);
+
+  bullets.update(dt);
 
 }
 
