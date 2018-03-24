@@ -56,11 +56,13 @@ class Player extends DirectionalEntity {
       if(this.controlsActive) this.speedtw.target = this.maxSpeed;
       // play jet sound
       resources.jet.sound.play();
+      // show fire
+      this.fireApparition.visible = true;
     };
     this.cont.down.pressed = () => {
       if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2;
-      // stop jet sound
       resources.jet.sound.play();
+      this.fireApparition.visible = true;
     };
 
     // if shoot pressed, turn on fake shooting here and send shooting event
@@ -88,6 +90,11 @@ class Player extends DirectionalEntity {
     this.collider.collided = (t, dx, dy, ang) => {
 
     };
+
+    // add fire Apparition
+    this.fireApparition = new Apparition(this, 'expl', 5, this.x, this.y, 0.2, 0.5, true);
+    this.fireApparition.y = -30;
+    this.fireApparition.visible = false;
 
   } // end constructor
 
@@ -167,6 +174,7 @@ class Player extends DirectionalEntity {
     if (!this.cont.up.down && !this.cont.down.down && !this.boostActive) {
       this.speedtw.target = 0;
       resources.jet.sound.stop();
+      this.fireApparition.visible = false;
     }
 
     // move sideways ( change direction )

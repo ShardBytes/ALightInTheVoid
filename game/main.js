@@ -153,7 +153,7 @@ function setup() {
   resources.nani.sound.volume = 0.15;
   resources.shoot.sound.volume = 0.2;
 
-  resources.music.sound.play();
+  //resources.music.sound.play();
 
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
