@@ -151,7 +151,7 @@ function setup() {
 
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
-  world = new World(); app.stage.addChild(world);
+  world = new World(8000, 3000); world.drawBorder(); app.stage.addChild(world);
   gui = new Gui(); app.stage.addChild(gui);
 
   // link camera to world

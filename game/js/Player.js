@@ -13,7 +13,7 @@ class Player extends DirectionalEntity {
     this.superContainer = container;
     this.spawnX = spawnX;
     this.spawnY = spawnY;
-    this.spawnDirection = PI;
+    this.spawnDirection = (team == '1') ? PI/2 : -PI/2;
     this.team = team;
     this.cont = controls;
     this.scale.set(0.5, 0.5);

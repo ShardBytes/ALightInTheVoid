@@ -1,3 +1,5 @@
+// parallax background by Plasmoxy
+
 class Background extends Container {
 
   constructor(parallax) {

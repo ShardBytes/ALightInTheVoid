@@ -61,7 +61,7 @@ class ServerPlayer { // prototype for server player
     this.id = id;
     this.x = x;
     this.y = y;
-    this.dir = spawnDirection; // direction
+    this.dir = (team == '1') ? spawn1.spawnDirection : spawn2.spawnDirection; // direction
     this.team = team;
   }
 }
@@ -194,9 +194,13 @@ class ServerSpawn {
     if (team == '1') {
       this.x = -3000;
       this.y = 0;
+      this.spawnDirection = Math.PI/2;
     } else if (team == '2') {
       this.x = 3000;
       this.y = 0;
+      this.spawnDirection = -Math.PI/2;
+    } else {
+      throw new Error('WRONG TEAM');
     }
     this.w = 640;
     this.h = 640;
@@ -206,7 +210,6 @@ class ServerSpawn {
 // !!! teams -> 1(cyan) or 2(orange)
 let spawn1 = new ServerSpawn('1');
 let spawn2 = new ServerSpawn('2');
-let spawnDirection = Math.PI;
 
 let players = []; // players on server, needs to be updated by updatePlayers()
 let safarik = new ServerSafarik(); // only one server safarik

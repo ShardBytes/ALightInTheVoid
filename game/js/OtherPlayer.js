@@ -34,7 +34,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.y = this.spawnY;
     this.tx = this.x;
     this.ty = this.y;
-    this.rotation = PI;
+    this.rotation = (this.team == '1') ? -PI/2 : PI/2; // inverse because of inverse angle logic
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
   }
@@ -57,7 +57,7 @@ class OtherPlayer extends SegmentedTargetEntity {
         this.deltaShoot = 0;
         if (this.shooting) {
           // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
-          // some wild trigonometry to we can shoot 2 bullets, duh
+          // some wild trigonometry so we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false));
           bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false));
         }
