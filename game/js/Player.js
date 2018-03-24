@@ -195,7 +195,7 @@ class Player extends DirectionalEntity {
   update(dt) {
     if (this.alive) { // update self if is alive, if not then nah
 
-      // if outside of world, respawn
+      // if outside of the world, kill and respawn
       if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {
         this.respawn();
         return;

@@ -14,7 +14,7 @@ class Bullet extends Projectile {
       direction,
       1000
     );
-    this.damage = 3;
+    this.damage = 4;
     this.isFake = isFake; // if its fake, it will be harmless
 
     // add all objects in the world as colliders, except the emmiter of course and some others
