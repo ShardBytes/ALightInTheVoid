@@ -272,7 +272,8 @@ function serverTick() {
   safarik.update();
 };
 
-// start ticker (just with interval)
+// start ticker (just with interval, I don't need acurate tickers on server, also, got no time for that)
+console.log('starting server ticker ...');
 setInterval(serverTick, 16.66); // appx 60hz tick = 16.66 ms delay
 
 console.log('[ SERVER LOADED ]');
