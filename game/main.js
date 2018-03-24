@@ -125,7 +125,8 @@ let resDef = [
 ];
 
 let animationsDef = [
-  'sprites/anim/expl.json'
+  'sprites/anim/expl.json',
+  'sprites/anim/fire.json'
 ];
 
 resDef.forEach(t => {

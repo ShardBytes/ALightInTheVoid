@@ -92,8 +92,9 @@ class Player extends DirectionalEntity {
     };
 
     // add fire Apparition
-    this.fireApparition = new Apparition(this, 'expl', 6, this.x, this.y, 0.2, 0.5, true);
-    this.fireApparition.y = -30;
+    this.fireApparition = new Apparition(this, 'fire', 4, this.x, this.y, 0.15, 0.5, true);
+    this.fireApparition.y = -50;
+    this.fireApparition.x = 4;
     this.fireApparition.visible = false;
 
   } // end constructor
