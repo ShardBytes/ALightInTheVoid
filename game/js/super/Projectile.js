@@ -3,8 +3,9 @@
 
 class Projectile extends DirectionalEntity {
 
-  constructor(superContainer, genericId, texture, x, y, direction, speed) {
+  constructor(superContainer, emmiter, genericId, texture, x, y, direction, speed) {
     super(genericId, texture);
+    this.emmiter = emmiter;
 
     this.x = x;
     this.y = y;

@@ -3,3 +3,13 @@ body {
   margin: 0px 0px 0px 0px;
   overflow: hidden;
 }
+
+#info {
+  font-size: 4em;
+  color: white;
+  text-align: center;
+}
+
+#pixi {
+  display: none;
+}

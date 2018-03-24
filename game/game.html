@@ -6,17 +6,18 @@
   <title></title>
   <link href="https://fonts.googleapis.com/css?family=Pathway+Gothic+One" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="/assets/jquery.min.js"></script>
+  <script src="../assets/jquery.min.js"></script>
+  <script src="../assets/mobileCheck.js"></script>
 </head>
 
 <body>
 
-  <div id="loading" style="text-align:center;font-size: 6em; color: #00d1ff;">
-    LOADING ...
-  </div>
+  <div id="info">LOADING ...</div>
+  <div id="pixi"><div>
 
   <!-- load libs -->
   <script src="../assets/pixi.min.js"></script>
+  <script src="../assets/pixi-sound.js"></script>
   <script src="../assets/pixialiases.js"></script>
   <script src="../assets/fpsmeter.min.js"></script>
   <script src="../assets/howler.js"></script>
@@ -30,20 +31,28 @@
   <script src="js/super/KeyboardKey.js"></script>
   <script src="js/super/World.js"></script>
   <script src="js/super/Tween.js"></script>
+  <script src="js/super/Apparition.js"></script>
 
   <script src="js/super/Collider.js"></script>
   <script src="js/super/BoxCollider.js"></script>
   <script src="js/super/Entity.js"></script>
   <script src="js/super/DynamicEntity.js"></script>
   <script src="js/super/DirectionalEntity.js"></script>
-  <script src="js/super/FollowerEntity.js"></script>
+  <script src="js/super/SegmentedTargetEntity.js"></script>
   <script src="js/super/Projectile.js"></script>
   <script src="js/super/EntitySwarm.js"></script>
+  <script src="js/super/FollowerCamera.js"></script>
 
   <!-- load CUSTOM classes -->
   <script src="js/Bullet.js"></script>
   <script src="js/Player.js"></script>
   <script src="js/OtherPlayer.js"></script>
+  <script src="js/Safarik.js"></script>
+  <script src="js/Spawn.js"></script>
+
+  <!-- load GUI -->
+  <script src="js/gui/PlayerBars.js"></script>
+  <script src="js/gui/BigInfo.js"></script>
 
   <!-- start main script -->
   <script src="main.js"></script>

@@ -15,6 +15,10 @@ class BoxCollider extends Collider {
 
 
   detect(dt, t) { // delta time, target
+
+    if (!t) return; // if empty pointer, break function
+    if (!this.active) return; // if not active, dont detect
+
     let tcl = t.collider;
     let dx = t.x - this.ent.x;
     let dy = t.y - this.ent.y;
