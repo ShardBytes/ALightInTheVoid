@@ -139,7 +139,7 @@ class Player extends DirectionalEntity {
 
   respawn() {
     this.despawn();
-    bigInfo.text = 'RESPAWNING (10s)';
+    bigInfo.text = 'RESPAWNING (5s)';
     setTimeout(() => {
       bigInfo.text = '';
       this.spawn();
@@ -195,12 +195,16 @@ class Player extends DirectionalEntity {
   update(dt) {
     if (this.alive) { // update self if is alive, if not then nah
 
-      // check if ded
+      // if outside of world, respawn
+      if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {
+        this.respawn();
+        return;
+      }
+
+      // checc if ded, if yes, respawne
       if (this.health <= 0) {
         this.respawn();
       }
-
-      //if (this.energyDrain < 0) this.energyDrain = 0;
 
       // drain energy -> sum all drains
       if (this.energy > 0) {
