@@ -52,12 +52,27 @@ class Player extends DirectionalEntity {
     // define event controls
     this.controlsActive = true; // TODO: create check everywhere
 
-    this.cont.up.pressed = () => { if(this.controlsActive) this.speedtw.target = this.maxSpeed; };
-    this.cont.down.pressed = () => { if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2; };
+    this.cont.up.pressed = () => {
+      if(this.controlsActive) this.speedtw.target = this.maxSpeed;
+      // play jet sound
+      resources.jet.sound.play();
+    };
+    this.cont.down.pressed = () => {
+      if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2;
+      // stop jet sound
+      resources.jet.sound.play();
+    };
 
     // if shoot pressed, turn on fake shooting here and send shooting event
-    this.cont.shoot.pressed = () => { this.shooting = true; this.emitShooting(); };
-    this.cont.shoot.released = () => { this.shooting = false; this.emitShooting(); };
+    this.cont.shoot.pressed = () => {
+      this.shooting = true;
+      this.emitShooting();
+    };
+
+    this.cont.shoot.released = () => {
+      this.shooting = false;
+      this.emitShooting();
+    };
 
     this.cont.boost.pressed = () => { this.boost(true); };
     this.cont.boost.released = () => { this.boost(false); };
@@ -105,6 +120,8 @@ class Player extends DirectionalEntity {
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
     new Apparition(world, 'expl', 5, this.x, this.y, 0.8, 0.2);
+    // play despawn sound
+    resources.explosionsound.sound.play();
 
     // target camera to safarik
     setTimeout(() => {
@@ -133,6 +150,8 @@ class Player extends DirectionalEntity {
       this.energyDrain.boost = 30; // 30 more for each aditional second wasted in boost
       this.speedtw.target = 1000;
       this.speed = 1000;
+      // play boost sound
+      resources.boostsound.sound.play();
     } else {
       this.energyDrain.boost = 0;
       this.speedtw.target = this.maxSpeed;
@@ -145,7 +164,10 @@ class Player extends DirectionalEntity {
 
     let dr = this.rotationSpeed*(dt/60); // rotation difference
     // if up and down are down, set target speed to 0
-    if (!this.cont.up.down && !this.cont.down.down && !this.boostActive) this.speedtw.target = 0;
+    if (!this.cont.up.down && !this.cont.down.down && !this.boostActive) {
+      this.speedtw.target = 0;
+      resources.jet.sound.stop();
+    }
 
     // move sideways ( change direction )
     // the direction additions are changed depending whether its moving forward or backward
@@ -201,6 +223,8 @@ class Player extends DirectionalEntity {
           // some wild trigonometry to we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
           bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(this.direction), this.y + 10*Math.sin(this.direction), this.direction, true));
+          // play shoot sound ( i dont want to play it on both bullets)
+          resources.shoot.sound.play();
         }
       }
       this.deltaShoot += (dt/60);

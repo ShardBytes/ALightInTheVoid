@@ -113,7 +113,15 @@ let resDef = [
   ['orangeplayer', 'sprites/orangeplayer.png'],
   ['bootlegstars', 'sprites/bootlegstars.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
-  ['safarik', 'sprites/safarik.png']
+  ['safarik', 'sprites/safarik.png'],
+  ['nani', 'sounds/nani.mp3'],
+  ['shoot', 'sounds/shoot.wav'],
+  ['hit', 'sounds/hit.wav'],
+  ['jet', 'sounds/jet.wav'],
+  ['boostsound', 'sounds/boostsound.wav'],
+  ['explosionsound', 'sounds/explosionsound.wav'],
+  ['music', 'sounds/music.mp3'],
+  ['windows', 'sounds/windows.mp3']
 ];
 
 let animationsDef = [
@@ -134,6 +142,18 @@ loader.load(setup)
 function setup() {
 
   clientlog('### INITIALIZING GAME ###');
+
+  /* setup sounds (like looping and stuff) */
+  resources.jet.sound.loop = true;
+  resources.jet.sound.volume = 0.5;
+
+  resources.music.sound.loop = true;
+  resources.music.sound.volume = 1.3;
+
+  resources.nani.sound.volume = 0.15;
+  resources.shoot.sound.volume = 0.2;
+
+  resources.music.sound.play();
 
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
@@ -201,6 +221,8 @@ function setup() {
     setTimeout(() => {
       bigInfo.text = '';
     }, 1000);
+
+    //resources.windows.sound.play();
   });
 
   // show reported server errors on client

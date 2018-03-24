@@ -10,6 +10,7 @@ class Safarik extends SegmentedTargetEntity {
     this.collider.debug(true);
 
     this.collider.collided = (t, dx, dy, ang) => {
+      resources.nani.sound.play();
       if (t instanceof Player) this.addTarget(t.id);
     };
 

@@ -44,6 +44,8 @@ class OtherPlayer extends SegmentedTargetEntity {
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
     new Apparition(world, 'expl', 5, this.x, this.y, 0.8, 0.2);
+    // play despawn sound
+    resources.explosionsound.sound.play();
   }
 
   update(dt) {
@@ -61,6 +63,12 @@ class OtherPlayer extends SegmentedTargetEntity {
         }
       }
       this.deltaShoot += (dt/60);
+    }
+  }
+
+  getDistanceToPlayer() {
+    if (player) {
+      return Math.sqrt(  Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2) );
     }
   }
 
