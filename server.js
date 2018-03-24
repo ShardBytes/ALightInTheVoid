@@ -165,6 +165,12 @@ function updatePlayers(){ // scan connected sockets and push the connected playe
     });
 }
 
+function getPlayerById(id) {
+  for (let i = 0; i<players.length; i++) {
+    if (players[i].id == id) return players[i];
+  }
+}
+
 // ------ SOCKET EVENTS -------
 io.sockets.on('connection', function(socket) {
   console.log();
@@ -176,14 +182,11 @@ io.sockets.on('connection', function(socket) {
 
     console.log('\n >>> incoming requestPlayer, trying to create player')
     // check for existing player
-    for (let i=0; i<players.length;i++) {
-      if (players[i] && players[i].id == request.id) {
-        console.log('? ERROR - player with such name is already in game : ' + request.id);
-        socket.emit('serverError', 'SERVER ERROR : player with such name is already in game : ' + request.id)
-        return; // this breaks out of both for and socket.on the function
-      }
+    if (getPlayerById(request.id)) {
+      console.log('? ERROR - player with such name is already in game : ' + request.id);
+      socket.emit('serverError', 'SERVER ERROR : player with such name is already in game : ' + request.id)
+      return; // this breaks out of both for and socket.on the function
     }
-
     // create serverplayer bound to socket
     socket.player = new ServerPlayer(
       request.id,
@@ -263,6 +266,10 @@ io.sockets.on('connection', function(socket) {
         console.log('PLAYER DESPAWNED -> ' + socket.player.id);
       }
     }
+  });
+
+  socket.on('safarikTarget', function(plrId) {
+
   });
 
 });
