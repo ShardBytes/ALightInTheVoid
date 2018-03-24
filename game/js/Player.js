@@ -25,7 +25,7 @@ class Player extends DirectionalEntity {
     this.health = this.maxHealth;
     this.maxEnergy = 100;
     this.energy = this.maxEnergy;
-    this.energyRegen = 10; // p p s
+    this.energyRegen = 15; // p p s
 
     // individual energy drains ->
     this.energyDrain = {
@@ -34,7 +34,7 @@ class Player extends DirectionalEntity {
 
     this.shooting = false;
     this.deltaShoot = 0; // in seconds
-    this.fireRate = 8; // bullets per second
+    this.fireRate = 10; // bullets per second
 
     // --- movement stuff ---
     this.defaultMaxSpeed = 400; // points per sec
@@ -110,7 +110,9 @@ class Player extends DirectionalEntity {
 
   respawn() {
     this.despawn();
+    bigInfo.text = 'RESPAWNING (10s)';
     setTimeout(() => {
+      bigInfo.text = '';
       this.spawn();
     }, this.respawnTime);
   }
