@@ -128,6 +128,8 @@ class Player extends DirectionalEntity {
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
     new Apparition(world, 'expl', 6, this.x, this.y, 1, 0.2);
+    // stop jet sound if playing
+    resources.jet.sound.stop();
     // play despawn sound
     resources.explosionsound.sound.play();
 
