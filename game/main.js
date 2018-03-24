@@ -90,7 +90,7 @@ function getOtherPlayerById(id) {
 }
 
 function scaleCameraToScreenSize() {
-  camera.scale = 0.8 * ( app.renderer.width/1080 );
+  camera.scale = 0.5 * ( app.renderer.width/1080 );
 }
 
 /* ------------------ PIXI loader --------------------- */
@@ -318,6 +318,7 @@ function tick(dt) {
   }
 
   bullets.update(dt);
+  safarik.update(dt);
 
 }
 
