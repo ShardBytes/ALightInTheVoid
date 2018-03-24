@@ -92,7 +92,7 @@ class Player extends DirectionalEntity {
     };
 
     // add fire Apparition
-    this.fireApparition = new Apparition(this, 'expl', 5, this.x, this.y, 0.2, 0.5, true);
+    this.fireApparition = new Apparition(this, 'expl', 6, this.x, this.y, 0.2, 0.5, true);
     this.fireApparition.y = -30;
     this.fireApparition.visible = false;
 
@@ -126,7 +126,7 @@ class Player extends DirectionalEntity {
     // (you should have that.)
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
-    new Apparition(world, 'expl', 5, this.x, this.y, 0.8, 0.2);
+    new Apparition(world, 'expl', 6, this.x, this.y, 0.8, 0.2);
     // play despawn sound
     resources.explosionsound.sound.play();
 
