@@ -20,7 +20,7 @@ class Player extends DirectionalEntity {
 
     // --- specific player stuff ---
     this.alive = true;
-    this.respawnTime = 5000; // ms
+    this.respawnTime = 7000; // ms
 
     this.maxHealth = 100;
     this.health = this.maxHealth;
@@ -141,7 +141,7 @@ class Player extends DirectionalEntity {
 
   respawn() {
     this.despawn();
-    bigInfo.text = 'RESPAWNING (5s)';
+    bigInfo.text = 'RESPAWNING (7s)';
     setTimeout(() => {
       bigInfo.text = '';
       this.spawn();
