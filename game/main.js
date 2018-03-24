@@ -73,15 +73,7 @@ let stars;
 let playerBars, bigInfo;
 
 // just to align spawn pictures
-let spawn1 = {
-  x: -3000,
-  y: 0
-};
-
-let spawn2 = {
-  x: 3000,
-  y: 0
-};
+let spawn1, spawn2;
 
 // add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
@@ -114,6 +106,7 @@ let resDef = [
   ['bootlegstars', 'sprites/bootlegstars.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
+  ['blueportal', 'sprites/blueportal.gif'],
   ['nani', 'sounds/nani.mp3'],
   ['shoot', 'sounds/shoot.wav'],
   ['hit', 'sounds/hit.wav'],
@@ -164,6 +157,10 @@ function setup() {
   // link camera to world
   camera = new FollowerCamera(world, 1/8);
   scaleCameraToScreenSize();
+
+  // setup spawns
+  spawn1 = new Spawn('1'); world.addChild(spawn1);
+  spawn2 = new Spawn('2'); world.addChild(spawn2);
 
   /* define control */
   mkeys = {
