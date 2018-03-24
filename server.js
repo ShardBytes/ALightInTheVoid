@@ -118,19 +118,23 @@ class Tween {
 
 }
 
-// server Safarik
+// server Safarik, the client Safariks are just mannequins
 class ServerSafarik {
 
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.followSpeed = 100; // px per sec
+    this.followSpeed = 200; // px per sec
 
     this.xtw = new Tween(this, 'x', this.followSpeed);
     this.xtw.start();
 
     this.ytw = new Tween(this, 'y', this.followSpeed);
     this.ytw.start();
+
+    // IDs of players which are targets
+    this.targetQueue = [];
+    this.target = undefined;
   }
 
   broadcastPosition() {
@@ -138,9 +142,32 @@ class ServerSafarik {
   }
 
   update() {
-    this.xtw.update(1);
+    if (this.target) {
+      this.xtw.target = this.target.x;
+      this.ytw.target = this.target.y;
+    }
+    this.xtw.update(1); // pass raw dt as we're not measuring
     this.ytw.update(1);
     this.broadcastPosition();
+  }
+
+  printCurrentTarget() {
+    console.log('>> SAFARIK TARGET QUEUE : ');
+    console.log(safarik.targetQueue);
+  }
+
+  // add ServerPlayer as target
+  addTarget(id) {
+    this.targetQueue.push(id);
+    this.target = getPlayerById(this.targetQueue[0]);
+    this.printCurrentTarget();
+  }
+
+  removeTarget(id) {
+    if (this.targetQueue.includes(id))
+      this.targetQueue.splice(this.targetQueue.indexOf(id), 1);
+    this.target = getPlayerById(this.targetQueue[0]);
+    this.printCurrentTarget();
   }
 
 }
@@ -215,6 +242,7 @@ io.sockets.on('connection', function(socket) {
     console.log('\n****** CLIENT DISCONNECTED : ' + socket.handshake.address + (socket.player ? ' -> player : ' + socket.player.id : '') + ' ******');
 
     if(socket.player) {
+      safarik.removeTarget(socket.player.id); // remove from safarik targets if present
       io.emit('playerDisconnected', socket.player.id); // tell other clients that a player has disconnected
       updatePlayers();
     }
@@ -262,14 +290,21 @@ io.sockets.on('connection', function(socket) {
         socket.broadcast.emit('playerSpawned', socket.player.id);
         console.log('PLAYER SPAWNED -> ' + socket.player.id);
       } else {
+        safarik.removeTarget(socket.player.id); // remove target if present
         socket.broadcast.emit('playerDespawned', socket.player.id);
         console.log('PLAYER DESPAWNED -> ' + socket.player.id);
       }
     }
   });
 
-  socket.on('safarikTarget', function(plrId) {
+  // if client sets themselves as a target
+  socket.on('addSafarikTarget', function(plrId) {
+    safarik.addTarget(plrId);
+  });
 
+  // if unsets
+  socket.on('removeSafarikTarget', function(plrId) {
+    safarik.removeTarget(plrId);
   });
 
 });
