@@ -270,6 +270,11 @@ function setup() {
     }
   });
 
+  socket.on('safarikPos', function(data) {
+    safarik.tx = data.x;
+    safarik.ty = data.y;
+  });
+
   //--- end events ----
 
   // request a player

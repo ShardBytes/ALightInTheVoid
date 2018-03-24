@@ -51,16 +51,9 @@ app.get('/', function(req, res) {
 
 
 // --------- GAME ------------
+
+// --- PROTO ---
 class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
-
-// !!! teams -> 1(blue) or 2(orange)
-
-const PI = Math.PI;
-let spawn1Pos = new Point(-100,-300); // team 1 spawn
-let spawn2Pos = new Point(100, -300); // team 2 spawn
-let spawnDirection = PI;
-
-let players = []; // players on server, needs to be updated by updatePlayers()
 
 class ServerPlayer { // prototype for server player
   constructor(id, x, y, team) {
@@ -72,6 +65,98 @@ class ServerPlayer { // prototype for server player
   }
 }
 
+// tween copied from js in client
+class Tween {
+
+  constructor(object, propertyname, changeRate, stopOnFinish) {
+    this.pn = propertyname;
+    this.o = object; // target object reference
+    this.rate = changeRate; // rate of change [unit per second]
+
+    // ! OPTIONAL parameter in constructor
+    // this means that the tween will stop injecting values after reaching target
+    // ( it will stop caring about the value )
+    this.stopOnFinish = stopOnFinish;
+
+    this.target = this.o[propertyname]; // target (unchanged on init)
+    this.defaultValue = this.target; // save default value for this tween
+
+    this.active = false; // off by default
+  }
+
+  start() { // start injecting value
+    this.active = true;
+  }
+
+  stop() { // stop injecting value
+    this.active = false;
+  }
+
+  // resets the property value too if you pass true to it
+  reset(valueToo) {
+    this.target = this.defaultValue;
+    if(valueToo) this.o[this.pn] = this.defaultValue;
+  }
+
+  update(dt) {
+    if (this.active) {
+      let d = this.rate*(dt/60);
+
+      // round property to target when there is minimal difference
+      // this is important because the we're working with decimal numbers
+      // and it could happen that we'd never reach the target precisely
+      // ALSO : stop tween when on target if stopOnFinish
+      if (this.o[this.pn] > this.target - d && this.o[this.pn] < this.target + d) {
+        this.o[this.pn] = this.target;
+        if (this.stopOnFinish) this.stop();
+      }
+
+      if (this.o[this.pn] < this.target) this.o[this.pn] += d;
+      else if(this.o[this.pn] > this.target) this.o[this.pn] -= d;
+    }
+  }
+
+}
+
+// server Safarik
+class ServerSafarik {
+
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.followSpeed = 100; // px per sec
+
+    this.xtw = new Tween(this, 'x', this.followSpeed);
+    this.xtw.start();
+
+    this.ytw = new Tween(this, 'y', this.followSpeed);
+    this.ytw.start();
+  }
+
+  broadcastPosition() {
+    io.emit('safarikPos', {x:this.x, y:this.y});
+  }
+
+  update() {
+    this.xtw.update(1);
+    this.ytw.update(1);
+    this.broadcastPosition();
+  }
+
+}
+
+// !!! teams -> 1(blue) or 2(orange)
+
+const PI = Math.PI;
+let spawn1Pos = new Point(-100,-300); // team 1 spawn
+let spawn2Pos = new Point(100, -300); // team 2 spawn
+let spawnDirection = PI;
+
+let players = []; // players on server, needs to be updated by updatePlayers()
+
+// only one server safarik
+let safarik = new ServerSafarik();
+
 function updatePlayers(){ // scan connected sockets and push the connected players to players[]
     players = [];
     Object.keys(io.sockets.connected).forEach(function(socketID){
@@ -80,6 +165,7 @@ function updatePlayers(){ // scan connected sockets and push the connected playe
     });
 }
 
+// ------ SOCKET EVENTS -------
 io.sockets.on('connection', function(socket) {
   console.log();
   console.log(' ****** CLIENT CONNECTED : ' + socket.handshake.address + ' ******');
@@ -181,12 +267,15 @@ io.sockets.on('connection', function(socket) {
 
 });
 
+// internal server tick function
+function serverTick() {
+  safarik.update();
+};
+
+// start ticker (just with interval)
+setInterval(serverTick, 16.66); // appx 60hz tick = 16.66 ms delay
+
 console.log('[ SERVER LOADED ]');
-
-// ---------      ------------
-
-
-
 redirectServer.listen(80, function() {
   console.log('* redirect http server listening on port 80')
 })
