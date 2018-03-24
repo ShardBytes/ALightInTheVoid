@@ -36,9 +36,12 @@ class Player extends DirectionalEntity {
     this.deltaShoot = 0; // in seconds
     this.fireRate = 10; // bullets per second
 
+    // --- ABILITIES ---
+    this.boostActive = false;
+
     // --- movement stuff ---
     this.defaultMaxSpeed = 400; // points per sec
-    this.maxSpeed = 400;
+    this.maxSpeed = this.defaultMaxSpeed;
     this.rotationSpeed = 2; // rads per sec
 
     // this tween updates speed to target speed constantly
@@ -123,14 +126,15 @@ class Player extends DirectionalEntity {
   }
 
   boost(active) {
+    this.boostActive = active;
     if (active && this.energy >= 20) {
       this.energy -= 20; // eat 20 energy
-      this.energyDrain.boost = 20; // 30 more for each aditional second in boost
-      this.maxSpeed = 1000;
+      this.energyDrain.boost = 30; // 30 more for each aditional second wasted in boost
+      this.speedtw.target = 1000;
       this.speed = 1000;
     } else {
       this.energyDrain.boost = 0;
-      this.maxSpeed = this.defaultMaxSpeed;
+      this.speedtw.target = this.maxSpeed;
       this.speed = this.maxSpeed;
     }
   }
@@ -140,7 +144,7 @@ class Player extends DirectionalEntity {
 
     let dr = this.rotationSpeed*(dt/60); // rotation difference
     // if up and down are down, set target speed to 0
-    if (!this.cont.up.down && !this.cont.down.down) this.speedtw.target = 0;
+    if (!this.cont.up.down && !this.cont.down.down && !this.boostActive) this.speedtw.target = 0;
 
     // move sideways ( change direction )
     // the direction additions are changed depending whether its moving forward or backward
@@ -166,15 +170,14 @@ class Player extends DirectionalEntity {
 
       //if (this.energyDrain < 0) this.energyDrain = 0;
 
-      // drain energy
+      // drain energy -> sum all drains
       if (this.energy > 0) {
         this.energy -= ( this.energyDrain.boost )*(dt/60);
       }
 
-      // force stop all abilities if no energy and stop drain (which may else cause bugs)
+      // force stop all abilities if no energy
       if (this.energy <= 0) {
         this.boost(false);
-        //this.energyDrain = 0;
       }
 
       // regenerate energy
@@ -193,7 +196,7 @@ class Player extends DirectionalEntity {
         this.deltaShoot = 0;
         // if we have sufficient energy
         if (this.shooting && this.energy >= 5) {
-          this.energy -= 5;
+          this.energy -= 4; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
           bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(this.direction), this.y + 10*Math.sin(this.direction), this.direction, true));
