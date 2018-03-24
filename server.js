@@ -52,6 +52,8 @@ app.get('/', function(req, res) {
 
 // --------- GAME ------------
 
+let GAME_ACTIVE = true;
+
 // --- PROTO ---
 
 class ServerPlayer { // prototype for server player
@@ -140,14 +142,28 @@ class ServerSafarik {
     io.emit('safarikPos', {x:this.x, y:this.y});
   }
 
+  collidingWithRect(x, y, w, h) {
+    return (
+      ( Math.abs(this.x - x)*2 < (w) ) &&
+      ( Math.abs(this.y - y)*2 < (h) )
+    );
+  }
+
   update() {
-    if (this.target) {
+    if (GAME_ACTIVE && this.target) {
       this.xtw.target = this.target.x;
       this.ytw.target = this.target.y;
     }
     this.xtw.update(1); // pass raw dt as we're not measuring
     this.ytw.update(1);
     this.broadcastPosition();
+
+    if (this.collidingWithRect(spawn1.x, spawn1.y, spawn1.w, spawn1.h)) {
+      if (GAME_ACTIVE) endGame('1');
+    }
+    if (this.collidingWithRect(spawn2.x, spawn2.y, spawn2.w, spawn2.h)) {
+      if (GAME_ACTIVE) endGame('2');
+    }
   }
 
   printCurrentTarget() {
@@ -182,20 +198,20 @@ class ServerSpawn {
       this.x = 3000;
       this.y = 0;
     }
-    this.w = 500;
-    this.h = 500;
+    this.w = 640;
+    this.h = 640;
   }
 }
+
+// !!! teams -> 1(cyan) or 2(orange)
 let spawn1 = new ServerSpawn('1');
 let spawn2 = new ServerSpawn('2');
-// !!! teams -> 1(cyan) or 2(orange)
-
 let spawnDirection = Math.PI;
 
 let players = []; // players on server, needs to be updated by updatePlayers()
+let safarik = new ServerSafarik(); // only one server safarik
 
-// only one server safarik
-let safarik = new ServerSafarik();
+let serverTicker;
 
 function updatePlayers(){ // scan connected sockets and push the connected players to players[]
     players = [];
@@ -209,6 +225,33 @@ function getPlayerById(id) {
   for (let i = 0; i<players.length; i++) {
     if (players[i].id == id) return players[i];
   }
+}
+
+function endGame(team) {
+  GAME_ACTIVE = false;
+  if (team == '1') {
+    safarik.xtw.target = spawn1.x;
+    safarik.ytw.target = spawn1.y;
+  } else {
+    safarik.xtw.target = spawn2.x;
+    safarik.ytw.target=  spawn2.y;
+  }
+  console.log();
+  console.log('--- [ GAME ENDED ]---');
+  console.log('WINNER : TEAM ' + team);
+  console.log();
+
+  setTimeout(() => {
+    resetGame();
+  }, 5000);
+}
+
+function resetGame() {
+  console.log();
+  console.log('--- [ RESETTING GAME ]---');
+  console.log();
+  safarik = new ServerSafarik();
+  GAME_ACTIVE = true;
 }
 
 // ------ SOCKET EVENTS -------
@@ -329,7 +372,7 @@ function serverTick() {
 
 // start ticker (just with interval, I don't need acurate tickers on server, also, got no time for that)
 console.log('starting server ticker ...');
-setInterval(serverTick, 16.66); // appx 60hz tick = 16.66 ms delay
+serverTicker = setInterval(serverTick, 16.66); // appx 60hz tick = 16.66 ms delay
 
 console.log('[ SERVER LOADED ]');
 redirectServer.listen(80, function() {
