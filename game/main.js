@@ -48,11 +48,13 @@ document.getElementById('pixi').appendChild(app.view);
 // some nice background for renderer
 app.renderer.backgroundColor = 0x111111;
 
+// progress function
 function loadProgressHandler(ldr, res) { // loader, resource
   let progr = 'LOADING [ '+Math.round(ldr.progress)+'% ] : ' + res.name + ' -> ' + res.url;
   console.log(progr);
   $('#info').html(progr);
 }
+loader.on('progress', loadProgressHandler)
 
 /* -------- define game variables and functions --------- */
 
@@ -69,6 +71,17 @@ let stars;
 
 // gui
 let playerBars, bigInfo;
+
+// just to align spawn pictures
+let spawn1 = {
+  x: -3000,
+  y: 0
+};
+
+let spawn2 = {
+  x: 3000,
+  y: 0
+};
 
 // add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
@@ -115,10 +128,8 @@ animationsDef.forEach(t => {
   loader.add(t);
 });
 
-loader
-  .on('progress', loadProgressHandler)
-  .load(setup)
-;
+
+loader.load(setup)
 
 function setup() {
 
@@ -180,6 +191,7 @@ function setup() {
     // serverplayer x,y goes as player spawn x,y
     player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
     player.spawn(); // spawn the player ( server will chain the spawn to others)
+    safarik.collider.addToDetectionPool(player); // safarik detects player
 
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
@@ -338,4 +350,5 @@ window.addEventListener('resize', function() {
   scaleCameraToScreenSize();
   if (camera) camera.centerToRenderer();
   if (playerBars) playerBars.align();
+  if (bigInfo) bigInfo.align();
 });

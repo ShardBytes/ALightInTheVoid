@@ -53,7 +53,6 @@ app.get('/', function(req, res) {
 // --------- GAME ------------
 
 // --- PROTO ---
-class Point { constructor(x,y) {this.x = x ? x : 0; this.y = y ? y : 0;}}
 
 class ServerPlayer { // prototype for server player
   constructor(id, x, y, team) {
@@ -158,7 +157,9 @@ class ServerSafarik {
 
   // add ServerPlayer as target
   addTarget(id) {
-    this.targetQueue.push(id);
+    if (!this.targetQueue.includes(id)) {
+      this.targetQueue.push(id);
+    }
     this.target = getPlayerById(this.targetQueue[0]);
     this.printCurrentTarget();
   }
@@ -172,12 +173,24 @@ class ServerSafarik {
 
 }
 
-// !!! teams -> 1(blue) or 2(orange)
+class ServerSpawn {
+  constructor(team) {
+    if (team == '1') {
+      this.x = -3000;
+      this.y = 0;
+    } else if (team == '2') {
+      this.x = 3000;
+      this.y = 0;
+    }
+    this.w = 500;
+    this.h = 500;
+  }
+}
+let spawn1 = new ServerSpawn('1');
+let spawn2 = new ServerSpawn('2');
+// !!! teams -> 1(cyan) or 2(orange)
 
-const PI = Math.PI;
-let spawn1Pos = new Point(-100,-300); // team 1 spawn
-let spawn2Pos = new Point(100, -300); // team 2 spawn
-let spawnDirection = PI;
+let spawnDirection = Math.PI;
 
 let players = []; // players on server, needs to be updated by updatePlayers()
 
@@ -217,8 +230,8 @@ io.sockets.on('connection', function(socket) {
     // create serverplayer bound to socket
     socket.player = new ServerPlayer(
       request.id,
-      (request.team == '1' ? spawn1Pos.x : spawn2Pos.x),
-      (request.team =='1' ? spawn1Pos.y : spawn2Pos.y),
+      (request.team == '1' ? spawn1.x : spawn2.x),
+      (request.team =='1' ? spawn1.y : spawn2.y),
       request.team
     );
     updatePlayers(); // now a new players has been added so update the players
@@ -290,7 +303,7 @@ io.sockets.on('connection', function(socket) {
         socket.broadcast.emit('playerSpawned', socket.player.id);
         console.log('PLAYER SPAWNED -> ' + socket.player.id);
       } else {
-        safarik.removeTarget(socket.player.id); // remove target if present
+        safarik.removeTarget(socket.player.id); // remove safarik target if present
         socket.broadcast.emit('playerDespawned', socket.player.id);
         console.log('PLAYER DESPAWNED -> ' + socket.player.id);
       }

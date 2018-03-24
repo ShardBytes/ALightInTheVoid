@@ -13,6 +13,7 @@ class Player extends DirectionalEntity {
     this.superContainer = container;
     this.spawnX = spawnX;
     this.spawnY = spawnY;
+    this.spawnDirection = PI;
     this.team = team;
     this.cont = controls;
     this.scale.set(0.5, 0.5);
@@ -81,7 +82,7 @@ class Player extends DirectionalEntity {
     this.emitSpawned();
     // reset player stuff on spawn
     console.log('<Player> PLAYER SPAWNED');
-    this.direction = PI;
+    this.direction = this.spawnDirection; // spawn direction
     this.speed = 0;
     this.x = this.spawnX;
     this.y = this.spawnY;
