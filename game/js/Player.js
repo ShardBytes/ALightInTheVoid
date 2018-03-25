@@ -123,10 +123,10 @@ class Player extends DirectionalEntity {
 
   // by despawning it i mean removing it from the world
   despawn() {
+    this.controlsActive = false;
     this.emitDespawned();
     console.log('<Player> PLAYER DESPAWNED');
     this.alive = false;
-    this.controlsActive = false;
     // at the end, remove child
     // (but not dereference if we have one spare reference from outside)
     // (you should have that.)
@@ -237,6 +237,7 @@ class Player extends DirectionalEntity {
         // stop if controls not active
         this.boost(false);
         this.speedtw.target = 0;
+        this.speed = 0;
       }
 
       this.speedtw.update(dt);
