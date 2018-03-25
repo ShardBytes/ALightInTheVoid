@@ -4,13 +4,17 @@
 // I'm ultra happy with this, just call new object, pass everything in constructor,
 // don't care more, profit ...
 
+// if you set pixelMode, you wont get blurred images on scaling, but they will be pixelated (useful for pixel art)
+
 class Apparition extends AnimatedSprite {
 
-  constructor(container, prefix, suffix, frameCount, x, y, scale, speed, loop) {
+  constructor(container, prefix, suffix, frameCount, x, y, scale, speed, loop, pixelMode) {
 
     let frames = [];
     for (let i = 0; i < frameCount; i++) {
-      frames.push(PIXI.Texture.fromFrame('' + prefix + i + suffix));
+      let texture = PIXI.Texture.fromFrame('' + prefix + i + suffix);
+      if (pixelMode) texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+      frames.push(texture);
     }
 
     super(frames);

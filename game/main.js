@@ -122,7 +122,9 @@ let resDef = [
 
 let animationsDef = [
   'sprites/anim/expl.json',
-  'sprites/anim/fire.json'
+  'sprites/anim/fire.json',
+  'sprites/aseprite/orangeportal.json',
+  'sprites/aseprite/blueportal_particles.json'
 ];
 
 resDef.forEach(t => {
