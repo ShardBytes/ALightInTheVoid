@@ -1,11 +1,81 @@
 <html>
 
+<!-- by Plasmoxy -->
+
 <head>
-  <title>nice</title>
+  <title>A Light In The Void</title>
+
+  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <link rel="stylesheet" href="index.css">
+
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
 </head>
 
-<body>
-<a href="/game">veri nice game</a>
+<body class="bg-dark">
+
+  <div id="root" class="container mt-5">
+
+    <div class="card border-warning">
+      <div class="card-header bg-warning text-center text-dark"><h1>A Light in The Void</h1></div>
+      <div class="card-body bg-blacc text-white">
+
+        <!-- text row -->
+        <div class="row my-2">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+            <div class="bs-callout">
+              XD
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+
+
+        <!-- login row -->
+        <div class="row my-3 mt-4">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+
+            <!-- login card -->
+            <div class="card border-1">
+              <div class="card-header bg-white text-center text-dark py-2"><h3>Join the fight !</h3></div>
+              <div class="card-body bg-blacc text-white">
+                <!-- name input -->
+                <div class="row my-3 mx-3">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Name :</span>
+                    </div>
+                    <input id="nameInput" type="text" class="form-control form-control-lg"></input>
+                  </div>
+                </div>
+
+                <!-- team inputs -->
+                <div class="row">
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-10 text-center">
+                    <button id="bteam1" type="button" class="btn btn-primary px-5 my-2">BLUE TEAM</button>
+                    <button id="bteam2" type="button" class="btn btn-warning px-5 my-2">ORANGE TEAM</button>
+                  </div>
+                  <div class="col-sm-1"></div>
+                </div>
+                <div id="errorText" class="text-danger text-center">
+                  <h4>You must enter a name !</h4>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+<script src="index.js"></script>
 </body>
 
 </html>
