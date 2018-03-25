@@ -36,6 +36,9 @@ class Bullet extends Projectile {
         t.hit(this.damage);
       }
 
+      // play hit sound
+      resources.hit.sound.play();
+
       // destroy this bullet on hit
       this.destroy();
     }
@@ -44,8 +47,6 @@ class Bullet extends Projectile {
   destroy() {
     // show destroy animation
     new Apparition(world, 'expl', 6, this.x, this.y, 0.2, 0.2);
-    // play destroy sound
-    resources.hit.sound.play();
     super.destroy();
   }
 
