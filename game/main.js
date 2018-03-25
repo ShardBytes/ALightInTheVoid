@@ -61,6 +61,7 @@ loader.on('progress', loadProgressHandler)
 
 let background, world, gui, camera, mkeys; // basic
 let cameraTarget;
+let miniMap;
 
 let player, safarik; // objects
 
@@ -176,6 +177,9 @@ function setup() {
   // setup GUI
   playerBars = new PlayerBars();
   gui.addChild(playerBars);
+
+  miniMap = new MiniMap();
+  gui.addChild(miniMap);
 
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
@@ -363,11 +367,6 @@ function setup() {
 // update fpsmeter and render
 function update() {
   requestAnimationFrame(update);
-
-  background.centerTo(world);
-  background.rotateTo(world);
-  playerBars.redraw(player);
-
   if ( fmeter ) fmeter.tick()
 }
 
@@ -393,6 +392,11 @@ function tick(dt) {
   bullets.update(dt);
   safarik.update(dt);
 
+  // update graphics stuff
+  background.centerTo(world);
+  background.rotateTo(world);
+  playerBars.redraw(player);
+  miniMap.redraw();
 }
 
 // add resizelistener to window
@@ -407,4 +411,5 @@ window.addEventListener('resize', function() {
   if (camera) camera.centerToRenderer();
   if (playerBars) playerBars.align();
   if (bigInfo) bigInfo.align();
+  if (miniMap) miniMap.align();
 });

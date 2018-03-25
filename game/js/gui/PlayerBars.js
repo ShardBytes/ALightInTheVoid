@@ -6,7 +6,7 @@ class PlayerBars extends Container {
     super();
     this.gr = new PIXI.Graphics;
     this.addChild(this.gr);
-    this.healthColor = 0xffaa00;
+    this.healthColor = 0xd7125f;
     this.energyColor = 0x00ffff;
     this.align();
   }
