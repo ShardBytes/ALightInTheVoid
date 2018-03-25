@@ -150,8 +150,6 @@ function setup() {
   resources.nani.sound.volume = 0.15;
   resources.shoot.sound.volume = 0.2;
 
-  if (!DEVELOPMENT_MODE) resources.music.sound.play();
-
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);
   world = new World(8000, 3000); world.drawBorder(); app.stage.addChild(world);
@@ -225,6 +223,8 @@ function setup() {
     setTimeout(() => {
       bigInfo.text = '';
     }, 3000);
+
+    if (!DEVELOPMENT_MODE) resources.music.sound.play(); // play music if not in devmode
 
   });
 
