@@ -215,10 +215,10 @@ function setup() {
     $('#info').css('display', 'none');
     $('#pixi').css('display', 'block');
 
-    bigInfo.text = 'Welcome, ' + plr.id;
+    bigInfo.text = 'Welcome, ' + plr.id + '\nBring Šafárik to your base !';
     setTimeout(() => {
       bigInfo.text = '';
-    }, 1000);
+    }, 3000);
 
   });
 
@@ -319,7 +319,7 @@ function setup() {
     }, 2000);
 
     player.despawn();
-    bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !';
+    bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
   });
 
   socket.on('gameReset', function() {

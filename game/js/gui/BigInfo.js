@@ -5,7 +5,7 @@ class BigInfo extends Text {
     super('', {
       fontFamily : 'Consolas, Arial',
       fontSize: 40,
-      fill : 0xffff00,
+      fill : 0xffffff,
       align : 'center'
     });
     this.anchor.set(0.5, 0.5);
