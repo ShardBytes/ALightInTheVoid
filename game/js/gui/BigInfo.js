@@ -14,7 +14,7 @@ class BigInfo extends Text {
 
   align() {
     this.position.x = app.renderer.width/2;
-    this.position.y = app.renderer.height/2 - 40;
+    this.position.y = 3*app.renderer.height/4;
   }
 
 }

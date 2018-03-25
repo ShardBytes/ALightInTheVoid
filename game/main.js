@@ -220,7 +220,6 @@ function setup() {
       bigInfo.text = '';
     }, 1000);
 
-    //resources.windows.sound.play();
   });
 
   // show reported server errors on client
@@ -305,6 +304,38 @@ function setup() {
   socket.on('safarikPos', function(data) {
     safarik.tx = data.x;
     safarik.ty = data.y;
+  });
+
+  socket.on('gameEnded', function(team) {
+    console.log(' --- GAME ENDED --- : ' + team);
+    safarik.collider.active = false;
+
+    // hide safarik after some time, with STYLE !
+    setTimeout(() => {
+      safarik.collider.active = false;
+      safarik.visible = false;
+      new Apparition(world, 'expl', 6, safarik.x, safarik.y, 7, 0.2);
+      resources.explosionsound.sound.play();
+    }, 2000);
+
+    player.despawn();
+    bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !';
+  });
+
+  socket.on('gameReset', function() {
+    console.log('--- GAME RESET ---');
+    bigInfo.text = 'GAME RESET';
+
+    // show safarik after some time ( so it doesnt lag around)
+    setTimeout(() => {
+      safarik.collider.active = true;
+      safarik.visible = true;
+    }, 1000);
+
+    player.spawn();
+    setTimeout(() => {
+      bigInfo.text = '';
+    }, 1000);
   });
 
   //--- end events ----

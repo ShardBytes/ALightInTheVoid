@@ -49,35 +49,43 @@ class Player extends DirectionalEntity {
     this.speedtw = new Tween(this, 'speed', 200); // rate = acceleration
     this.speedtw.start();
 
-    // define event controls
-    this.controlsActive = true; // TODO: create check everywhere
+    // --- define event controls ---
+    this.controlsActive = true;
 
     this.cont.up.pressed = () => {
-      if(this.controlsActive) this.speedtw.target = this.maxSpeed;
-      // play jet sound
-      resources.jet.sound.play();
-      // show fire
-      this.fireApparition.visible = true;
+      if(this.controlsActive) {
+        this.speedtw.target = this.maxSpeed;
+        // play jet sound
+        resources.jet.sound.play();
+        // show fire
+        this.fireApparition.visible = true;
+      }
     };
     this.cont.down.pressed = () => {
-      if(this.controlsActive) this.speedtw.target = -this.maxSpeed/2;
-      resources.jet.sound.play();
-      this.fireApparition.visible = true;
+      if(this.controlsActive) {
+        this.speedtw.target = -this.maxSpeed/2; // half the speed when reverse
+        resources.jet.sound.play();
+        this.fireApparition.visible = true;
+      }
     };
 
     // if shoot pressed, turn on fake shooting here and send shooting event
     this.cont.shoot.pressed = () => {
-      this.shooting = true;
-      this.emitShooting();
+      if(this.controlsActive) {
+        this.shooting = true;
+        this.emitShooting();
+      }
     };
 
     this.cont.shoot.released = () => {
-      this.shooting = false;
-      this.emitShooting();
+      if (this.controlsActive) {
+        this.shooting = false;
+        this.emitShooting();
+      }
     };
 
-    this.cont.boost.pressed = () => { this.boost(true); };
-    this.cont.boost.released = () => { this.boost(false); };
+    this.cont.boost.pressed = () => { if (this.controlsActive) this.boost(true); };
+    this.cont.boost.released = () => { if (this.controlsActive) this.boost(false); };
 
 
     // --- setup collider ---
@@ -85,11 +93,6 @@ class Player extends DirectionalEntity {
     this.collider.updateSize();
     this.collider.debug(false);
     this.collider.addToDetectionPool(safarik);
-
-    // collision handler
-    this.collider.collided = (t, dx, dy, ang) => {
-
-    };
 
     // add fire Apparition
     this.fireApparition = new Apparition(this, 'fire', 4, this.x, this.y, 0.15, 0.5, true);
@@ -114,6 +117,7 @@ class Player extends DirectionalEntity {
     // add player child to supercont
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
+    this.controlsActive = true;
     cameraTarget = this;
   }
 
@@ -122,6 +126,7 @@ class Player extends DirectionalEntity {
     this.emitDespawned();
     console.log('<Player> PLAYER DESPAWNED');
     this.alive = false;
+    this.controlsActive = false;
     // at the end, remove child
     // (but not dereference if we have one spare reference from outside)
     // (you should have that.)
@@ -197,6 +202,8 @@ class Player extends DirectionalEntity {
   update(dt) {
     if (this.alive) { // update self if is alive, if not then nah
 
+      super.update(dt);
+
       // if outside of the world, kill and respawn
       if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {
         this.respawn();
@@ -223,8 +230,15 @@ class Player extends DirectionalEntity {
         this.energy += this.energyRegen*(dt/60);
       }
 
-      super.update(dt);
-      if (this.controlsActive) this.control(dt);
+
+      if (this.controlsActive) {
+        this.control(dt);
+      } else {
+        // stop if controls not active
+        this.boost(false);
+        this.speedtw.target = 0;
+      }
+
       this.speedtw.update(dt);
       this.move(dt);
       this.rotateToDirection();
