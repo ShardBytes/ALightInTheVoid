@@ -108,12 +108,17 @@ class Player extends DirectionalEntity {
     this.emitSpawned();
     // reset player stuff on spawn
     console.log('<Player> PLAYER SPAWNED');
+    // reset stuff
     this.direction = this.spawnDirection; // spawn direction
     this.speed = 0;
     this.x = this.spawnX;
     this.y = this.spawnY;
     this.health = this.maxHealth;
     this.energy = this.maxEnergy;
+    this.boostActive = false;
+    this.energyDrain.boost = 0;
+    this.speedtw.target = 0;
+    this.shooting = false;
     // add player child to supercont
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
@@ -257,10 +262,6 @@ class Player extends DirectionalEntity {
       // send position data to server
       this.emitPositionChange();
 
-    } else { // if dead
-      this.boost(false);
-      this.speed = 0;
-      this.speedtw.target = 0;
     }
   }
 
