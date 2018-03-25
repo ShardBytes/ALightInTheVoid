@@ -16,7 +16,7 @@ class Player extends DirectionalEntity {
     this.spawnDirection = (team == '1') ? PI/2 : -PI/2;
     this.team = team;
     this.cont = controls;
-    this.scale.set(0.5, 0.5);
+    this.sprite.scale.set(0.5, 0.5); // ONLY SPRITE SCALE !!!
 
     // --- specific player stuff ---
     this.alive = true;
@@ -95,9 +95,9 @@ class Player extends DirectionalEntity {
     this.collider.addToDetectionPool(safarik);
 
     // add fire Apparition
-    this.fireApparition = new Apparition(this, 'fire', 4, this.x, this.y, 0.15, 0.5, true);
-    this.fireApparition.y = -50;
-    this.fireApparition.x = 4;
+    this.fireApparition = new Apparition(this, 'fire', 4, this.x, this.y, 0.08, 0.5, true);
+    this.fireApparition.y = -25;
+    this.fireApparition.x = 2;
     this.fireApparition.visible = false;
 
   } // end constructor
@@ -207,7 +207,7 @@ class Player extends DirectionalEntity {
   update(dt) {
     if (this.alive) { // update self if is alive, if not then nah
 
-      super.update(dt);
+      super.update(dt); // update superclass
 
       // if outside of the world, kill and respawn
       if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {

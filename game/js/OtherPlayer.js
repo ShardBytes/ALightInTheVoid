@@ -14,7 +14,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.spawnX = spawnX;
     this.spawnY = spawnY;
 
-    this.scale.set(0.5, 0.5);
+    this.sprite.scale.set(0.5, 0.5);
     this.collider = new BoxCollider(this);
     this.collider.debug(false);
 
@@ -23,6 +23,10 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.shooting = false; // this is to be updated by socket
     this.deltaShoot = 0; // in seconds
     this.fireRate = 10; // bullets per second
+
+    // add name text
+    this.nameText = new PlayerNameText(this);
+
   }
 
   interpolate(dt) {
@@ -37,6 +41,9 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.rotation = (this.team == '1') ? -PI/2 : PI/2; // inverse because of inverse angle logic
     if (!this.superContainer.children.includes(this)) this.superContainer.addChild(this);
     this.alive = true;
+
+    // add player text
+    if (!world.children.includes(this.nameText)) world.addChild(this.nameText);
   }
 
   despawn() { // same as Player
@@ -46,11 +53,16 @@ class OtherPlayer extends SegmentedTargetEntity {
     new Apparition(world, 'expl', 6, this.x, this.y, 1, 0.2);
     // play despawn sound
     resources.explosionsound.sound.play();
+
+    // remove player text
+    if (world.children.includes(this.nameText)) world.removeChild(this.nameText);
   }
 
   update(dt) {
     if (this.alive) {
-      super.update(dt);
+      super.update(dt); // update superclass
+
+      this.nameText.update(); // update name text
 
       // handle fake shooting
       if (this.deltaShoot > 1.0/this.fireRate) {
