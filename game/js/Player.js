@@ -235,6 +235,7 @@ class Player extends DirectionalEntity {
         this.control(dt);
       } else {
         // stop if controls not active
+        this.boost(false);
         this.speedtw.target = 0;
       }
 

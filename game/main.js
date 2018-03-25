@@ -220,7 +220,6 @@ function setup() {
       bigInfo.text = '';
     }, 1000);
 
-    //resources.windows.sound.play();
   });
 
   // show reported server errors on client
