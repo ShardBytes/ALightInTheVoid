@@ -9,6 +9,7 @@ let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = 'https://localhost'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let INTERP_RATIO = 1/4;
+let CAMERA_RATIO = 0.4;
 let socket;
 
 if (urlParams.has('name') && urlParams.has('team')) {
@@ -95,7 +96,7 @@ function getOtherPlayerById(id) {
 }
 
 function scaleCameraToScreenSize() {
-  camera.scale = 0.5 * ( app.renderer.width/1080 );
+  camera.scale = CAMERA_RATIO * ( app.renderer.width/1080 );
 }
 
 /* ------------------ PIXI loader --------------------- */
