@@ -145,7 +145,7 @@ function setup() {
   resources.jet.sound.volume = 0.5;
 
   resources.music.sound.loop = true;
-  resources.music.sound.volume = 1.3;
+  resources.music.sound.volume = 1;
 
   resources.nani.sound.volume = 0.15;
   resources.shoot.sound.volume = 0.2;
