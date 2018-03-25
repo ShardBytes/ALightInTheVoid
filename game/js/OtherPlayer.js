@@ -50,7 +50,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.alive = false;
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
-    new Apparition(world, 'expl', 6, this.x, this.y, 1, 0.2);
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
     // play despawn sound
     resources.explosionsound.sound.play();
 

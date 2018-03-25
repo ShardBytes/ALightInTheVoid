@@ -324,7 +324,7 @@ function setup() {
     setTimeout(() => {
       safarik.collider.active = false;
       safarik.visible = false;
-      new Apparition(world, 'expl', 6, safarik.x, safarik.y, 7, 0.2);
+      new Apparition(world, 'expl_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
       resources.explosionsound.sound.play();
     }, 2000);
 

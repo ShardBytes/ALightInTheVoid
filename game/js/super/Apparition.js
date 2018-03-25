@@ -6,11 +6,11 @@
 
 class Apparition extends AnimatedSprite {
 
-  constructor(container, textureChainPrefix, frameCount, x, y, scale, speed, loop) {
+  constructor(container, prefix, suffix, frameCount, x, y, scale, speed, loop) {
 
     let frames = [];
     for (let i = 0; i < frameCount; i++) {
-      frames.push(PIXI.Texture.fromFrame(textureChainPrefix + '_' + i + '.png'));
+      frames.push(PIXI.Texture.fromFrame('' + prefix + i + suffix));
     }
 
     super(frames);

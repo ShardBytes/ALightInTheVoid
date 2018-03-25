@@ -47,7 +47,7 @@ class Bullet extends Projectile {
 
   destroy() {
     // show destroy animation
-    new Apparition(world, 'expl', 6, this.x, this.y, 0.2, 0.2);
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 0.2, 0.2);
     super.destroy();
   }
 

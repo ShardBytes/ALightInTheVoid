@@ -95,7 +95,7 @@ class Player extends DirectionalEntity {
     this.collider.addToDetectionPool(safarik);
 
     // add fire Apparition
-    this.fireApparition = new Apparition(this, 'fire', 4, this.x, this.y, 0.08, 0.5, true);
+    this.fireApparition = new Apparition(this, 'fire_', '.png', 4, this.x, this.y, 0.08, 0.5, true);
     this.fireApparition.y = -25;
     this.fireApparition.x = 2;
     this.fireApparition.visible = false;
@@ -137,7 +137,7 @@ class Player extends DirectionalEntity {
     // (you should have that.)
     if (this.superContainer.children.includes(this)) this.superContainer.removeChild(this);
     // show despawn animation
-    new Apparition(world, 'expl', 6, this.x, this.y, 1, 0.2);
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
     // stop jet sound if playing
     resources.jet.sound.stop();
     // play despawn sound
