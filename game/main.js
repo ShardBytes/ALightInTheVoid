@@ -1,6 +1,6 @@
 
 /* (c) ShardBytes 2018-<end of the world>
-/* A Light In The Void => simple mutiplayer game made just using pixi in less than 20 days */
+/* A Light In The Void => simple mutiplayer game made just using pixi */
 
 /* Game engine by Plasmoxy based on PIXI.js, made in less than 20 days*/
 /* uses my pixialiases.js snippet for shorter names */
