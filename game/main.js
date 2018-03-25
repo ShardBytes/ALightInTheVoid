@@ -311,10 +311,12 @@ function setup() {
     console.log(' --- GAME ENDED --- : ' + team);
     safarik.collider.active = false;
 
-    // hide safarik after some time
+    // hide safarik after some time, with STYLE !
     setTimeout(() => {
       safarik.collider.active = false;
       safarik.visible = false;
+      new Apparition(world, 'expl', 6, safarik.x, safarik.y, 7, 0.2);
+      resources.explosionsound.sound.play();
     }, 2000);
 
     player.despawn();
