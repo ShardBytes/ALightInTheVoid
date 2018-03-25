@@ -48,6 +48,12 @@ app.get('/game', function(req, res) {
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
+app.get('/index.js', function(req, res) {
+  res.sendFile(__dirname + '/index.js')
+})
+app.get('/index.css', function(req, res) {
+  res.sendFile(__dirname + '/index.css')
+})
 
 
 // --------- GAME ------------
