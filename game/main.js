@@ -21,7 +21,7 @@ if (urlParams.has('name') && urlParams.has('team')) {
   }
 } else {
   $('#info').html('YO FAG NAME OR TEAM NOT SPECIFED xDDD');
-  throw new Error('ERROR M8: NO NAME URL PARAM SPECIFIED FAGGIT'); // I'm so good
+  throw new Error('ERROR M8: NO NAME URL PARAM SPECIFIED FAGGIT'); // note: the mild vulgarity is important as the message is adressed to the developer, who didn't fix this bug = me
 }
 
 // just some console utility
