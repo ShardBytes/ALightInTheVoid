@@ -309,7 +309,32 @@ function setup() {
 
   socket.on('gameEnded', function(team) {
     console.log(' --- GAME ENDED --- : ' + team);
+    safarik.collider.active = false;
+
+    // hide safarik after some time
+    setTimeout(() => {
+      safarik.collider.active = false;
+      safarik.visible = false;
+    }, 2000);
+
+    player.despawn();
     bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !';
+  });
+
+  socket.on('gameReset', function() {
+    console.log('--- GAME RESET ---');
+    bigInfo.text = 'GAME RESET';
+
+    // show safarik after some time ( so it doesnt lag around)
+    setTimeout(() => {
+      safarik.collider.active = true;
+      safarik.visible = true;
+    }, 1000);
+
+    player.spawn();
+    setTimeout(() => {
+      bigInfo.text = '';
+    }, 1000);
   });
 
   //--- end events ----

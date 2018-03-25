@@ -252,10 +252,10 @@ function endGame(team) {
 
 // chain from endGame
 function resetGame() {
-  io.emit('gameReset');
   console.log('\n--- [ RESETTING GAME ]---');
   safarik = new ServerSafarik();
   GAME_ACTIVE = true;
+  io.emit('gameReset');
 }
 
 // ------ SOCKET EVENTS -------
