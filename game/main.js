@@ -5,9 +5,10 @@
 /* Game engine by Plasmoxy based on PIXI.js, made in less than 20 days*/
 /* uses my pixialiases.js snippet for shorter names */
 
+var DEVELOPMENT_MODE = true;
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
-let GAME_SITE = 'https://localhost'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+let GAME_SITE = DEVELOPMENT_MODE ? 'https://localhost' : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let INTERP_RATIO = 0.25;
 let CAMERA_RATIO = 0.4;
 let socket;
@@ -149,7 +150,7 @@ function setup() {
   resources.nani.sound.volume = 0.15;
   resources.shoot.sound.volume = 0.2;
 
-  //resources.music.sound.play();
+  if (!DEVELOPMENT_MODE) resources.music.sound.play();
 
   /* INIT CONTAINERS - order is important ! */
   background = new Background(0.5); app.stage.addChild(background);

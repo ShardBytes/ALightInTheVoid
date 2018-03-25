@@ -1,9 +1,10 @@
 // by Plasmoxy
+var DEVELOPMENT_MODE = true;
 
 (function (){
 
   let start = (name, team) => {
-    window.location.href = '/game/game.html?' + 'name='+name + '&team='+team;
+    window.location.href = (DEVELOPMENT_MODE ? '/game/game.html?' : '/game?') + 'name='+name + '&team='+team;
   };
 
   let getName = () => {
