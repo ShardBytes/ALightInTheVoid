@@ -125,7 +125,7 @@ class ServerSafarik {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.followSpeed = 100; // px per sec
+    this.followSpeed = 300; // px per sec
 
     this.xtw = new Tween(this, 'x', this.followSpeed);
     this.xtw.start();
@@ -231,7 +231,7 @@ function getPlayerById(id) {
 }
 
 function endGame(team) {
-  io.emit('gameEnded', 'end');
+  io.emit('gameEnded', team);
   GAME_ACTIVE = false;
   if (team == '1') {
     safarik.xtw.target = spawn1.x;

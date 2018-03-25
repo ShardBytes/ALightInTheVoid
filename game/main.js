@@ -307,6 +307,11 @@ function setup() {
     safarik.ty = data.y;
   });
 
+  socket.on('gameEnded', function(team) {
+    console.log(' --- GAME ENDED --- : ' + team);
+    bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !';
+  });
+
   //--- end events ----
 
   // request a player
