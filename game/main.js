@@ -306,6 +306,10 @@ function setup() {
     safarik.ty = data.y;
   });
 
+  socket.on('safarikContested', function() {
+    resources.nani.sound.play();
+  });
+
   socket.on('gameEnded', function(team) {
     console.log(' --- GAME ENDED --- : ' + team);
     safarik.collider.active = false;

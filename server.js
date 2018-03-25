@@ -366,6 +366,8 @@ io.sockets.on('connection', function(socket) {
   // if client sets themselves as a target
   socket.on('addSafarikTarget', function(plrId) {
     safarik.addTarget(plrId);
+    // if only one player controls safarik
+    if (safarik.targetQueue.length == 1) io.emit('safarikContested');
   });
 
   // if unsets
