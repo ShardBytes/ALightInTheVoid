@@ -231,6 +231,7 @@ function getPlayerById(id) {
 }
 
 function endGame(team) {
+  io.emit('gameEnded', 'end');
   GAME_ACTIVE = false;
   if (team == '1') {
     safarik.xtw.target = spawn1.x;
@@ -239,20 +240,20 @@ function endGame(team) {
     safarik.xtw.target = spawn2.x;
     safarik.ytw.target=  spawn2.y;
   }
-  console.log();
-  console.log('--- [ GAME ENDED ]---');
+
+  console.log('\n--- [ GAME ENDED ]---');
   console.log('WINNER : TEAM ' + team);
   console.log();
 
   setTimeout(() => {
     resetGame();
-  }, 5000);
+  }, 10000);
 }
 
+// chain from endGame
 function resetGame() {
-  console.log();
-  console.log('--- [ RESETTING GAME ]---');
-  console.log();
+  io.emit('gameReset');
+  console.log('\n--- [ RESETTING GAME ]---');
   safarik = new ServerSafarik();
   GAME_ACTIVE = true;
 }
