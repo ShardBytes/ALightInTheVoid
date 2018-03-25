@@ -233,11 +233,6 @@ class Player extends DirectionalEntity {
 
       if (this.controlsActive) {
         this.control(dt);
-      } else {
-        // stop if controls not active
-        this.boost(false);
-        this.speedtw.target = 0;
-        this.speed = 0;
       }
 
       this.speedtw.update(dt);
@@ -261,6 +256,11 @@ class Player extends DirectionalEntity {
 
       // send position data to server
       this.emitPositionChange();
+
+    } else { // if dead
+      this.boost(false);
+      this.speed = 0;
+      this.speedtw.target = 0;
     }
   }
 
