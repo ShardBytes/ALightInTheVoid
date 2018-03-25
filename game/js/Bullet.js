@@ -31,16 +31,31 @@ class Bullet extends Projectile {
     this.sprite.rotation = PI;
     this.collider.debug(false);
     this.collider.collided = (t, dx, dy, ang) => {
-      // TODO : hit player if not fake
+      // hit player if not fake
       if (!this.isFake && t instanceof Player) {
         t.hit(this.damage);
       }
-      // show hit animation
-      new Apparition(world, 'expl', 6, this.x, this.y, 0.2, 0.2);
-      // play hit sound
-      resources.hit.sound.play();
+
       // destroy this bullet on hit
       this.destroy();
+    }
+  }
+
+  destroy() {
+    // show destroy animation
+    new Apparition(world, 'expl', 6, this.x, this.y, 0.2, 0.2);
+    // play destroy sound
+    resources.hit.sound.play();
+    super.destroy();
+  }
+
+  update(dt) {
+    super.update(dt);
+
+    // if outside the world, destroy
+    if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {
+      this.destroy();
+      return;
     }
   }
 }
