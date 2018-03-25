@@ -8,7 +8,7 @@
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = 'https://localhost'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
-let INTERP_RATIO = 1/4;
+let INTERP_RATIO = 0.25;
 let CAMERA_RATIO = 0.4;
 let socket;
 
