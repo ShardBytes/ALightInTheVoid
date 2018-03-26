@@ -3,9 +3,10 @@ class Safarik extends SegmentedTargetEntity {
 
   constructor() {
     super('safarik', resources.safarik.texture, 0, 0);
+    this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
 
     this.collider = new BoxCollider(this, 200, 200);
-    this.scale.set(0.5, 0.5);
+    this.scale.set(6, 6);
     this.collider.updateSize();
     this.collider.debug(true);
 
