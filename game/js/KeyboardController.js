@@ -3,6 +3,7 @@
 class KeyboardController {
 
   constructor() {
+    this.mode = 0; // 0 for pc, 1 for mobile
     this.up = new KeyboardKey(38); // up arrow
     this.down = new KeyboardKey(40); // down arrow
     this.left = new KeyboardKey(37); // left arrow

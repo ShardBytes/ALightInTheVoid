@@ -209,14 +209,18 @@ class Player extends DirectionalEntity {
 
     // move sideways ( change direction )
     // the direction additions are changed depending whether its moving forward or backward
-    if (this.cont.left.down) {
-      this.direction += dr;
-      this.emitDirectionChange();
-    }
+    if (this.cont.mode == 0) { // if pc
+      if (this.cont.left.down) {
+        this.direction += dr;
+        this.emitDirectionChange();
+      }
 
-    if (this.cont.right.down) {
-      this.direction -= dr;
-      this.emitDirectionChange();
+      if (this.cont.right.down) {
+        this.direction -= dr;
+        this.emitDirectionChange();
+      }
+    } else { // if mobile
+
     }
 
   }
