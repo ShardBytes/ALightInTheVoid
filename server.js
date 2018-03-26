@@ -198,12 +198,12 @@ class ServerSafarik {
 class ServerSpawn {
   constructor(team) {
     if (team == '1') {
-      this.x = -3000;
-      this.y = 0;
+      this.x = -3250;
+      this.y = 800;
       this.spawnDirection = Math.PI/2;
     } else if (team == '2') {
-      this.x = 3000;
-      this.y = 0;
+      this.x = 3250;
+      this.y = -800;
       this.spawnDirection = -Math.PI/2;
     } else {
       throw new Error('WRONG TEAM');
