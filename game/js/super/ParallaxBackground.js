@@ -1,6 +1,6 @@
 // parallax background by Plasmoxy
 
-class Background extends Container {
+class ParallaxBackground extends Container {
 
   constructor(parallax) {
     super();
