@@ -15,6 +15,7 @@ class Bullet extends Projectile {
       1000
     );
     this.damage = 4;
+    this.deathTime = 1.5; // 1.5 sec life
     this.isFake = isFake; // if its fake, it will be harmless
 
     // add all objects in the world as colliders, except the emmiter of course and some others
