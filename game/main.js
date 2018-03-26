@@ -9,6 +9,7 @@ var DEVELOPMENT_MODE = true;
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = DEVELOPMENT_MODE ? 'https://localhost' : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+let MOBILE = window.mobileAndTabletCheck();
 let INTERP_RATIO = 0.25;
 let CAMERA_RATIO = 0.4;
 let socket;
@@ -32,6 +33,7 @@ function clientlog(obj) {
 
 console.log('--- ShardBytes: A Light In The Void ---')
 console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
+if (MOBILE) console.log('MOBILE DEVICE DETECTED !');
 
 let fmeter = new FPSMeter(); // comment this out to turn off fpsmeter
 
