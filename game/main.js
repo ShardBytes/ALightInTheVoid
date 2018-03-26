@@ -109,22 +109,19 @@ let resDef = [
   ['bootlegstars', 'sprites/bootlegstars.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
-  ['blueportal', 'sprites/portals/blueportal.png'],
   ['nani', 'sounds/nani.mp3'],
   ['shoot', 'sounds/shoot.wav'],
   ['hit', 'sounds/hit.wav'],
   ['jet', 'sounds/jet.wav'],
   ['boostsound', 'sounds/boostsound.wav'],
   ['explosionsound', 'sounds/explosionsound.wav'],
-  ['music', 'sounds/music.mp3'],
-  ['windows', 'sounds/windows.mp3']
+  ['music', 'sounds/music.mp3']
 ];
 
 let animationsDef = [
   'sprites/anim/expl.json',
   'sprites/anim/fire.json',
-  'sprites/aseprite/orangeportal.json',
-  'sprites/aseprite/blueportal.json'
+  'sprites/anim/blueportal_particles.json'
 ];
 
 resDef.forEach(t => {

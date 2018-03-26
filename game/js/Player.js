@@ -8,6 +8,7 @@ class Player extends DirectionalEntity {
 
   constructor(container, controls, id, spawnX, spawnY, team) {
     super(id, team == '1' ? resources.cyanplayer.texture : resources.orangeplayer.texture);
+    this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
 
     // --- basic stuff ---
     this.superContainer = container;
@@ -16,7 +17,7 @@ class Player extends DirectionalEntity {
     this.spawnDirection = (team == '1') ? PI/2 : -PI/2;
     this.team = team;
     this.cont = controls;
-    this.sprite.scale.set(0.5, 0.5); // ONLY SPRITE SCALE !!!
+    this.sprite.scale.set(2, 2);
 
     // --- specific player stuff ---
     this.alive = true;
@@ -90,13 +91,15 @@ class Player extends DirectionalEntity {
 
     // --- setup collider ---
     this.collider = new BoxCollider(this);
-    this.collider.updateSize();
-    this.collider.debug(false);
+    // fixed collider
+    this.collider.w = 30;
+    this.collider.h = 30;
+    this.collider.debug(false); // DEBUG
     this.collider.addToDetectionPool(safarik);
 
     // add fire Apparition
     this.fireApparition = new Apparition(this, 'fire_', '.png', 4, this.x, this.y, 0.08, 0.5, true);
-    this.fireApparition.y = -25;
+    this.fireApparition.y = -28;
     this.fireApparition.x = 2;
     this.fireApparition.visible = false;
 
