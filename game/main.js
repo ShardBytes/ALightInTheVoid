@@ -98,7 +98,7 @@ let stars;
 // gui
 let playerBars, bigInfo;
 
-// just to align spawn pictures
+// local spawn objects
 let spawn1, spawn2;
 
 // add other player but don't spawn it, that may be handled through playerSpawned...
