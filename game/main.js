@@ -104,8 +104,8 @@ function scaleCameraToScreenSize() {
 /* ------------------ PIXI loader --------------------- */
 
 let resDef = [
-  ['cyanplayer', 'sprites/cyanplayer.png'],
-  ['orangeplayer', 'sprites/orangeplayer.png'],
+  ['cyanplayer', 'sprites/aquamarineplayer.png'],
+  ['orangeplayer', 'sprites/amberplayer.png'],
   ['bootlegstars', 'sprites/bootlegstars.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],

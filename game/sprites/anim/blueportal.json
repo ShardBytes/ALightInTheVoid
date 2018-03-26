@@ -1,5 +1,5 @@
 { "frames": {
-   "orangeportal 0.ase": {
+   "blueportal_particles 0.ase": {
     "frame": { "x": 0, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -7,7 +7,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 1.ase": {
+   "blueportal_particles 1.ase": {
     "frame": { "x": 64, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -15,7 +15,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 2.ase": {
+   "blueportal_particles 2.ase": {
     "frame": { "x": 128, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -23,7 +23,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 3.ase": {
+   "blueportal_particles 3.ase": {
     "frame": { "x": 192, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -31,7 +31,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 4.ase": {
+   "blueportal_particles 4.ase": {
     "frame": { "x": 256, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -39,7 +39,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 5.ase": {
+   "blueportal_particles 5.ase": {
     "frame": { "x": 320, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -47,7 +47,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 6.ase": {
+   "blueportal_particles 6.ase": {
     "frame": { "x": 384, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -55,7 +55,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 7.ase": {
+   "blueportal_particles 7.ase": {
     "frame": { "x": 448, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 8.ase": {
+   "blueportal_particles 8.ase": {
     "frame": { "x": 512, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -71,7 +71,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 9.ase": {
+   "blueportal_particles 9.ase": {
     "frame": { "x": 576, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -79,7 +79,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 10.ase": {
+   "blueportal_particles 10.ase": {
     "frame": { "x": 640, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -87,7 +87,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 11.ase": {
+   "blueportal_particles 11.ase": {
     "frame": { "x": 704, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -95,7 +95,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 12.ase": {
+   "blueportal_particles 12.ase": {
     "frame": { "x": 768, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -103,7 +103,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 13.ase": {
+   "blueportal_particles 13.ase": {
     "frame": { "x": 832, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -111,7 +111,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 14.ase": {
+   "blueportal_particles 14.ase": {
     "frame": { "x": 896, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -119,7 +119,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 15.ase": {
+   "blueportal_particles 15.ase": {
     "frame": { "x": 960, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -127,7 +127,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 16.ase": {
+   "blueportal_particles 16.ase": {
     "frame": { "x": 1024, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -135,7 +135,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 17.ase": {
+   "blueportal_particles 17.ase": {
     "frame": { "x": 1088, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -143,7 +143,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 18.ase": {
+   "blueportal_particles 18.ase": {
     "frame": { "x": 1152, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -151,7 +151,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 19.ase": {
+   "blueportal_particles 19.ase": {
     "frame": { "x": 1216, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -159,7 +159,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 20.ase": {
+   "blueportal_particles 20.ase": {
     "frame": { "x": 1280, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -167,7 +167,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 21.ase": {
+   "blueportal_particles 21.ase": {
     "frame": { "x": 1344, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -175,7 +175,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 22.ase": {
+   "blueportal_particles 22.ase": {
     "frame": { "x": 1408, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -183,7 +183,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 23.ase": {
+   "blueportal_particles 23.ase": {
     "frame": { "x": 1472, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -191,7 +191,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 24.ase": {
+   "blueportal_particles 24.ase": {
     "frame": { "x": 1536, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -199,7 +199,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 25.ase": {
+   "blueportal_particles 25.ase": {
     "frame": { "x": 1600, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -207,7 +207,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 26.ase": {
+   "blueportal_particles 26.ase": {
     "frame": { "x": 1664, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -215,7 +215,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 27.ase": {
+   "blueportal_particles 27.ase": {
     "frame": { "x": 1728, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -223,7 +223,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 28.ase": {
+   "blueportal_particles 28.ase": {
     "frame": { "x": 1792, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -231,7 +231,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 29.ase": {
+   "blueportal_particles 29.ase": {
     "frame": { "x": 1856, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -239,7 +239,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 30.ase": {
+   "blueportal_particles 30.ase": {
     "frame": { "x": 1920, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -247,7 +247,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 31.ase": {
+   "blueportal_particles 31.ase": {
     "frame": { "x": 1984, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -255,7 +255,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 32.ase": {
+   "blueportal_particles 32.ase": {
     "frame": { "x": 2048, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -263,7 +263,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 33.ase": {
+   "blueportal_particles 33.ase": {
     "frame": { "x": 2112, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -271,7 +271,7 @@
     "sourceSize": { "w": 64, "h": 64 },
     "duration": 30
    },
-   "orangeportal 34.ase": {
+   "blueportal_particles 34.ase": {
     "frame": { "x": 2176, "y": 0, "w": 64, "h": 64 },
     "rotated": false,
     "trimmed": false,
@@ -282,8 +282,8 @@
  },
  "meta": {
   "app": "http://www.aseprite.org/",
-  "version": "1.2.7.3",
-  "image": "orangeportal.png",
+  "version": "1.2.7.3-x64",
+  "image": "blueportal_particles_spritesheet_blue.png",
   "format": "RGBA8888",
   "size": { "w": 2240, "h": 64 },
   "scale": "1",
@@ -291,7 +291,8 @@
   ],
   "layers": [
    { "name": "Layer 1", "opacity": 255, "blendMode": "normal" },
-   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" }
+   { "name": "Layer 2", "opacity": 255, "blendMode": "normal" },
+   { "name": "Layer 3", "opacity": 255, "blendMode": "normal" }
   ],
   "slices": [
   ]
