@@ -57,7 +57,7 @@ class Bullet extends Projectile {
 
     // if outside the world, destroy
     if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {
-      this.destroy();
+      this.destroy(); // just destroy, dont hit
       return;
     }
   }
