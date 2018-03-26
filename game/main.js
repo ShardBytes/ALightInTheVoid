@@ -6,15 +6,16 @@
 /* uses my pixialiases.js snippet for shorter names */
 
 var DEVELOPMENT_MODE = true;
-var PHONE_DEVMODE = false;
+var DEVMODE_MOBILE = true;
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
-let GAME_SITE = DEVELOPMENT_MODE ? (PHONE_DEVMODE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let MOBILE = window.mobileAndTabletCheck();
 let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = 0.4;
 let socket;
 
+// parse login from url
 if (urlParams.has('name') && urlParams.has('team')) {
   NAME = urlParams.get('name');
   TEAM = urlParams.get('team');
