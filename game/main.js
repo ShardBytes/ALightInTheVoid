@@ -92,10 +92,7 @@ let player, safarik; // objects
 let otherplayers = [];
 let bullets; // swarm of bullets
 
-// background
-let stars;
-
-// gui
+// gui ( let them stay global for now )
 let playerBars, bigInfo;
 
 // local spawn objects
@@ -138,7 +135,10 @@ let resDef = [
   ['jet', 'sounds/jet.wav'],
   ['boostsound', 'sounds/boostsound.wav'],
   ['explosionsound', 'sounds/explosionsound.wav'],
-  ['music', 'sounds/music.mp3']
+  ['music', 'sounds/music.mp3'],
+  ['bigplanet', 'sprites/Planett1.png'],
+  ['smallplanet1', 'sprites/Planett2.png'],
+  ['smallplanet2', 'sprites/Planett3.png']
 ];
 
 let animationsDef = [
@@ -175,7 +175,7 @@ function setup() {
   resources.shoot.sound.volume = 0.2;
 
   /* INIT CONTAINERS - order is important ! */
-  background = new ParallaxBackground(0.5); app.stage.addChild(background);
+  background = new GameBackground(); app.stage.addChild(background);
   world = new World(8000, 3000); world.drawBorder(); app.stage.addChild(world);
   gui = new Gui(); app.stage.addChild(gui);
 
@@ -199,10 +199,6 @@ function setup() {
 
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
-
-  stars = new TilingSprite(resources.bootlegstars.texture, 10000, 10000);
-  stars.position.set(-5000, -5000);
-  background.addChild(stars);
 
   safarik = new Safarik();
   world.addChild(safarik);
@@ -404,12 +400,12 @@ function tick(dt) {
     //camera.followDirection(player);
   }
 
+  // update other
   bullets.update(dt);
   safarik.update(dt);
 
   // update graphics stuff
-  background.centerTo(world);
-  background.rotateTo(world);
+  background.center();
   playerBars.redraw(player);
   miniMap.redraw();
 }

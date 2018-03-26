@@ -1,10 +1,11 @@
 // parallax background by Plasmoxy
+/* parallax parameter : in interval <0, 1>, the bigger from 0.5, the closer the object appear to be */
 
 class ParallaxBackground extends Container {
 
   constructor(parallax) {
     super();
-    this.parallax = parallax ? parallax : 1;
+    this.parallax = parallax ? parallax : 0.5;
 
     this.defaultScale = 1;
     this.scale.set(this.defaultScale, this.defaultScale);
