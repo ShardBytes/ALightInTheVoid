@@ -8,6 +8,7 @@ class OtherPlayer extends SegmentedTargetEntity {
 
   constructor(container, id, spawnX, spawnY, team) {
     super(id, team == '1' ? resources.cyanplayer.texture : resources.orangeplayer.texture , spawnX, spawnY);
+    this.sprite.scale.set(2, 2);
     this.superContainer = container;
     this.alive = false;
 
@@ -15,13 +16,17 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.spawnY = spawnY;
 
     this.inSpawn = false; // if the otherplayer is in spawn
-
-    this.sprite.scale.set(0.5, 0.5);
+    
     this.collider = new BoxCollider(this);
     this.collider.debug(false);
-
-    this.collider.colliding = (dt, t, dx, dy, ang) => {
-      this.inSpawn = t instanceof spawn; // if in spawn
+    // add spawns to detection pool
+    this.collider.addToDetectionPool(spawn1);
+    this.collider.addToDetectionPool(spawn2);
+    this.collider.collided = (t, dx, dy, ang) => {
+      if (t instanceof Spawn) this.inSpawn = true;
+    };
+    this.collider.discollided = (t, dx, dy, ang) => {
+      if (t instanceof Spawn) this.inSpawn = false;
     };
 
     this.team = team;
@@ -73,7 +78,7 @@ class OtherPlayer extends SegmentedTargetEntity {
       // handle fake shooting
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
-        if (this.shooting) {
+        if (this.shooting && !this.inSpawn) {
           // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
           // some wild trigonometry so we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false));
