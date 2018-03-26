@@ -14,9 +14,15 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.spawnX = spawnX;
     this.spawnY = spawnY;
 
+    this.inSpawn = false; // if the otherplayer is in spawn
+
     this.sprite.scale.set(0.5, 0.5);
     this.collider = new BoxCollider(this);
     this.collider.debug(false);
+
+    this.collider.colliding = (dt, t, dx, dy, ang) => {
+      this.inSpawn = t instanceof spawn; // if in spawn
+    };
 
     this.team = team;
 

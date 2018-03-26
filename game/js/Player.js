@@ -29,6 +29,8 @@ class Player extends DirectionalEntity {
     this.energy = this.maxEnergy;
     this.energyRegen = 15; // p p s
 
+    this.inSpawn = false; // if the player is in spawn
+
     // individual energy drains ->
     this.energyDrain = {
       boost: 0
@@ -91,11 +93,19 @@ class Player extends DirectionalEntity {
 
     // --- setup collider ---
     this.collider = new BoxCollider(this);
-    // fixed collider
+    // fixed pos collider
     this.collider.w = 30;
     this.collider.h = 30;
     this.collider.debug(false); // DEBUG
-    this.collider.addToDetectionPool(safarik);
+    // add spawns to detection pool
+    this.collider.addToDetectionPool(spawn1);
+    this.collider.addToDetectionPool(spawn2);
+    this.collider.collided = (t, dx, dy, ang) => {
+      if (t instanceof Spawn) this.inSpawn = true;
+    };
+    this.collider.discollided = (t, dx, dy, ang) => {
+      if (t instanceof Spawn) this.inSpawn = false;
+    };
 
     // add fire Apparition
     this.fireApparition = new Apparition(this, 'fire_', '.png', 4, this.x, this.y, 0.08, 0.5, true);
@@ -250,8 +260,8 @@ class Player extends DirectionalEntity {
       // SHOOT fake bullets if shooting
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
-        // if we have sufficient energy
-        if (this.shooting && this.energy >= 5) {
+        // if we have sufficient energy and not in spawn
+        if (this.shooting && !this.inSpawn && this.energy >= 5) {
           this.energy -= 4; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
