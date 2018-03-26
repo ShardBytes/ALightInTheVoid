@@ -102,7 +102,7 @@ function getOtherPlayerById(id) {
 }
 
 function scaleCameraToScreenSize() {
-  camera.scale = CAMERA_SCALE_RATIO * ( (app.renderer.width+app.renderer.height)/(1080+720) );
+  if (camera) camera.scale = CAMERA_SCALE_RATIO * ( (app.renderer.width+app.renderer.height)/(1080+720) );
 }
 
 /* ------------------ PIXI loader --------------------- */
