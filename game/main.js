@@ -104,12 +104,12 @@ function scaleCameraToScreenSize() {
 /* ------------------ PIXI loader --------------------- */
 
 let resDef = [
-  ['cyanplayer', 'sprites/aquamarineplayer.png'],
-  ['orangeplayer', 'sprites/amberplayer.png'],
+  ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
+  ['orangeplayer', 'sprites/players/amberplayer.png'],
   ['bootlegstars', 'sprites/bootlegstars.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
-  ['blueportal', 'sprites/blueportal.gif'],
+  ['blueportal', 'sprites/portals/blueportal.png'],
   ['nani', 'sounds/nani.mp3'],
   ['shoot', 'sounds/shoot.wav'],
   ['hit', 'sounds/hit.wav'],
@@ -124,7 +124,7 @@ let animationsDef = [
   'sprites/anim/expl.json',
   'sprites/anim/fire.json',
   'sprites/aseprite/orangeportal.json',
-  'sprites/aseprite/blueportal_particles.json'
+  'sprites/aseprite/blueportal.json'
 ];
 
 resDef.forEach(t => {
