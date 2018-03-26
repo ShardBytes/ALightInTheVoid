@@ -10,7 +10,7 @@
  * but after seeing how deprecated gyroscope sensors on mobile web are
  * and having some fatal object scope issues with document touch events,
  * I rather decided to abandon the mobile controller for now.
- * The game works fine on it, just the controller incomplete. */
+ * The game renders fine on mobile, just the controller is incomplete. */
 
 /* ---- CONCLUSION ----
 /* Anyway making this game was a definitelly amazing thing to do as
