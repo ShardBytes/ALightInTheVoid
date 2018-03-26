@@ -280,11 +280,11 @@ io.sockets.on('connection', function(socket) {
       socket.emit('serverError', 'SERVER ERROR : player with such name is already in game : ' + request.id)
       return; // this breaks out of both for and socket.on the function
     }
-    // create serverplayer bound to socket
+    // create serverplayer bound to socket, spawn it on a random position
     socket.player = new ServerPlayer(
       request.id,
-      (request.team == '1' ? spawn1.x : spawn2.x),
-      (request.team =='1' ? spawn1.y : spawn2.y),
+      (request.team == '1' ? spawn1.x -200 + Math.random()*400 : spawn2.x -200 + Math.random()*400 ),
+      (request.team =='1' ? spawn1.y -200 + Math.random()*400  : spawn2.y -200 + Math.random()*400 ),
       request.team
     );
     updatePlayers(); // now a new players has been added so update the players
