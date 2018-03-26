@@ -52,7 +52,7 @@ class Player extends DirectionalEntity {
     this.speedtw = new Tween(this, 'speed', 200); // rate = acceleration
     this.speedtw.start();
 
-    // --- define event controls ---
+    // --- define controls ---
     this.controlsActive = true;
 
     this.cont.up.pressed = () => {
@@ -209,18 +209,14 @@ class Player extends DirectionalEntity {
 
     // move sideways ( change direction )
     // the direction additions are changed depending whether its moving forward or backward
-    if (this.cont.mode == 0) { // if pc
-      if (this.cont.left.down) {
-        this.direction += dr;
-        this.emitDirectionChange();
-      }
+    if (this.cont.left.down) {
+      this.direction += dr;
+      this.emitDirectionChange();
+    }
 
-      if (this.cont.right.down) {
-        this.direction -= dr;
-        this.emitDirectionChange();
-      }
-    } else { // if mobile
-
+    if (this.cont.right.down) {
+      this.direction -= dr;
+      this.emitDirectionChange();
     }
 
   }

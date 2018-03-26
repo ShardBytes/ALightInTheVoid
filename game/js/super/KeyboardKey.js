@@ -19,10 +19,6 @@ class KeyboardKey {
   }
 
   downHandler(event) {
-    if (event.keyCode === this.code) {
-      if (!this.down && this.pressed) this.pressed();
-      this.down = true;
-    }
 
     /* prevent all handlers except some imporant ones */
     switch (event.keyCode) {
@@ -32,6 +28,11 @@ class KeyboardKey {
       case 123: break; // f12 - devtools
       default:
         event.preventDefault();
+    }
+    
+    if (event.keyCode === this.code) {
+      if (!this.down && this.pressed) this.pressed();
+      this.down = true;
     }
   }
 

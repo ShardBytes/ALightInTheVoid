@@ -1,12 +1,29 @@
 
 /* (c) ShardBytes 2018-<end of the world>
-/* A Light In The Void => simple mutiplayer game made just using pixi */
-
+/* by Plasmoxy */
+/* [ A Light In The Void ] => simple mutiplayer game made just using pixi */
 /* Game engine by Plasmoxy based on PIXI.js, made in less than 20 days*/
 /* uses my pixialiases.js snippet for shorter names */
 
+/* MOBILE VERSION IS UNAVAILABLE FOR NOW,
+ * you can check the MobileController.js file with some progress,
+ * but after seeing how deprecated gyroscope sensors on mobile web are
+ * and having some fatal object scope issues with document touch events,
+ * I rather decided to abandon the mobile controller for now.
+ * The game works fine on it, just the controller incomplete. */
+
+/* ---- CONCLUSION ----
+/* Anyway making this game was a definitelly amazing thing to do as
+ * I've just become ultra overpowered with JS thanks to this. After
+ * manually implementing colliders, directions, physics, I now feel
+ * ultra happy that I used my math knowledge somewhere practically.
+ * GG
+ * ( also thanks for reading this, here's the code :)
+ * ( also RIP javascript parser who had to read 23 lines of comments )
+ */
+
 var DEVELOPMENT_MODE = true;
-var DEVMODE_MOBILE = true;
+var DEVMODE_MOBILE = false;
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
@@ -170,7 +187,6 @@ function setup() {
 
   /* define controller */
   controller = new KeyboardController();
-  xd = new MobileController();
 
   // setup GUI
   playerBars = new PlayerBars();
