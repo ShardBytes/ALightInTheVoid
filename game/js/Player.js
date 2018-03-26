@@ -6,7 +6,7 @@
 
 class Player extends DirectionalEntity {
 
-  constructor(container, controls, id, spawnX, spawnY, team) {
+  constructor(container, controller, id, spawnX, spawnY, team) {
     super(id, team == '1' ? resources.cyanplayer.texture : resources.orangeplayer.texture);
     this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
 
@@ -16,7 +16,7 @@ class Player extends DirectionalEntity {
     this.spawnY = spawnY;
     this.spawnDirection = (team == '1') ? PI/2 : -PI/2;
     this.team = team;
-    this.cont = controls;
+    this.cont = controller;
     this.sprite.scale.set(2, 2);
 
     // --- specific player stuff ---
@@ -64,6 +64,7 @@ class Player extends DirectionalEntity {
         this.fireApparition.visible = true;
       }
     };
+
     this.cont.down.pressed = () => {
       if(this.controlsActive) {
         this.speedtw.target = -this.maxSpeed/2; // half the speed when reverse
