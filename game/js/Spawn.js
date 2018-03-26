@@ -1,3 +1,5 @@
+// Spawn by Plasmoxy
+// uses looping Apparition as sprite
 
 class Spawn extends Entity {
   constructor(team) {
@@ -12,5 +14,6 @@ class Spawn extends Entity {
       this.x = 3250;
       this.y = -800;
     }
+    this.collider = new BoxCollider(this);
   }
 }
