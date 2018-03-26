@@ -160,6 +160,8 @@ loader.load(setup)
 
 function setup() {
 
+  /* ------------------------- INIT GAME ----------------------- */
+
   clientlog('### INITIALIZING GAME ###');
 
   /* setup sounds (like looping and stuff) */
@@ -197,9 +199,6 @@ function setup() {
 
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
-
-  /* ------------------------- INIT GAME ----------------------- */
-
 
   stars = new TilingSprite(resources.bootlegstars.texture, 10000, 10000);
   stars.position.set(-5000, -5000);
