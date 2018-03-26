@@ -1,3 +1,4 @@
+// ultra advanced exceedingly difficult math Vector class by Plasmoxy
 
 class Vector {
 
@@ -6,5 +7,5 @@ class Vector {
     this.x = x ? x : 0;
     this.y = y ? y : 0;
   }
-  
+
 }
