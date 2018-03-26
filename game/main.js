@@ -6,7 +6,7 @@
 /* uses my pixialiases.js snippet for shorter names */
 
 var DEVELOPMENT_MODE = true;
-var DEVMODE_MOBILE = true;
+var DEVMODE_MOBILE = false;
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
@@ -64,7 +64,7 @@ loader.on('progress', loadProgressHandler)
 
 /* -------- define game variables and functions --------- */
 
-let background, world, gui, camera, mkeys; // basic
+let background, world, gui, camera, controller; // basic
 let cameraTarget;
 let miniMap;
 
@@ -167,14 +167,7 @@ function setup() {
   spawn2 = new Spawn('2'); world.addChild(spawn2);
 
   /* define control */
-  mkeys = {
-    up: new KeyboardKey(38),
-    down: new KeyboardKey(40),
-    left: new KeyboardKey(37),
-    right: new KeyboardKey(39),
-    shoot: new KeyboardKey(82), // R
-    boost: new KeyboardKey(81) // Q
-  };
+  controller = new KeyboardController();
 
   // setup GUI
   playerBars = new PlayerBars();
@@ -214,7 +207,7 @@ function setup() {
   socket.on('deployPlayer', function(plr) {
     clientlog('PLAYER DEPLOYED FROM SERVER, SPAWNING');
     // serverplayer x,y goes as player spawn x,y
-    player = new Player(world, mkeys, plr.id, plr.x, plr.y, plr.team);
+    player = new Player(world, controller, plr.id, plr.x, plr.y, plr.team);
     player.spawn(); // spawn the player ( server will chain the spawn to others)
     safarik.collider.addToDetectionPool(player); // safarik detects player
 
