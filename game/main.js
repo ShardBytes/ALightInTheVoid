@@ -32,8 +32,6 @@ let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = 0.5;
 let socket;
 
-let xd;
-
 // parse login from url
 if (urlParams.has('name') && urlParams.has('team')) {
   NAME = urlParams.get('name');
