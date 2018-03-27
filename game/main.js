@@ -120,22 +120,26 @@ function scaleCameraToScreenSize() {
 /* ------------------ PIXI loader --------------------- */
 
 let resDef = [
+  /* SOUNDS : */
+  ['music', 'sounds/music.mp3'],
+  ['jet', 'sounds/jet.wav'],
+  ['hit', 'sounds/hit.wav'],
+  ['shoot', 'sounds/shoot.wav'],
+  ['nani', 'sounds/nani.mp3'],
+  ['boostsound', 'sounds/boostsound.wav'],
+  ['explosionsound', 'sounds/explosionsound.wav'],
+
+  /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
   ['orangeplayer', 'sprites/players/amberplayer.png'],
   ['starBg', 'sprites/starBgNotSoThiccWhite.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
-  ['nani', 'sounds/nani.mp3'],
-  ['shoot', 'sounds/shoot.wav'],
-  ['hit', 'sounds/hit.wav'],
-  ['jet', 'sounds/jet.wav'],
-  ['boostsound', 'sounds/boostsound.wav'],
-  ['explosionsound', 'sounds/explosionsound.wav'],
-  ['music', 'sounds/music.mp3'],
   ['bigplanet', 'sprites/Planett1.png'],
   ['smallplanet1', 'sprites/Planett2.png'],
   ['smallplanet2', 'sprites/Planett3.png'],
   ['bootlegpad', 'sprites/bootlegpad.png']
+
 ];
 
 let animationsDef = [
@@ -144,12 +148,14 @@ let animationsDef = [
   'sprites/anim/blueportal_particles.json'
 ];
 
-resDef.forEach(t => {
-  loader.add(t[0], t[1]);
-});
-
+// load animations
 animationsDef.forEach(t => {
   loader.add(t);
+});
+
+// load resources
+resDef.forEach(t => {
+  loader.add(t[0], t[1]);
 });
 
 
