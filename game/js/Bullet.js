@@ -14,6 +14,7 @@ class Bullet extends Projectile {
       direction,
       1000
     );
+    this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
     this.damage = 4;
     this.deathTime = 1.5; // 1.5 sec life
     this.isFake = isFake; // if its fake, it will be harmless
