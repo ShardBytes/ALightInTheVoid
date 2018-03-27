@@ -5,12 +5,7 @@
 /* Game engine by Plasmoxy based on PIXI.js, made in less than 20 days*/
 /* uses my pixialiases.js snippet for shorter names */
 
-/* MOBILE VERSION IS UNAVAILABLE FOR NOW,
- * you can check the MobileController.js file with some progress,
- * but after seeing how deprecated gyroscope sensors on mobile web are
- * and having some fatal object scope issues with document touch events,
- * I rather decided to abandon the mobile controller for now.
- * The game renders fine on mobile, just the controller is incomplete. */
+/* ALSO WORKS ON MOBILE NOW YAYY YESS FINALLY ( I spend half a day on that ) */
 
 /* ---- CONCLUSION ----
 /* Anyway making this game was a definitelly amazing thing to do as
@@ -19,20 +14,20 @@
  * ultra happy that I used my math knowledge somewhere practically.
  * GG
  * ( also thanks for reading this, here's the code :)
- * ( also RIP javascript parser which had to read 23 lines of comments )
+ * ( also RIP javascript parser which had to read these unimportant lines of comments )
  */
 
 const DEVELOPMENT_MODE = true;
-const DEVMODE_MOBILE = true;
-const VERSION = '1.2';
-const BUILDNAME = '270318';
+const DEVMODE_MOBILE = false;
+const VERSION = '1.3';
+const BUILDNAME = '270318-4';
 const urlParams = new URLSearchParams(window.location.search);
 const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
 let NAME, TEAM;
 let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = 0.7;
-let CAMERA_FOLLOW_RATIO = 0.1;
+let CAMERA_FOLLOW_RATIO = 0.2;
 let socket;
 
 // parse login from url
@@ -189,9 +184,9 @@ function setup() {
   spawn1 = new Spawn('1'); world.addChild(spawn1);
   spawn2 = new Spawn('2'); world.addChild(spawn2);
 
-  /* define controller */
-  controller = new MobileController();
-  gui.addChild(controller);
+  /* DEFINE CONTROLLER -> create virtual gamepad = mobilecontroller if on mobile device */
+  controller = MOBILE ? new MobileController() : new KeyboardController();
+  if (MOBILE) gui.addChild(controller); // add virutal gamepad to gui if present
 
   // setup GUI
   playerBars = new PlayerBars();
@@ -203,7 +198,7 @@ function setup() {
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
 
-  bottomTextLeft = new BottomText(1, 'A Light in The Void v'+VERSION+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
+  bottomTextLeft = new BottomText(1, 'A Light in The Void v'+VERSION+' '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
   gui.addChild(bottomTextLeft);
 
   /*
