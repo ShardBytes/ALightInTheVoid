@@ -5,31 +5,54 @@ class GameBackground extends Container {
   constructor() {
     super();
 
+    this.SmallPlanet2 = class extends Sprite {
+      constructor(x, y) {
+        super(resources.smallplanet2.texture);
+        this.anchor.set(0.5, 0.5);
+        this.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.scale.set(3, 3);
+        this.position.set(x, y);
+      }
+    };
+
     /* STARS 1  */
 
-    this.starsbg = new ParallaxBackground(0.4);
+    this.starsbg = new ParallaxBackground(0.05);
     this.addChild(this.starsbg);
 
     this.starsSprite = new TilingSprite(resources.starBg.texture, 10000, 10000);
     this.starsSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-    this.starsSprite.scale.set(5, 5);
+    this.starsSprite.scale.set(3, 3);
     this.starsSprite.anchor.set(0.5, 0.5);
     this.starsbg.addChild(this.starsSprite);
 
     /* STARS 2  */
 
-    this.starsbgBeta = new ParallaxBackground(0.3);
+    this.starsbgBeta = new ParallaxBackground(0.1);
     this.addChild(this.starsbgBeta);
 
     this.starsSpriteBeta = new TilingSprite(resources.starBg.texture, 10000, 10000);
     this.starsSpriteBeta.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-    this.starsSpriteBeta.scale.set(3, 3);
+    this.starsSpriteBeta.scale.set(5, 5);
     this.starsSpriteBeta.anchor.set(0.5, 0.5);
     this.starsbgBeta.addChild(this.starsSpriteBeta);
 
+    /* behind planets */
+    this.behindplanetsbg = new ParallaxBackground(0.3);
+    this.addChild(this.behindplanetsbg);
+
+    this.midsm2 = new this.SmallPlanet2(-300, -100);
+    this.behindplanetsbg.addChild(this.midsm2);
+
+    this.spawnsm2 = new this.SmallPlanet2(-3250, -800);
+    this.behindplanetsbg.addChild(this.spawnsm2);
+
+    this.spawn2sm2 = new this.SmallPlanet2(-3250*0.45, -800*0.45);
+    this.behindplanetsbg.addChild(this.spawn2sm2);
+
     /* BIG PLANET */
 
-    this.bigplanetbg = new ParallaxBackground(0.53);
+    this.bigplanetbg = new ParallaxBackground(0.40);
     this.addChild(this.bigplanetbg);
 
     this.bigplanetSprite = new Sprite(resources.bigplanet.texture);
@@ -40,7 +63,7 @@ class GameBackground extends Container {
 
     /* small planet */
 
-    this.smallplanet1bg = new ParallaxBackground(0.56);
+    this.smallplanet1bg = new ParallaxBackground(0.5);
     this.addChild(this.smallplanet1bg);
 
     this.smallplanet1Sprite = new Sprite(resources.smallplanet1.texture);
@@ -50,12 +73,6 @@ class GameBackground extends Container {
     this.smallplanet1Sprite.position.set(300, 300);
     this.smallplanet1bg.addChild(this.smallplanet1Sprite);
 
-    /* behind planets */
-    this.behindplanetsbg = new ParallaxBackground(0.6);
-    this.addChild(this.behindplanetsbg);
-
-    // TODO
-
   }
 
   center() {
@@ -63,6 +80,7 @@ class GameBackground extends Container {
     this.starsbgBeta.centerTo(world);
     this.bigplanetbg.centerTo(world);
     this.smallplanet1bg.centerTo(world);
+    this.behindplanetsbg.centerTo(world);
   }
 
 }
