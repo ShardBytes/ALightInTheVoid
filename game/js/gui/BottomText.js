@@ -10,7 +10,7 @@ class BottomText extends Text {
       align : 'center'
     });
     this.loc = loc;// location => 1 - left, 2 - mid, 3 - right
-    this.offset = 5;
+    this.offset = 7;
     this.align();
   }
 
@@ -23,7 +23,7 @@ class BottomText extends Text {
       this.position.x = app.renderer.width/2;
     } else if ( this.loc == 3) {
       this.anchor.set(1, 1);
-      this.position.x = app.renderer.width;
+      this.position.x = app.renderer.width - this.offset;
     }
     this.position.y = app.renderer.height - this.offset; // go to bottom
 
