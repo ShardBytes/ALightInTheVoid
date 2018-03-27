@@ -29,7 +29,8 @@ let NAME, TEAM;
 let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let MOBILE = window.mobileAndTabletCheck();
 let INTERP_RATIO = 0.25;
-let CAMERA_SCALE_RATIO = 0.5;
+let CAMERA_SCALE_RATIO = 0.8;
+let CAMERA_FOLLOW_RATIO = 0.1;
 let socket;
 
 // parse login from url
@@ -178,7 +179,7 @@ function setup() {
   gui = new Gui(); app.stage.addChild(gui);
 
   // link camera to world
-  camera = new FollowerCamera(world, 1/8); // 1/8 folow ratio
+  camera = new FollowerCamera(world, CAMERA_FOLLOW_RATIO);
   scaleCameraToScreenSize();
 
   // setup spawns
