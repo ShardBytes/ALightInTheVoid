@@ -16,7 +16,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.spawnY = spawnY;
 
     this.inSpawn = false; // if the otherplayer is in spawn
-    
+
     this.collider = new BoxCollider(this);
     this.collider.debug(false);
     // add spawns to detection pool
@@ -33,7 +33,7 @@ class OtherPlayer extends SegmentedTargetEntity {
 
     this.shooting = false; // this is to be updated by socket
     this.deltaShoot = 0; // in seconds
-    this.fireRate = 10; // bullets per second
+    this.fireRate = 7; // bullets per second
 
     // add name text
     this.nameText = new PlayerNameText(this);
