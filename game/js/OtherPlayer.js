@@ -8,6 +8,7 @@ class OtherPlayer extends SegmentedTargetEntity {
 
   constructor(container, id, spawnX, spawnY, team) {
     super(id, team == '1' ? resources.cyanplayer.texture : resources.orangeplayer.texture , spawnX, spawnY);
+    this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
     this.sprite.scale.set(2, 2);
     this.superContainer = container;
     this.alive = false;
