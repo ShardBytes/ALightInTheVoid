@@ -6,7 +6,7 @@ class MiniMap extends PIXI.Graphics {
     this.w = 300;
     this.h = (world.h/world.w)*this.w;
     this.DOTSIZE = 4;
-    this.blendMode = PIXI.BLEND_MODES.SCREEN; // so its a bit transparent
+    //this.blendMode = PIXI.BLEND_MODES.SCREEN; // so its a bit transparent
     this.align();
   }
 
