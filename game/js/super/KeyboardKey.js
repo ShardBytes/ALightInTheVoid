@@ -6,8 +6,8 @@ class KeyboardKey {
     this.down = false;
 
     /* these ought to be overridden */
-    this.pressed = undefined;
-    this.released = undefined;
+    this.pressed = () => {};
+    this.released = () => {};
 
     window.addEventListener(
       'keydown', this.downHandler.bind(this), false
@@ -29,7 +29,7 @@ class KeyboardKey {
       default:
         event.preventDefault();
     }
-    
+
     if (event.keyCode === this.code) {
       if (!this.down && this.pressed) this.pressed();
       this.down = true;

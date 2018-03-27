@@ -33,7 +33,7 @@ class GameBackground extends Container {
 
     this.starsSpriteBeta = new TilingSprite(resources.starBg.texture, 10000, 10000);
     this.starsSpriteBeta.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-    this.starsSpriteBeta.scale.set(5, 5);
+    this.starsSpriteBeta.scale.set(6, 6);
     this.starsSpriteBeta.anchor.set(0.5, 0.5);
     this.starsbgBeta.addChild(this.starsSpriteBeta);
 

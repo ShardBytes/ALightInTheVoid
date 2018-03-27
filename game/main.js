@@ -23,7 +23,7 @@
  */
 
 const DEVELOPMENT_MODE = true;
-const DEVMODE_MOBILE = false;
+const DEVMODE_MOBILE = true;
 const VERSION = '1.2';
 const BUILDNAME = '270318';
 const urlParams = new URLSearchParams(window.location.search);
@@ -127,7 +127,7 @@ function scaleCameraToScreenSize() {
 let resDef = [
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
   ['orangeplayer', 'sprites/players/amberplayer.png'],
-  ['starBg', 'sprites/starBgNotSoThicc.png'],
+  ['starBg', 'sprites/starBgNotSoThiccWhite.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
   ['nani', 'sounds/nani.mp3'],
@@ -139,7 +139,8 @@ let resDef = [
   ['music', 'sounds/music.mp3'],
   ['bigplanet', 'sprites/Planett1.png'],
   ['smallplanet1', 'sprites/Planett2.png'],
-  ['smallplanet2', 'sprites/Planett3.png']
+  ['smallplanet2', 'sprites/Planett3.png'],
+  ['bootlegpad', 'sprites/bootlegpad.png']
 ];
 
 let animationsDef = [
@@ -189,7 +190,8 @@ function setup() {
   spawn2 = new Spawn('2'); world.addChild(spawn2);
 
   /* define controller */
-  controller = new KeyboardController();
+  controller = new MobileController();
+  gui.addChild(controller);
 
   // setup GUI
   playerBars = new PlayerBars();
@@ -432,11 +434,12 @@ window.addEventListener('resize', function() {
   app.renderer.resize(w,h);
   scaleCameraToScreenSize();
   if (camera) camera.centerToRenderer();
+  if (background) background.rendCenter();
   if (playerBars) playerBars.align();
   if (bigInfo) bigInfo.align();
   if (miniMap) miniMap.align();
   if (bottomTextLeft) bottomTextLeft.align();
   if (bottomTextMid) bottomTextMid.align();
   if (bottomTextRight) bottomTextRight.align();
-  if (background) background.rendCenter();
+  if (controller && controller.align) controller.align();
 });

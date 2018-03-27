@@ -57,7 +57,7 @@ class Player extends DirectionalEntity {
     // --- define controls ---
     this.controlsActive = true;
 
-    this.cont.up.pressed = () => {
+    this.cont.up.pressed = (() => {
       if(this.controlsActive) {
         this.speedtw.target = this.maxSpeed;
         // play jet sound
@@ -65,33 +65,33 @@ class Player extends DirectionalEntity {
         // show fire
         this.fireApparition.visible = true;
       }
-    };
+    }).bind(this);
 
-    this.cont.down.pressed = () => {
+    this.cont.down.pressed = (() => {
       if(this.controlsActive) {
         this.speedtw.target = -this.maxSpeed/2; // half the speed when reverse
         resources.jet.sound.play();
         this.fireApparition.visible = true;
       }
-    };
+    }).bind(this);
 
     // if shoot pressed, turn on fake shooting here and send shooting event
-    this.cont.shoot.pressed = () => {
+    this.cont.shoot.pressed = (() => {
       if(this.controlsActive) {
         this.shooting = true;
         this.emitShooting();
       }
-    };
+    }).bind(this);
 
-    this.cont.shoot.released = () => {
+    this.cont.shoot.released = (() => {
       if (this.controlsActive) {
         this.shooting = false;
         this.emitShooting();
       }
-    };
+    }).bind(this);
 
-    this.cont.boost.pressed = () => { if (this.controlsActive) this.boost(true); };
-    this.cont.boost.released = () => { if (this.controlsActive) this.boost(false); };
+    this.cont.boost.pressed = (() => { if (this.controlsActive) this.boost(true); }).bind(this);
+    this.cont.boost.released = (() => { if (this.controlsActive) this.boost(false); }).bind(this);
 
 
     // --- setup collider ---
