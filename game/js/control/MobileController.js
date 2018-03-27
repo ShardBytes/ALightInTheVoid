@@ -17,6 +17,11 @@ class MobileController extends Container {
     this.leftPad = new Sprite(resources.bootlegpad.texture);
     this.leftPad.anchor.set(0, 1); // bottom left corner, this is just to align the sprite
     this.addChild(this.leftPad);
+
+    this.rightPad = new Sprite(resources.bootlegpad.texture);
+    this.rightPad.anchor.set(0, 1);
+    this.addChild(this.rightPad);
+
     this.align();
 
     // IMPORTANT: bind the function to this controller so it doesn't use the document as 'this'
@@ -47,6 +52,26 @@ class MobileController extends Container {
 
   }
 
+  //x,y -> relative to bottom left corner of pad
+  // pad -> bottom right, 300x300
+  getRightPadButton(touch) {
+    let x = touch.pageX - this.rightPad.position.x, y = this.rightPad.position.y - touch.pageY; // relative x,y
+    let btnx = 0, btny = 0;
+
+    if (x < 0 || y > 300) return 'XX'; // if the touch is outside pad
+
+    if (y <= 100) btny = 1; // bottom
+    if (y > 100 && y <= 200) btny = 2; // mid
+    if (y > 200 && y <= 300) btny = 3; // top
+
+    if (x <= 100) btnx = 1; // left
+    if (x > 100 && x <= 200) btnx = 2; // mid
+    if (x > 200 && x <= 300) btnx = 3; // right
+
+    return '' + btnx + btny; // return in 2 char format
+
+  }
+
   handleStart(e) { // link to move as they're the positive touches
     e.preventDefault();
     this.handleMove(e);
@@ -57,31 +82,41 @@ class MobileController extends Container {
     let ts = e.changedTouches;
     for (let i = 0; i<ts.length; i++) {
       let lpadb = this.getLeftPadButton(ts[i]);
-      console.log(lpadb);
-      // check y buttons
+      let rpadb = this.getRightPadButton(ts[i]);
 
-      if (lpadb[1] == '3' && !this.up.down) {
+
+      // ---- LEFT PAD ----
+
+      // check y buttons
+      if (lpadb[1] == '3' && !this.up.down) { // UP
         this.up.down = true; this.up.pressed();
         this.down.down = false; this.down.released();
-      } else if (lpadb[1] == '1' && !this.down.down) {
+      } else if (lpadb[1] == '1' && !this.down.down) { // DOWN
         this.down.down = true; this.down.pressed();
         this.up.down = false; this.up.released();
-      } else if (lpadb[1] == '2') { // if in middle
+      } else if (lpadb[1] == '2') { // if in middle // MIDDLE = DONT MOVE
         this.down.down = false; this.down.released();
         this.up.down = false; this.up.released();
       }
 
       // check x buttons
-
-      if (lpadb[0] == '3' && !this.right.down) {
+      if (lpadb[0] == '3' && !this.right.down) { // RIGHT
         this.right.down = true; this.right.pressed();
         this.left.down = false; this.left.released();
-      } else if (lpadb[0] == '1' && !this.left.down) {
+      } else if (lpadb[0] == '1' && !this.left.down) { // LEFT
         this.left.down = true; this.left.pressed();
         this.right.down = false; this.right.released();
-      } else if (lpadb[0] == '2') { // if in middle
+      } else if (lpadb[0] == '2') { // if in middle // MIDDLE = DONT ROTATE
         this.left.down = false; this.left.released();
         this.right.down = false; this.right.released();
+      }
+
+
+      // ---- RIGHT PAD ----
+      if (rpadb == '23' && !this.shoot.down) { // UP BUTTON => shoot
+        this.shoot.down = true; this.shoot.pressed();
+      } else if (rpadb == '12' && !this.boost.down) { // LEFT BUTTON => boost
+        this.boost.down = true; this.boost.pressed();
       }
 
     }
@@ -92,17 +127,25 @@ class MobileController extends Container {
     let ts = e.changedTouches;
     for (let i = 0; i<ts.length; i++) {
       let lpadb = this.getLeftPadButton(ts[i]);
-      if (lpadb != 'XX') { // if ended in pad, release all
+      let rpadb = this.getRightPadButton(ts[i]);
+      if (lpadb != 'XX') { // if ended in left pad, release all move keys
         this.down.down = false; this.down.released();
         this.up.down = false; this.up.released();
         this.left.down = false; this.left.released();
         this.right.down = false; this.right.released();
       }
+      if (rpadb != 'XX') { // if ended in right pad, release boost and shoot
+        this.boost.down = false; this.boost.released();
+        this.shoot.down = false; this.shoot.released();
+      }
     }
   }
 
   align() {
+    this.leftPad.position.x = 0;
     this.leftPad.position.y = app.renderer.height;
+    this.rightPad.position.x = app.renderer.width - 300;
+    this.rightPad.position.y = app.renderer.height;
   }
 
 }
