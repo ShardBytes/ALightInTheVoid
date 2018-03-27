@@ -106,7 +106,7 @@ function addOtherPlayer(op) {
 
 // same
 function removeOtherPlayer(op) {
-  otherplayers.slice(otherplayers.indexOf(op), 1);
+  otherplayers.splice(otherplayers.indexOf(op), 1);
 }
 
 // better to use for as it can break when it finds what it looks for
