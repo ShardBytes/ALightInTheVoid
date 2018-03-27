@@ -4,10 +4,24 @@ class PlayerBars extends Container {
 
   constructor() {
     super();
+
     this.gr = new PIXI.Graphics;
     this.addChild(this.gr);
+
+    this.playerNameText = new Text(NAME, {
+      fontFamily : 'Consolas, Arial',
+      fontSize: 20,
+      fill : 0xff0063,
+      fontWeight: 'bold',
+      align : 'center'
+    });
+    this.playerNameText.anchor.set(0.5, 0.5);
+    this.playerNameText.position.y = -20;
+    this.addChild(this.playerNameText);
+
     this.healthColor = 0xd7125f;
     this.energyColor = 0x00ffff;
+
     this.align();
   }
 
@@ -30,7 +44,7 @@ class PlayerBars extends Container {
 
   align() {
     this.position.x = app.renderer.width/2;
-    this.position.y = app.renderer.height * (1 - 1/15) - 40;
+    this.position.y = app.renderer.height - 50;
   }
 
 }

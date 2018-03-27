@@ -209,7 +209,7 @@ function setup() {
   gui.addChild(bottomTextMid);
   */
 
-  bottomTextRight = new BottomText(3, 'MOVE: arrow keys, SHOOT = [R], BOOST = [Q]');
+  bottomTextRight = new BottomText(3, 'MOVE: arrows\nSHOOT [R] | BOOST [Q]');
   gui.addChild(bottomTextRight);
 
   safarik = new Safarik();
