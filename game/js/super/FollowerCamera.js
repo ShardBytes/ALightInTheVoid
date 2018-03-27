@@ -1,5 +1,7 @@
 // FollowerCamera by Plasmoxy
 // this is a Camera with functionality of SegmentedTargetEntity
+// except it is not using dt as we're updating graphics, not movement and it
+// would be laggy.
 
 class FollowerCamera extends Camera  {
 
@@ -8,9 +10,9 @@ class FollowerCamera extends Camera  {
     this.ratio = followRatio;
   }
 
-  follow(dt, target) {
-    this.c.pivot.x += (target.x - this.x) * dt * this.ratio;
-    this.c.pivot.y += (target.y - this.y) * dt * this.ratio;
+  follow(target) {
+    this.c.pivot.x += (target.x - this.x) * this.ratio;
+    this.c.pivot.y += (target.y - this.y) * this.ratio;
   }
 
 }

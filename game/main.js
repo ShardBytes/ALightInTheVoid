@@ -32,7 +32,7 @@ let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://
 let MOBILE = window.mobileAndTabletCheck();
 let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = 0.7;
-let CAMERA_FOLLOW_RATIO = 0.2;
+let CAMERA_FOLLOW_RATIO = 0.1;
 let socket;
 
 // parse login from url
@@ -127,7 +127,7 @@ function scaleCameraToScreenSize() {
 let resDef = [
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
   ['orangeplayer', 'sprites/players/amberplayer.png'],
-  ['starBg', 'sprites/starBg.png'],
+  ['starBg', 'sprites/starBgNotSoThicc.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
   ['nani', 'sounds/nani.mp3'],
@@ -391,6 +391,13 @@ function setup() {
 function update() {
   requestAnimationFrame(update);
   if ( fmeter ) fmeter.tick()
+
+  // update graphics stuff
+  background.center();
+
+  if (cameraTarget) {
+    camera.follow(cameraTarget);
+  }
 }
 
 // ----- THE MAIN TICK FUNCTION -----
@@ -407,17 +414,10 @@ function tick(dt) {
     plr.update(dt);
   });
 
-  if (cameraTarget) {
-    camera.follow(dt, cameraTarget);
-    //camera.followDirection(player);
-  }
-
   // update other
   bullets.update(dt);
   safarik.update(dt);
 
-  // update graphics stuff
-  background.center();
   playerBars.redraw(player);
   miniMap.redraw();
 }
