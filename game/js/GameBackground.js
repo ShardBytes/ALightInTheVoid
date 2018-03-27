@@ -10,7 +10,9 @@ class GameBackground extends Container {
     this.starsbg = new ParallaxBackground(0.5);
     this.addChild(this.starsbg);
 
-    this.starsSprite = new TilingSprite(resources.bootlegstars.texture, 10000, 10000);
+    this.starsSprite = new TilingSprite(resources.starBg.texture, 10000, 10000);
+    this.starsSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+    this.starsSprite.scale.set(7, 7);
     this.starsSprite.anchor.set(0.5, 0.5);
     this.starsbg.addChild(this.starsSprite);
 
@@ -22,7 +24,7 @@ class GameBackground extends Container {
     this.bigplanetSprite = new Sprite(resources.bigplanet.texture);
     this.bigplanetSprite.anchor.set(0.5, 0.5);
     this.bigplanetSprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
-    this.bigplanetSprite.scale.set(15, 15);
+    this.bigplanetSprite.scale.set(10, 10);
     this.bigplanetbg.addChild(this.bigplanetSprite);
 
     /* small planet */

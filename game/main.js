@@ -124,7 +124,7 @@ function scaleCameraToScreenSize() {
 let resDef = [
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
   ['orangeplayer', 'sprites/players/amberplayer.png'],
-  ['bootlegstars', 'sprites/bootlegstars.png'],
+  ['starBg', 'sprites/starBg.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
   ['nani', 'sounds/nani.mp3'],
