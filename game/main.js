@@ -50,7 +50,7 @@ function clientlog(obj) {
 
 console.log('--- ShardBytes: A Light In The Void ---')
 console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
-if (MOBILE) console.log('MOBILE DEVICE DETECTED !');
+if (MOBILE) console.log('MOBILE DEVICE DETECTED !  GOD SAVE YOU, DEAR FRAMES PER SECOND ;)');
 
 let fmeter = new FPSMeter(); // comment this out to turn off fpsmeter
 
