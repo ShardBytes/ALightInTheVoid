@@ -4,8 +4,8 @@ class BigInfo extends Text {
   constructor() {
     super('', {
       fontFamily : 'Consolas, Arial',
-      fontSize: 40,
-      fill : 0xff004c,
+      fontSize: 60,
+      fill : 0x1fee46,
       fontWeight: 'bold',
       align : 'center'
     });

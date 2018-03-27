@@ -24,7 +24,7 @@
 
 var DEVELOPMENT_MODE = true;
 var DEVMODE_MOBILE = false;
-var VERSION = '1.1';
+var VERSION = '1.2';
 var BUILDNAME = '270318';
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
