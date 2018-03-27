@@ -22,14 +22,14 @@
  * ( also RIP javascript parser which had to read 23 lines of comments )
  */
 
-var DEVELOPMENT_MODE = true;
-var DEVMODE_MOBILE = false;
-var VERSION = '1.2';
-var BUILDNAME = '270318';
-let urlParams = new URLSearchParams(window.location.search);
+const DEVELOPMENT_MODE = true;
+const DEVMODE_MOBILE = false;
+const VERSION = '1.2';
+const BUILDNAME = '270318';
+const urlParams = new URLSearchParams(window.location.search);
+const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+const MOBILE = window.mobileAndTabletCheck();
 let NAME, TEAM;
-let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
-let MOBILE = window.mobileAndTabletCheck();
 let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = 0.7;
 let CAMERA_FOLLOW_RATIO = 0.1;

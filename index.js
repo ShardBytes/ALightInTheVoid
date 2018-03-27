@@ -1,5 +1,5 @@
 // by Plasmoxy
-var DEVELOPMENT_MODE = true;
+const DEVELOPMENT_MODE = true;
 
 (function (){
 
