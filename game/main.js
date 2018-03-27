@@ -19,7 +19,7 @@
  * ultra happy that I used my math knowledge somewhere practically.
  * GG
  * ( also thanks for reading this, here's the code :)
- * ( also RIP javascript parser who had to read 23 lines of comments )
+ * ( also RIP javascript parser which had to read 23 lines of comments )
  */
 
 var DEVELOPMENT_MODE = true;
