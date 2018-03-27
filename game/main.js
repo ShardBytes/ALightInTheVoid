@@ -67,7 +67,7 @@ let app = new Application({
 document.getElementById('pixi').appendChild(app.view);
 
 // some nice background for renderer
-app.renderer.backgroundColor = 0x111111;
+app.renderer.backgroundColor = 0x0C0C0C;
 
 // progress function
 function loadProgressHandler(ldr, res) { // loader, resource
@@ -132,7 +132,6 @@ let resDef = [
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
   ['orangeplayer', 'sprites/players/amberplayer.png'],
-  ['starBg', 'sprites/starBgNotSoThiccWhite.png'],
   ['bluelaser', 'sprites/bluelaser.png'],
   ['safarik', 'sprites/safarik.png'],
   ['bigplanet', 'sprites/Planett1.png'],
@@ -157,6 +156,13 @@ animationsDef.forEach(t => {
 resDef.forEach(t => {
   loader.add(t[0], t[1]);
 });
+
+// _e_a_s_t_E_r_ _e_g_g_ -> the stars will turn violet when playing game between 20:00 and 6:00 CEST
+(function() {
+  let hrs = (new Date).getHours();
+  if (hrs > 18 || hrs < 4) loader.add('starBg', 'sprites/starBgGanjaEdition.png');
+  else loader.add('starBg', 'sprites/starBgPmxyEdition.png');
+})();
 
 
 loader.load(setup)
