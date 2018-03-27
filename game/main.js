@@ -20,7 +20,7 @@
 const DEVELOPMENT_MODE = true;
 const DEVMODE_MOBILE = false;
 const VERSION = '1.3';
-const BUILDNAME = '270318-4';
+const BUILDNAME = '270318-5';
 const urlParams = new URLSearchParams(window.location.search);
 const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
