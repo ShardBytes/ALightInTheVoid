@@ -83,4 +83,12 @@ class GameBackground extends Container {
     this.behindplanetsbg.centerTo(world);
   }
 
+  rendCenter() {
+    this.starsbg.rendCenter();
+    this.starsbgBeta.rendCenter();
+    this.bigplanetbg.rendCenter();
+    this.smallplanet1bg.rendCenter();
+    this.behindplanetsbg.rendCenter();
+  }
+
 }

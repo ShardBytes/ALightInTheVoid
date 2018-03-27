@@ -438,4 +438,5 @@ window.addEventListener('resize', function() {
   if (bottomTextLeft) bottomTextLeft.align();
   if (bottomTextMid) bottomTextMid.align();
   if (bottomTextRight) bottomTextRight.align();
+  if (background) background.rendCenter();
 });
