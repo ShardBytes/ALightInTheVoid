@@ -74,8 +74,8 @@ app.renderer.backgroundColor = 0x111111;
 
 // progress function
 function loadProgressHandler(ldr, res) { // loader, resource
-  let progr = 'LOADING [ '+Math.round(ldr.progress)+'% ] : ' + res.name + ' -> ' + res.url;
-  console.log(progr);
+  let progr = 'LOADING < '+Math.round(ldr.progress)+'% >';
+  console.log(progr  + ' : ' + res.name + ' -> ' + res.url);
   $('#info').html(progr);
 }
 loader.on('progress', loadProgressHandler)
