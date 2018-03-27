@@ -6,7 +6,7 @@ class Safarik extends SegmentedTargetEntity {
     this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
 
     this.collider = new BoxCollider(this, 200, 200);
-    this.scale.set(4, 4);
+    this.scale.set(3, 3);
     this.collider.updateSize();
     this.collider.debug(false);
 
