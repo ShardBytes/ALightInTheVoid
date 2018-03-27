@@ -39,6 +39,8 @@ class Player extends DirectionalEntity {
     this.shooting = false;
     this.deltaShoot = 0; // in seconds
     this.fireRate = 7; // bullets per second
+    this.cannonsWidth = 8; // for animations
+    this.cannonsOffset = 10;
 
     // --- ABILITIES ---
     this.boostActive = false;
@@ -115,8 +117,8 @@ class Player extends DirectionalEntity {
 
     // add fire Apparition
     this.fireApparition = new Apparition(this, 'fire_', '.png', 4, this.x, this.y, 0.08, 0.5, true);
-    this.fireApparition.y = -28;
-    this.fireApparition.x = 2;
+    this.fireApparition.y = -25;
+    this.fireApparition.x = 3;
     this.fireApparition.visible = false;
 
   } // end constructor
@@ -270,8 +272,8 @@ class Player extends DirectionalEntity {
         if (this.shooting && !this.inSpawn && this.energy >= 6) {
           this.energy -= 6; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
-          bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
-          bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(this.direction), this.y + 10*Math.sin(this.direction), this.direction, true));
+          bullets.addChild(new Bullet(bullets, this, this.x + this.cannonsWidth *Math.cos(this.direction), this.y - this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
+          bullets.addChild(new Bullet(bullets, this, this.x - this.cannonsWidth *Math.cos(this.direction), this.y + this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
           // play shoot sound ( i dont want to play it on both bullets)
           resources.shoot.sound.play();
         }
