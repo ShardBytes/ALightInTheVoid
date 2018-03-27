@@ -24,6 +24,8 @@
 
 var DEVELOPMENT_MODE = true;
 var DEVMODE_MOBILE = false;
+var VERSION = '1.1';
+var BUILDNAME = '270318';
 let urlParams = new URLSearchParams(window.location.search);
 let NAME, TEAM;
 let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
@@ -199,7 +201,7 @@ function setup() {
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
 
-  bottomTextLeft = new BottomText(1, 'A Light in The Void v1.1 - (C) ShardBytes');
+  bottomTextLeft = new BottomText(1, 'A Light in The Void v'+VERSION+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
   gui.addChild(bottomTextLeft);
 
   /*
