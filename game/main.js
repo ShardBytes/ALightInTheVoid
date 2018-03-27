@@ -92,7 +92,7 @@ let otherplayers = [];
 let bullets; // swarm of bullets
 
 // gui ( let them stay global for now )
-let playerBars, bigInfo;
+let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight;
 
 // local spawn objects
 let spawn1, spawn2;
@@ -198,6 +198,17 @@ function setup() {
 
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
+
+  bottomTextLeft = new BottomText(1, 'A Light in The Void v1.1 - (C) ShardBytes');
+  gui.addChild(bottomTextLeft);
+
+  /*
+  bottomTextMid = new BottomText(2, NAME);
+  gui.addChild(bottomTextMid);
+  */
+
+  bottomTextRight = new BottomText(3, 'MOVE: arrow keys, SHOOT = [R], BOOST = [Q]');
+  gui.addChild(bottomTextRight);
 
   safarik = new Safarik();
   world.addChild(safarik);
@@ -422,4 +433,7 @@ window.addEventListener('resize', function() {
   if (playerBars) playerBars.align();
   if (bigInfo) bigInfo.align();
   if (miniMap) miniMap.align();
+  if (bottomTextLeft) bottomTextLeft.align();
+  if (bottomTextMid) bottomTextMid.align();
+  if (bottomTextRight) bottomTextRight.align();
 });
