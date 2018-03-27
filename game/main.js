@@ -29,8 +29,8 @@ let NAME, TEAM;
 let GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 let MOBILE = window.mobileAndTabletCheck();
 let INTERP_RATIO = 0.25;
-let CAMERA_SCALE_RATIO = 0.8;
-let CAMERA_FOLLOW_RATIO = 0.1;
+let CAMERA_SCALE_RATIO = 0.7;
+let CAMERA_FOLLOW_RATIO = 0.2;
 let socket;
 
 // parse login from url

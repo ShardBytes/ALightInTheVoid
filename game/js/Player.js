@@ -103,12 +103,14 @@ class Player extends DirectionalEntity {
     this.collider.addToDetectionPool(spawn2);
     this.collider.collided = (t, dx, dy, ang) => {
       if (t instanceof Spawn) {
-        this.inSpawn = true;
         if (t.id != 'spawn' + this.team) this.respawn(); // commit sudoku if in other team's spawn
       }
     };
+    this.collider.colliding = (dt, t, dx, dy, ang) => {
+      this.inSpawn = t instanceof Spawn; // inSpawn true if colliding with spawn
+    };
     this.collider.discollided = (t, dx, dy, ang) => {
-      if (t instanceof Spawn) this.inSpawn = false;
+      if (t instanceof Spawn) this.inSpawn = false; // false inSpawn on leave
     };
 
     // add fire Apparition
