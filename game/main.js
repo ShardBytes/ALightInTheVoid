@@ -178,7 +178,7 @@ function setup() {
   gui = new Gui(); app.stage.addChild(gui);
 
   // link camera to world
-  camera = new FollowerCamera(world, 1/8);
+  camera = new FollowerCamera(world, 1/8); // 1/8 folow ratio
   scaleCameraToScreenSize();
 
   // setup spawns
