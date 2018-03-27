@@ -26,7 +26,7 @@ const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https:
 const MOBILE = window.mobileAndTabletCheck();
 let NAME, TEAM;
 let INTERP_RATIO = 0.25;
-let CAMERA_SCALE_RATIO = 0.7;
+let CAMERA_SCALE_RATIO = MOBILE ? 1.1 : 0.7;
 let CAMERA_FOLLOW_RATIO = 0.2;
 let socket;
 

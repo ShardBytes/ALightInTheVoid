@@ -90,8 +90,8 @@ class Player extends DirectionalEntity {
       }
     }).bind(this);
 
-    this.cont.boost.pressed = (() => { if (this.controlsActive) this.boost(true); }).bind(this);
-    this.cont.boost.released = (() => { if (this.controlsActive) this.boost(false); }).bind(this);
+    this.cont.boost.pressed = (() => { if (this.controlsActive && !this.boostActive) this.boost(true); }).bind(this);
+    this.cont.boost.released = (() => { if (this.controlsActive && this.boostActive) this.boost(false); }).bind(this);
 
 
     // --- setup collider ---
