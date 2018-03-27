@@ -184,8 +184,8 @@ class Player extends DirectionalEntity {
 
   boost(active) {
     this.boostActive = active;
-    if (active && this.energy >= 20) {
-      this.energy -= 20; // eat 20 energy
+    if (active && this.energy >= 15) {
+      this.energy -= 15; // eat 15 energy
       this.energyDrain.boost = 30; // 30 more for each aditional second wasted in boost
       this.speedtw.target = 1000;
       this.speed = 1000;
@@ -267,8 +267,8 @@ class Player extends DirectionalEntity {
       if (this.deltaShoot > 1.0/this.fireRate) {
         this.deltaShoot = 0;
         // if we have sufficient energy and not in spawn
-        if (this.shooting && !this.inSpawn && this.energy >= 7) {
-          this.energy -= 7; // drain energy for each shot
+        if (this.shooting && !this.inSpawn && this.energy >= 6) {
+          this.energy -= 6; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(this.direction), this.y - 10*Math.sin(this.direction), this.direction, true));
           bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(this.direction), this.y + 10*Math.sin(this.direction), this.direction, true));
