@@ -135,6 +135,7 @@ let resDef = [
   ['boostsound', 'sounds/boostsound.wav'],
   ['explosionsound', 'sounds/explosionsound.wav'],
   ['powerup', 'sounds/powerup.mp3'],
+  ['humming', 'sounds/humming.mp3'],
 
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],

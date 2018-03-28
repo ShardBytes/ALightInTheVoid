@@ -190,7 +190,9 @@ class Player extends DirectionalEntity {
       this.speed = 1000;
       // play boost sound
       resources.boostsound.sound.play();
+      resources.humming.sound.play();
     } else {
+      resources.humming.sound.stop();
       this.energyDrain.boost = 0;
       this.speedtw.target = this.maxSpeed;
       this.speed = this.maxSpeed;
