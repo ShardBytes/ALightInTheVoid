@@ -127,6 +127,7 @@ function scaleCameraToScreenSize() {
 let resDef = [
   /* SOUNDS : */
   ['music', 'sounds/music.mp3'],
+  ['gameend', 'sounds/gameend.mp3'],
   ['jet', 'sounds/jet.mp3'],
   ['hit', 'sounds/hit.mp3'],
   ['shoot', 'sounds/shoot.mp3'],
@@ -367,7 +368,7 @@ function setup() {
       safarik.collider.active = false;
       safarik.visible = false;
       new Apparition(world, 'expl_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
-      resources.explosionsound.sound.play();
+      resources.gameend.sound.play();
     }, 2000);
 
     player.despawn();
