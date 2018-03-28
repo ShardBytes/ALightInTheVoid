@@ -96,6 +96,7 @@ class Player extends DirectionalEntity {
 
     // --- setup collider ---
     this.collider = new CircleCollider(this, 5);
+    this.collider.r = 15;
     this.collider.debug(COLLIDER_DEBUG); // DEBUG
     // add spawns to detection pool
     this.collider.addToDetectionPool(spawn1);
