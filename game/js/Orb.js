@@ -16,6 +16,7 @@ class Orb extends Entity {
         if (mode == 0) player.energy += 20;
         else player.health += 20;
         player.checkOverStock();
+        resources.powerup.sound.play();
         this.reload();
       } else if ( t instanceof OtherPlayer) this.reload();
     };

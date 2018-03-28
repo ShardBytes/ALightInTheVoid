@@ -133,6 +133,7 @@ let resDef = [
   ['nani', 'sounds/nani.mp3'],
   ['boostsound', 'sounds/boostsound.mp3'],
   ['explosionsound', 'sounds/explosionsound.mp3'],
+  ['powerup', 'sounds/powerup.mp3'],
 
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
