@@ -18,7 +18,7 @@
  */
 
 const DEVELOPMENT_MODE = true;
-const DEVMODE_MOBILE = true;
+const DEVMODE_MOBILE = false;
 const VERSION = '1.4 Ashley';
 const BUILDNAME = '280318/1945';
 const urlParams = new URLSearchParams(window.location.search);
@@ -127,12 +127,12 @@ function scaleCameraToScreenSize() {
 let resDef = [
   /* SOUNDS : */
   ['music', 'sounds/music.mp3'],
-  ['jet', 'sounds/jet.wav'],
-  ['hit', 'sounds/hit.wav'],
-  ['shoot', 'sounds/shoot.wav'],
+  ['jet', 'sounds/jet.mp3'],
+  ['hit', 'sounds/hit.mp3'],
+  ['shoot', 'sounds/shoot.mp3'],
   ['nani', 'sounds/nani.mp3'],
-  ['boostsound', 'sounds/boostsound.wav'],
-  ['explosionsound', 'sounds/explosionsound.wav'],
+  ['boostsound', 'sounds/boostsound.mp3'],
+  ['explosionsound', 'sounds/explosionsound.mp3'],
 
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
