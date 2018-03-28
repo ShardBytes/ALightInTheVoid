@@ -256,6 +256,7 @@ class Player extends DirectionalEntity {
         this.energy += this.energyRegen*(dt/60);
       }
 
+      this.checkOverStock();
 
       if (this.controlsActive) {
         this.control(dt);
@@ -284,6 +285,12 @@ class Player extends DirectionalEntity {
       this.emitPositionChange();
 
     }
+  }
+
+  // check overenergy nad overhealth
+  checkOverStock() {
+    if (this.energy > this.maxEnergy) this.energy = this.maxEnergy;
+    if (this.health > this.maxHealth) this.health = this.maxHealth;
   }
 
   // --- these methods send data to server ---

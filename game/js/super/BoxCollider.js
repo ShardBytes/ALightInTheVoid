@@ -30,6 +30,8 @@ class BoxCollider extends Collider {
 
     if ( tcl instanceof BoxCollider ) {
 
+      if (!tcl.active) return; // if target collider not active, return too
+
       // if colliders intersect (rectangle intersect )
       if (
         ( Math.abs(dx)*2 < (this.w + tcl.w) ) &&

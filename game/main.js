@@ -94,13 +94,17 @@ let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight;
 // local spawn objects
 let spawn1, spawn2;
 
+let orbswarm;
+
 // add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
   otherplayers.push(op);
+  orbswarm.addPlayerDetection(op);
 }
 
 // same
 function removeOtherPlayer(op) {
+  orbswarm.removePlayerDetection(op);
   otherplayers.splice(otherplayers.indexOf(op), 1);
 }
 
@@ -196,6 +200,10 @@ function setup() {
   spawn1 = new Spawn('1'); world.addChild(spawn1);
   spawn2 = new Spawn('2'); world.addChild(spawn2);
 
+  // setup orbs
+  orbswarm = new OrbSwarm();
+  world.addChild(orbswarm);
+
   /* DEFINE CONTROLLER -> create virtual gamepad = mobilecontroller if on mobile device */
   controller = MOBILE ? new MobileController() : new KeyboardController();
   if (MOBILE) gui.addChild(controller); // add virutal gamepad to gui if present
@@ -245,6 +253,7 @@ function setup() {
     player = new Player(world, controller, plr.id, plr.x, plr.y, plr.team);
     player.spawn(); // spawn the player ( server will chain the spawn to others)
     safarik.collider.addToDetectionPool(player); // safarik detects player
+    orbswarm.addPlayerDetection(player);
 
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
@@ -415,7 +424,6 @@ function tick(dt) {
 
   if (player){
     player.update(dt);
-    player.collider.update(dt);
   }
 
   otherplayers.forEach(function(plr, i) {
@@ -426,6 +434,7 @@ function tick(dt) {
   // update other
   bullets.update(dt);
   safarik.update(dt);
+  orbswarm.update(dt);
 
   playerBars.redraw(player);
   miniMap.redraw();
