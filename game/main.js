@@ -136,6 +136,7 @@ let resDef = [
   ['explosionsound', 'sounds/explosionsound.wav'],
   ['powerup', 'sounds/powerup.mp3'],
   ['humming', 'sounds/humming.mp3'],
+  ['helloworld', 'sounds/helloworld.mp3'],
 
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
@@ -184,15 +185,17 @@ function setup() {
 
   /* setup sounds (like looping and stuff) */
   resources.jet.sound.loop = true;
-  resources.jet.sound.volume = 0.5;
+  resources.jet.sound.volume = 0.6;
 
   resources.music.sound.loop = true;
-  resources.music.sound.volume = 1;
+  resources.music.sound.volume = 0.9;
 
   resources.nani.sound.volume = 0.15;
   resources.shoot.sound.volume = 0.2;
 
   resources.humming.sound.loop = true;
+
+  resources.helloworld.sound.volume = 0.5;
 
   /* INIT CONTAINERS - order is important ! */
   background = new GameBackground(); app.stage.addChild(background);

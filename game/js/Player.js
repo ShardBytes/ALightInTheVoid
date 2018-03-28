@@ -142,6 +142,9 @@ class Player extends DirectionalEntity {
     this.alive = true;
     this.controlsActive = true;
     cameraTarget = this;
+
+    // play spawn sound
+    resources.helloworld.sound.play();
   }
 
   // by despawning it i mean removing it from the world
