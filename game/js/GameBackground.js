@@ -15,6 +15,16 @@ class GameBackground extends Container {
       }
     };
 
+    this.SmallPlanet1 = class extends Sprite {
+      constructor(x, y) {
+        super(resources.smallplanet1.texture);
+        this.anchor.set(0.5, 0.5);
+        this.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
+        this.scale.set(3, 3);
+        this.position.set(x, y);
+      }
+    };
+
     /* STARS 1  */
 
     this.starsbg = new ParallaxBackground(0.05);
@@ -44,10 +54,10 @@ class GameBackground extends Container {
     this.midsm2 = new this.SmallPlanet2(-300, -100);
     this.behindplanetsbg.addChild(this.midsm2);
 
-    this.spawnsm2 = new this.SmallPlanet2(-3250, -800);
+    this.spawnsm2 = new this.SmallPlanet1(-500, 300);
     this.behindplanetsbg.addChild(this.spawnsm2);
 
-    this.spawn2sm2 = new this.SmallPlanet2(-3250*0.45, -800*0.45);
+    this.spawn2sm2 = new this.SmallPlanet2(800, -100);
     this.behindplanetsbg.addChild(this.spawn2sm2);
 
     /* BIG PLANET */
