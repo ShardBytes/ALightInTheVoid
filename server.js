@@ -131,7 +131,7 @@ class ServerSafarik {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.followSpeed = 200; // px per sec
+    this.followSpeed = 100; // px per sec
 
     this.xtw = new Tween(this, 'x', this.followSpeed);
     this.xtw.start();
