@@ -228,7 +228,7 @@ function setup() {
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
 
-  bottomTextLeft = new BottomText(1, 'A Light in The Void v'+VERSION+' - '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
+  bottomTextLeft = new BottomText(1, 'A Light in The Void\nv'+VERSION+' - '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
   gui.addChild(bottomTextLeft);
 
   /*
