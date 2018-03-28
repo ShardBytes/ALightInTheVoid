@@ -192,6 +192,8 @@ function setup() {
   resources.nani.sound.volume = 0.15;
   resources.shoot.sound.volume = 0.2;
 
+  resources.humming.sound.loop = true;
+
   /* INIT CONTAINERS - order is important ! */
   background = new GameBackground(); app.stage.addChild(background);
   world = new World(8000, 3000); world.drawBorder(); app.stage.addChild(world);
