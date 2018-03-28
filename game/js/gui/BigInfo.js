@@ -4,10 +4,14 @@ class BigInfo extends Text {
   constructor() {
     super('', {
       fontFamily : 'Consolas, Arial',
-      fontSize: 30,
-      fill : 0x1fee46,
+      fontSize: 40,
+      fill : '#1cff00',
       fontWeight: 'bold',
-      align : 'center'
+      align : 'center',
+      dropShadow : true,
+      dropShadowBlur: 4,
+      dropShadowColor : '#000000',
+      dropShadowDistance : 0
     });
     this.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;
     this.anchor.set(0.5, 0.5);
