@@ -154,7 +154,8 @@ let animationsDef = [
   'sprites/anim/expl.json',
   'sprites/anim/fire.json',
   'sprites/anim/blueportal_particles.json',
-  'sprites/anim/orangeportal_rotating.json'
+  'sprites/anim/orangeportal_rotating.json',
+  'sprites/anim/boostparticles.json'
 ];
 
 // load animations

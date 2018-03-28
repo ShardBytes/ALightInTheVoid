@@ -119,6 +119,11 @@ class Player extends DirectionalEntity {
     this.fireApparition.x = 3;
     this.fireApparition.visible = false;
 
+    this.boostApparition = new Apparition(this, 'boostparticles ', '.aseprite', 20, this.x, this.y, 2, 0.5, true, true);
+    this.boostApparition.rotation = Math.PI;
+    this.boostApparition.visible = false;
+
+
   } // end constructor
 
   // by spawning the player, I mean reseting all of its states, placing it on spawn pos and adding it to the world
@@ -163,6 +168,10 @@ class Player extends DirectionalEntity {
     // stop sounds if playing
     resources.jet.sound.stop();
     resources.humming.sound.stop();
+
+    // stop unwanted apparitions
+    this.boostApparition.visible = false;
+    
     // play despawn sound
     resources.explosionsound.sound.play();
 
@@ -196,8 +205,10 @@ class Player extends DirectionalEntity {
       // play boost sound
       resources.boostsound.sound.play();
       resources.humming.sound.play();
+      this.boostApparition.visible = true;
     } else {
       resources.humming.sound.stop();
+      this.boostApparition.visible = false;
       this.energyDrain.boost = 0;
       this.speedtw.target = this.maxSpeed;
       this.speed = this.maxSpeed;
