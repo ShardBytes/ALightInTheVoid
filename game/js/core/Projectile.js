@@ -14,7 +14,7 @@ class Projectile extends DirectionalEntity {
     this.speed = speed;
     this.sc = superContainer;
 
-    this.collider = new BoxCollider(this);
+    this.collider = new CircleCollider(this);
 
     this.deathTime = 2; // seconds, will destroy when reaching death ;_;
     this.lifeTime = 0; // seconds

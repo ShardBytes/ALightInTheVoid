@@ -8,7 +8,7 @@ class Orb extends Entity {
     this.x = x;
     this.y = y;
 
-    this.collider = new BoxCollider(this);
+    this.collider = new CircleCollider(this);
     this.collider.debug(true);
 
     this.collider.collided = (t, dx, dy, ang) => {

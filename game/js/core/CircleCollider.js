@@ -36,7 +36,7 @@ class CircleCollider extends Collider {
 
       // if colliders intersect ( circles intersect )
       if (
-        Math.sqrt(Math.pow(dy, 2) + Math.pow(dx, 2)) - this.r - tcl.r >= 0
+        Math.sqrt(Math.pow(dy, 2) + Math.pow(dx, 2)) - this.r - tcl.r <= 0
       ) {
         // will execute only on collision
         if (!this.isColliding(t)) {
@@ -62,13 +62,12 @@ class CircleCollider extends Collider {
   debug(state) {
     super.debug(state);
     if (!state) return; // return if debug is off
-    /* !!! ->  dgraphics will be scaled with the entity container, therefore to get a true rectangle size relative to parent even after scaling, we have to revert the scale. */
 
     this.debugGraphics.drawEllipse(
-      -this.r/this.ent.scale.x,
-      -this.r/this.ent.scale.y,
-      2*this.r/this.ent.scale.x,
-      2*this.r/this.ent.scale.y
+      0,
+      0,
+      this.r/this.ent.scale.x,
+      this.r/this.ent.scale.y
     );
   }
 

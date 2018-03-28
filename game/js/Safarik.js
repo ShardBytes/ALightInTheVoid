@@ -5,10 +5,10 @@ class Safarik extends SegmentedTargetEntity {
     super('safarik', resources.safarik.texture, 0, 0);
     this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
 
-    this.collider = new BoxCollider(this, 200, 200);
+    this.collider = new CircleCollider(this, 100);
     this.scale.set(3, 3);
     this.collider.updateSize();
-    this.collider.debug(false);
+    this.collider.debug(true);
 
     this.collider.collided = (t, dx, dy, ang) => {
       //resources.nani.sound.play(); actually, don't, leave server to do it
