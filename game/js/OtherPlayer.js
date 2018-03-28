@@ -19,7 +19,7 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.inSpawn = false; // if the otherplayer is in spawn
 
     this.collider = new CircleCollider(this);
-    this.collider.debug(true);
+    this.collider.debug(COLLIDER_DEBUG);
     // add spawns to detection pool
     this.collider.addToDetectionPool(spawn1);
     this.collider.addToDetectionPool(spawn2);

@@ -33,7 +33,7 @@ class Bullet extends Projectile {
     this.collider.updateSize();
     //this.collider.r = 10; // fixed collider radius
     this.sprite.rotation = PI;
-    this.collider.debug(true);
+    this.collider.debug(COLLIDER_DEBUG);
     this.collider.collided = (t, dx, dy, ang) => {
       // hit player if not fake
       if (!this.isFake && t instanceof Player) {

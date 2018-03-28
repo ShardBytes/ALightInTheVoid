@@ -9,7 +9,7 @@ class Orb extends Entity {
     this.y = y;
 
     this.collider = new CircleCollider(this);
-    this.collider.debug(true);
+    this.collider.debug(COLLIDER_DEBUG);
 
     this.collider.collided = (t, dx, dy, ang) => {
       if (t instanceof Player) {

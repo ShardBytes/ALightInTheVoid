@@ -15,6 +15,6 @@ class Spawn extends Entity {
       this.y = -800;
     }
     this.collider = new CircleCollider(this);
-    this.collider.debug(true);
+    this.collider.debug(COLLIDER_DEBUG);
   }
 }
