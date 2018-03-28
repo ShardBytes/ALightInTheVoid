@@ -59,6 +59,8 @@ app.get('/index.css', function(req, res) {
 // --------- GAME ------------
 
 let GAME_ACTIVE = true;
+let team1Points = 0;
+let team2Points = 0;
 
 // --- PROTO ---
 
@@ -237,18 +239,23 @@ function getPlayerById(id) {
 }
 
 function endGame(team) {
-  io.emit('gameEnded', team);
   GAME_ACTIVE = false;
+  io.emit('gameEnded', team);
+
   if (team == '1') {
+    team1Points++;
     safarik.xtw.target = spawn1.x;
     safarik.ytw.target = spawn1.y;
   } else {
+    team2Points++;
     safarik.xtw.target = spawn2.x;
-    safarik.ytw.target=  spawn2.y;
+    safarik.ytw.target =  spawn2.y;
   }
+  io.emit('updateScore', [team1Points, team2Points]);
 
   console.log('\n--- [ GAME ENDED ]---');
   console.log('WINNER : TEAM ' + team);
+  console.log('POINTS : ' + team1Points + ' : ' + team2Points);
   console.log();
 
   setTimeout(() => {

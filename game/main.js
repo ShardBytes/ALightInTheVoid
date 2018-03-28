@@ -90,7 +90,7 @@ let otherplayers = [];
 let bullets; // swarm of bullets
 
 // gui ( let them stay global for now )
-let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight;
+let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight, scoreboard;
 
 // local spawn objects
 let spawn1, spawn2;
@@ -232,6 +232,9 @@ function setup() {
 
   bottomTextLeft = new BottomText(1, 'A Light in The Void\nv'+VERSION+' - '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
   gui.addChild(bottomTextLeft);
+
+  scoreboard = new Scoreboard();
+  gui.addChild(scoreboard);
 
   /*
   bottomTextMid = new BottomText(2, NAME);
@@ -378,10 +381,10 @@ function setup() {
       safarik.visible = false;
       new Apparition(world, 'expl_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
       resources.gameend.sound.play();
+      bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
     }, 3500);
 
     player.despawn();
-    bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
   });
 
   socket.on('gameReset', function() {
@@ -398,6 +401,13 @@ function setup() {
     setTimeout(() => {
       bigInfo.text = '';
     }, 1000);
+  });
+
+  socket.on('updateScore', function(obj) {
+    if (obj && obj.length == 2) {
+      scoreboard.team1Points.text = '' + obj[0];
+      scoreboard.team2Points.text = '' + obj[1];
+    }
   });
 
   //--- end events ----
@@ -469,5 +479,6 @@ window.addEventListener('resize', function() {
   if (bottomTextLeft) bottomTextLeft.align();
   if (bottomTextMid) bottomTextMid.align();
   if (bottomTextRight) bottomTextRight.align();
+  if (scoreboard) scoreboard.align();
   if (controller && controller.align) controller.align();
 });
