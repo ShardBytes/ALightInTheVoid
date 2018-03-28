@@ -21,7 +21,7 @@ class Player extends DirectionalEntity {
 
     // --- specific player stuff ---
     this.alive = true;
-    this.respawnTime = 7000; // ms
+    this.respawnTime = 5000; // ms
 
     this.maxHealth = 100;
     this.health = this.maxHealth;
@@ -48,7 +48,7 @@ class Player extends DirectionalEntity {
     // --- movement stuff ---
     this.defaultMaxSpeed = 400; // points per sec
     this.maxSpeed = this.defaultMaxSpeed;
-    this.rotationSpeed = 2; // rads per sec
+    this.rotationSpeed = 2.5; // rads per sec
 
     // this tween updates speed to target speed constantly
     this.speedtw = new Tween(this, 'speed', 200); // rate = acceleration
@@ -173,7 +173,7 @@ class Player extends DirectionalEntity {
 
   respawn() {
     this.despawn();
-    bigInfo.text = 'RESPAWNING (7s)';
+    bigInfo.text = 'RESPAWNING (8s)';
     setTimeout(() => {
       bigInfo.text = '';
       this.spawn();

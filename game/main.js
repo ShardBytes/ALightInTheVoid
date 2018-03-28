@@ -196,6 +196,7 @@ function setup() {
   resources.humming.sound.loop = true;
 
   resources.helloworld.sound.volume = 0.5;
+  resources.powerup.sound.volume = 0.5;
 
   /* INIT CONTAINERS - order is important ! */
   background = new GameBackground(); app.stage.addChild(background);
@@ -376,7 +377,7 @@ function setup() {
       safarik.visible = false;
       new Apparition(world, 'expl_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
       resources.gameend.sound.play();
-    }, 2000);
+    }, 3500);
 
     player.despawn();
     bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
