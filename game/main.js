@@ -18,11 +18,11 @@
  */
 
 const DEVELOPMENT_MODE = true;
-const DEVMODE_MOBILE = false;
+const DEVMODE_MOBILE = true;
 const VERSION = '1.4 Ashley';
 const BUILDNAME = '280318/1945';
 const urlParams = new URLSearchParams(window.location.search);
-const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.102' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
 const COLLIDER_DEBUG = urlParams.has('cdebug') || false;
 let NAME, TEAM;
