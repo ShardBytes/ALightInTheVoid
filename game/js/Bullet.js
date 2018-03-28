@@ -29,10 +29,11 @@ class Bullet extends Projectile {
     });
 
     this.sprite.scale.set(0.5, 0.5);
-    this.collider.w = 10; // fixed collider
-    this.collider.h = 10;
+    this.collider.ro = 5; // radius offset
+    this.collider.updateSize();
+    //this.collider.r = 10; // fixed collider radius
     this.sprite.rotation = PI;
-    //this.collider.debug(true);
+    this.collider.debug(COLLIDER_DEBUG);
     this.collider.collided = (t, dx, dy, ang) => {
       // hit player if not fake
       if (!this.isFake && t instanceof Player) {
@@ -55,9 +56,10 @@ class Bullet extends Projectile {
 
   update(dt) {
     super.update(dt);
+    let cr = this.collider.r;
 
     // if outside the world, destroy
-    if ( this.x >= world.w/2 || this.x <= -world.w/2 || this.y >= world.h/2 || this.y <= -world.h/2) {
+    if ( this.x >= world.w/2 - cr || this.x <= -world.w/2 + cr || this.y >= world.h/2 - cr || this.y <= -world.h/2 + cr) {
       this.destroy(); // just destroy, dont hit
       return;
     }

@@ -8,14 +8,15 @@ class Orb extends Entity {
     this.x = x;
     this.y = y;
 
-    this.collider = new BoxCollider(this);
-    this.collider.debug(true);
+    this.collider = new CircleCollider(this);
+    this.collider.debug(COLLIDER_DEBUG);
 
     this.collider.collided = (t, dx, dy, ang) => {
       if (t instanceof Player) {
         if (mode == 0) player.energy += 20;
         else player.health += 20;
         player.checkOverStock();
+        resources.powerup.sound.play();
         this.reload();
       } else if ( t instanceof OtherPlayer) this.reload();
     };

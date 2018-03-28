@@ -26,7 +26,7 @@ class Collider {
   debug(active) {
     if (active) {
       this.debugGraphics = new PIXI.Graphics;
-      this.debugGraphics.lineStyle(2, 0xe32fff, 1);
+      this.debugGraphics.lineStyle(2, 0xadff00, 1);
       this.ent.addChild(this.debugGraphics);
     } else {
       this.ent.removeChild(this.debugGraphics);

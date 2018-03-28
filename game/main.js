@@ -19,11 +19,12 @@
 
 const DEVELOPMENT_MODE = true;
 const DEVMODE_MOBILE = false;
-const VERSION = '1.3';
-const BUILDNAME = '270318-5';
+const VERSION = '1.4 Ashley';
+const BUILDNAME = '280318/1945';
 const urlParams = new URLSearchParams(window.location.search);
-const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.102' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
+const COLLIDER_DEBUG = urlParams.has('cdebug') || false;
 let NAME, TEAM;
 let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = MOBILE ? 1.1 : 0.7;
@@ -126,12 +127,13 @@ function scaleCameraToScreenSize() {
 let resDef = [
   /* SOUNDS : */
   ['music', 'sounds/music.mp3'],
-  ['jet', 'sounds/jet.wav'],
-  ['hit', 'sounds/hit.wav'],
-  ['shoot', 'sounds/shoot.wav'],
+  ['jet', 'sounds/jet.mp3'],
+  ['hit', 'sounds/hit.mp3'],
+  ['shoot', 'sounds/shoot.mp3'],
   ['nani', 'sounds/nani.mp3'],
-  ['boostsound', 'sounds/boostsound.wav'],
-  ['explosionsound', 'sounds/explosionsound.wav'],
+  ['boostsound', 'sounds/boostsound.mp3'],
+  ['explosionsound', 'sounds/explosionsound.mp3'],
+  ['powerup', 'sounds/powerup.mp3'],
 
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
@@ -218,7 +220,7 @@ function setup() {
   bigInfo = new BigInfo();
   gui.addChild(bigInfo);
 
-  bottomTextLeft = new BottomText(1, 'A Light in The Void v'+VERSION+' '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
+  bottomTextLeft = new BottomText(1, 'A Light in The Void v'+VERSION+' - '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
   gui.addChild(bottomTextLeft);
 
   /*
