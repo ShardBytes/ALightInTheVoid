@@ -1,5 +1,5 @@
 // parallax background by Plasmoxy
-/* parallax parameter : in interval <0, 1>, the bigger from 0.5, the closer the object appear to be */
+/* parallax parameter : in interval <0, 1>, the bigger from 0.5, the closer the object appears to be */
 
 class ParallaxBackground extends Container {
 
