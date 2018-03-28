@@ -129,11 +129,11 @@ let resDef = [
   ['music', 'sounds/music.mp3'],
   ['gameend', 'sounds/gameend.mp3'],
   ['jet', 'sounds/jet.mp3'],
-  ['hit', 'sounds/hit.mp3'],
-  ['shoot', 'sounds/shoot.mp3'],
+  ['hit', 'sounds/hit.wav'],
+  ['shoot', 'sounds/shoot.wav'],
   ['nani', 'sounds/nani.mp3'],
-  ['boostsound', 'sounds/boostsound.mp3'],
-  ['explosionsound', 'sounds/explosionsound.mp3'],
+  ['boostsound', 'sounds/boostsound.wav'],
+  ['explosionsound', 'sounds/explosionsound.wav'],
   ['powerup', 'sounds/powerup.mp3'],
 
   /* TEXTURES : */
