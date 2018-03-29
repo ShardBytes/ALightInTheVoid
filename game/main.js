@@ -2,8 +2,9 @@
 /* (c) ShardBytes 2018-<end of the world>
 /* by Plasmoxy */
 /* [ A Light In The Void ] => simple mutiplayer game made just using pixi */
-/* Game engine by Plasmoxy based on PIXI.js, made in less than 20 days*/
+/* Game engine by Plasmoxy based on PIXI.js, made in hurry*/
 /* uses my pixialiases.js snippet for shorter names */
+/* This game was made for a programming competition IHRA by UPJŠ Košice */
 
 /* ALSO WORKS ON MOBILE NOW YAYY YESS FINALLY ( I spend half a day on that ) */
 
@@ -50,7 +51,7 @@ function clientlog(obj) {
 }
 
 console.log('--- ShardBytes: A Light In The Void ---')
-console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in less than 20 days lmao ---');
+console.log('--- Based on the amazing Plasmoxy\'s game engine based on PIXI.js, written in 3 weeks lmao ---');
 if (MOBILE) console.log('MOBILE DEVICE DETECTED !  GOD SAVE YOU, DEAR FRAMES PER SECOND ;)');
 
 let fmeter = new FPSMeter(); // comment this out to turn off fpsmeter
