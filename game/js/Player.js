@@ -64,6 +64,7 @@ class Player extends DirectionalEntity {
         resources.jet.sound.play();
         // show fire
         this.fireApparition.visible = true;
+        socket.emit('apparitionChange', { app: 'fireApparition', visible: true });
       }
     }).bind(this);
 
@@ -71,7 +72,6 @@ class Player extends DirectionalEntity {
       if(this.controlsActive) {
         this.speedtw.target = -this.maxSpeed/2; // half the speed when reverse
         resources.jet.sound.play();
-        this.fireApparition.visible = true;
       }
     }).bind(this);
 
@@ -169,7 +169,10 @@ class Player extends DirectionalEntity {
     resources.humming.sound.stop();
 
     // stop unwanted apparitions
+    this.fireApparition.visible = false;
+    socket.emit('apparitionChange', { app: 'fireApparition', visible: false});
     this.boostApparition.visible = false;
+    socket.emit('apparitionChange', { app: 'boostApparition', visible: false });
 
     // play despawn sound
     resources.explosionsound.sound.play();
@@ -205,12 +208,14 @@ class Player extends DirectionalEntity {
       resources.boostsound.sound.play();
       resources.humming.sound.play();
       this.boostApparition.visible = true;
+      socket.emit('apparitionChange', { app: 'boostApparition', visible: true });
     } else {
       resources.humming.sound.stop();
       this.boostApparition.visible = false;
       this.energyDrain.boost = 0;
       this.speedtw.target = this.maxSpeed;
       this.speed = this.maxSpeed;
+      socket.emit('apparitionChange', { app: 'boostApparition', visible: false });
     }
   }
 
@@ -222,7 +227,10 @@ class Player extends DirectionalEntity {
     if (!this.cont.up.down && !this.cont.down.down && !this.boostActive) {
       this.speedtw.target = 0;
       resources.jet.sound.stop();
-      this.fireApparition.visible = false;
+      if (this.fireApparition.visible) {
+        this.fireApparition.visible = false;
+        socket.emit('apparitionChange', { app: 'fireApparition', visible: false });
+      }
     }
 
     // move sideways ( change direction )

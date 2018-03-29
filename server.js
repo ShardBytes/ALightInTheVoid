@@ -385,6 +385,21 @@ io.sockets.on('connection', function(socket) {
     safarik.removeTarget(plrId);
   });
 
+  // dev tool, not binded in game, just use console to reset the score
+  socket.on('@rscore', function() {
+    team1Points = 0;
+    team2Points = 0;
+    io.emit('updateScore', [team1Points, team2Points]);
+  });
+
+  // apparition change
+  // data -> app: apparition name, active: apparition active (bool)
+  socket.on('apparitionChange', function(data) {
+    // assign add id to data and broadcast
+    data.id = socket.player.id;
+    socket.broadcast.emit('apparitionChange', data);
+  });
+
 });
 
 // internal server tick function

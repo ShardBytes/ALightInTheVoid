@@ -403,10 +403,26 @@ function setup() {
     }, 1000);
   });
 
-  socket.on('updateScore', function(obj) {
-    if (obj && obj.length == 2) {
-      scoreboard.team1Points.text = '' + obj[0];
-      scoreboard.team2Points.text = '' + obj[1];
+  socket.on('updateScore', function(data) {
+    if (data && data.length == 2) {
+      scoreboard.team1Points.text = '' + data[0];
+      scoreboard.team2Points.text = '' + data[1];
+    }
+  });
+
+  socket.on('apparitionChange', function(data) {
+    if (data) {
+      let plr = getOtherPlayerById(data.id);
+      if (plr) {
+        switch(data.app) {
+          case 'fireApparition':
+            plr.fireApparition.visible = data.visible;
+            break;
+          case 'boostApparition':
+            plr.boostApparition.visible = data.visible;
+            break;
+        }
+      }
     }
   });
 
