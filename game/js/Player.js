@@ -245,11 +245,14 @@ class Player extends DirectionalEntity {
   bomb() {
     if (!this.inSpawn && this.energy >= 50) {
       this.energy -= 50;
+      // create bomb behind player
       let b = new Bomb(bombs, this, this.x, this.y, this.direction, -50);
       socket.emit('playerBomb', {
         x: b.x,
         y: b.y
       });
+      // play place sound
+      resources.bombplace.sound.play();
     }
   }
 

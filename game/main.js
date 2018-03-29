@@ -137,6 +137,7 @@ let resDef = [
   ['powerup', 'sounds/powerup.mp3'],
   ['humming', 'sounds/humming.mp3'],
   ['helloworld', 'sounds/helloworld.mp3'],
+  ['bombplace', 'sounds/bombplace.mp3'],
 
   /* TEXTURES : */
   ['cyanplayer', 'sprites/players/aquamarineplayer.png'],
@@ -199,6 +200,7 @@ function setup() {
 
   resources.helloworld.sound.volume = 0.5;
   resources.powerup.sound.volume = 0.5;
+  resources.bombplace.sound.volume = 0.2;
 
   /* INIT CONTAINERS - order is important ! */
   background = new GameBackground(); app.stage.addChild(background);
