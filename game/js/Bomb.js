@@ -40,11 +40,11 @@ class Bomb extends Entity {
 
     this.swarm.addChild(this);
 
-    /*
-    this.explTimer = setTimeout(() => { // destroy bomb after some time
+
+    this.explTimer = setTimeout(() => { // self-destroy bomb after some time
       this.explode();
-    }, 3000);
-    */
+    }, 10000);
+
   }
 
   explode() {
