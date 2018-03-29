@@ -10,6 +10,7 @@ class KeyboardController {
     this.right =  new KeyboardKey(39); // right arrow
     this.shoot = new KeyboardKey(82); // R
     this.boost = new KeyboardKey(81); // Q
+    this.flash = new KeyboardKey(87); // W
   }
 
 }
