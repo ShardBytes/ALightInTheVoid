@@ -149,10 +149,12 @@ let resDef = [
   ['smallplanet1', 'sprites/Planett2.png'],
   ['smallplanet2', 'sprites/Planett3.png'],
   ['healthpowerup', 'sprites/powerups/ruzovagulickapriesvitna.png'],
+  ['energypowerup', 'sprites/powerups/modragulickapriesvitna.png'],
   ['bootlegpad', 'sprites/touchpad.png']
 
 ];
 
+/* ANIMATIONS */
 let animationsDef = [
   'sprites/anim/expl.json',
   'sprites/anim/fire.json',
