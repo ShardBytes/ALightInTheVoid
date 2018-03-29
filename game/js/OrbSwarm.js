@@ -13,12 +13,4 @@ class OrbSwarm extends EntitySwarm {
     this.orbs.forEach( (a,i)=>{this.addChild(a);} );
   }
 
-  addPlayerDetection(plr) {
-    this.orbs.forEach( (a,i)=>{a.collider.addToDetectionPool(plr);} );
-  }
-
-  removePlayerDetection(plr) {
-    this.orbs.forEach( (a,i)=>{a.collider.removeFromDetectionPool(plr);} );
-  }
-
 }

@@ -375,6 +375,11 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('playerFlash', npos);
   });
 
+  socket.on('playerBomb', function(bpos) {
+    bpos.id = socket.player.id;
+    socket.broadcast.emit('playerBomb', bpos);
+  });
+
   // if client sets themselves as a target
   socket.on('addSafarikTarget', function(plrId) {
     safarik.addTarget(plrId);

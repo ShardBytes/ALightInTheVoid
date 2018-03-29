@@ -93,6 +93,8 @@ class Player extends DirectionalEntity {
 
     this.cont.flash.pressed = ( () => {if (this.controlsActive) this.flash(); } );
 
+    this.cont.bomb.pressed = ( () => { if (this.controlsActive) this.bomb(); });
+
     // --- setup collider ---
     this.collider = new CircleCollider(this, 5);
     this.collider.r = 15;
@@ -196,6 +198,7 @@ class Player extends DirectionalEntity {
     this.health -= damage; // dmg from bullet
   }
 
+  // ABILITY : BOOST
   boost(active) {
     this.boostActive = active;
     if (active && this.energy >= 15) {
@@ -218,9 +221,10 @@ class Player extends DirectionalEntity {
     }
   }
 
+  // ABILITY: FLASH
   flash() {
-    let d = 700; // difference to flash
-    this.health -= 25;
+    let d = 500; // difference to flash
+    this.health -= 20;
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
 
     this.x -= d*Math.sin(this.direction);
@@ -235,6 +239,18 @@ class Player extends DirectionalEntity {
     });
 
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+  }
+
+  // ABILITY : BOMB
+  bomb() {
+    if (!this.inSpawn && this.energy >= 50) {
+      this.energy -= 50;
+      let b = new Bomb(bombs, this, this.x, this.y, this.direction, -50);
+      socket.emit('playerBomb', {
+        x: b.x,
+        y: b.y
+      });
+    }
   }
 
   // controls which need to be updated with ticks

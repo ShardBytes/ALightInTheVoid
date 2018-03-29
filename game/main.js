@@ -87,7 +87,7 @@ let miniMap;
 let player, safarik; // objects
 
 let otherplayers = [];
-let bullets; // swarm of bullets
+let bullets, bombs; // swarms
 
 // gui ( let them stay global for now )
 let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight, scoreboard;
@@ -100,7 +100,7 @@ let orbswarm;
 // add other player but don't spawn it, that may be handled through playerSpawned...
 function addOtherPlayer(op) {
   otherplayers.push(op);
-  orbswarm.addPlayerDetection(op);
+  orbswarm.addEntityDetection(op);
 }
 
 // same
@@ -251,6 +251,9 @@ function setup() {
   bullets = new EntitySwarm();
   world.addChild(bullets);
 
+  bombs = new EntitySwarm();
+  world.addChild(bombs);
+
   // ze word is now complet
   /* ------------------ BEGIN GAME -------------------*/
 
@@ -269,7 +272,7 @@ function setup() {
     player = new Player(world, controller, plr.id, plr.x, plr.y, plr.team);
     player.spawn(); // spawn the player ( server will chain the spawn to others)
     safarik.collider.addToDetectionPool(player); // safarik detects player
-    orbswarm.addPlayerDetection(player);
+    orbswarm.addEntityDetection(player);
 
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
@@ -350,6 +353,11 @@ function setup() {
   socket.on('playerFlash', function(npos) {
     let plr = getOtherPlayerById(npos.id);
     if (plr) plr.flash(npos.x, npos.y);
+  });
+
+  socket.on('playerBomb', function(bpos) {
+    let plr = getOtherPlayerById(bpos.id);
+    if (plr) plr.bomb(bpos.x, bpos.y);
   });
 
   socket.on('playerSpawned', function(pid) {
@@ -479,6 +487,7 @@ function tick(dt) {
   bullets.update(dt);
   safarik.update(dt);
   orbswarm.update(dt);
+  bombs.update(dt);
 
   playerBars.redraw(player);
   miniMap.redraw();

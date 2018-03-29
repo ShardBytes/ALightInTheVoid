@@ -101,6 +101,10 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.visible = true;
   }
 
+  bomb(tx, ty) {
+    new Bomb(bombs, this, tx, ty);
+  }
+
   getDistanceToPlayer() {
     if (player) {
       return Math.sqrt(  Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2) );

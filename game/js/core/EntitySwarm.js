@@ -15,4 +15,12 @@ class EntitySwarm extends Container {
     });
   }
 
+  addEntityDetection(e) {
+    this.orbs.forEach( (a,i)=>{a.collider.addToDetectionPool(e);} );
+  }
+
+  removeEntityDetection(e) {
+    this.orbs.forEach( (a,i)=>{a.collider.removeFromDetectionPool(e);} );
+  }
+
 }
