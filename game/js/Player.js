@@ -219,19 +219,17 @@ class Player extends DirectionalEntity {
   }
 
   flash() {
-    if (this.energy >= 40) {
-      let d = 700; // difference to flash
-      this.energy -= 40;
-      new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+    let d = 700; // difference to flash
+    this.health -= 25;
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
 
-      this.x -= d*Math.sin(this.direction);
-      this.y -= d*Math.cos(this.direction);
-      // quickly flash camera too
-      camera.x = this.x;
-      camera.y = this.y;
+    this.x -= d*Math.sin(this.direction);
+    this.y -= d*Math.cos(this.direction);
+    // quickly flash camera too
+    camera.x = this.x;
+    camera.y = this.y;
 
-      new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
-    }
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
   }
 
   // controls which need to be updated with ticks
