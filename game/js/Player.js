@@ -93,6 +93,7 @@ class Player extends DirectionalEntity {
     this.cont.boost.pressed = (() => { if (this.controlsActive && !this.boostActive) this.boost(true); }).bind(this);
     this.cont.boost.released = (() => { if (this.controlsActive && this.boostActive) this.boost(false); }).bind(this);
 
+    this.cont.flash.pressed = ( () => {if (this.controlsActive) this.flash(); } );
 
     // --- setup collider ---
     this.collider = new CircleCollider(this, 5);
@@ -216,6 +217,22 @@ class Player extends DirectionalEntity {
       this.speedtw.target = this.maxSpeed;
       this.speed = this.maxSpeed;
       socket.emit('apparitionChange', { app: 'boostApparition', visible: false });
+    }
+  }
+
+  flash() {
+    if (this.energy >= 40) {
+      let d = 700; // difference to flash
+      this.energy -= 40;
+      new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+
+      this.x -= d*Math.sin(this.direction);
+      this.y -= d*Math.cos(this.direction);
+      // quickly flash camera too
+      camera.x = this.x;
+      camera.y = this.y;
+
+      new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
     }
   }
 
