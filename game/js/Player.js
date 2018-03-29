@@ -201,7 +201,7 @@ class Player extends DirectionalEntity {
     this.boostActive = active;
     if (active && this.energy >= 15) {
       this.energy -= 15; // eat 15 energy
-      this.energyDrain.boost = 30; // 30 more for each aditional second wasted in boost
+      this.energyDrain.boost = 40; // 40 more for each aditional second wasted in boost
       this.speedtw.target = 1000;
       this.speed = 1000;
       // play boost sound
