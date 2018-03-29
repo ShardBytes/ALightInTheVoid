@@ -246,8 +246,8 @@ class Player extends DirectionalEntity {
 
   // ABILITY : BOMB
   bomb() {
-    if (!this.inSpawn && this.energy >= 50) {
-      this.energy -= 50;
+    if (!this.inSpawn && this.energy >= 55) {
+      this.energy -= 55;
       // create bomb behind player
       let b = new Bomb(bombs, this, this.x, this.y, this.direction, -70);
       socket.emit('playerBomb', {
