@@ -86,8 +86,8 @@ class OtherPlayer extends SegmentedTargetEntity {
   shoot() {
     // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
     // some wild trigonometry so we can shoot 2 bullets, duh
-    bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false));
-    bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false));
+    new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false);
+    new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false);
   }
 
   flash(tx, ty) {

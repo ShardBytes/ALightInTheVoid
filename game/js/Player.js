@@ -315,8 +315,8 @@ class Player extends DirectionalEntity {
           this.emitShoot();
           this.energy -= 6; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
-          bullets.addChild(new Bullet(bullets, this, this.x + this.cannonsWidth *Math.cos(this.direction), this.y - this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
-          bullets.addChild(new Bullet(bullets, this, this.x - this.cannonsWidth *Math.cos(this.direction), this.y + this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
+          new Bullet(bullets, this, this.x + this.cannonsWidth *Math.cos(this.direction), this.y - this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset);
+          new Bullet(bullets, this, this.x - this.cannonsWidth *Math.cos(this.direction), this.y + this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset);
           // play shoot sound ( i dont want to play it on both bullets)
           resources.shoot.sound.play();
         }
