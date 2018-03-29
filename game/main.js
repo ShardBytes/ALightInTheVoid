@@ -146,6 +146,7 @@ let resDef = [
   ['bigplanet', 'sprites/Planett1.png'],
   ['smallplanet1', 'sprites/Planett2.png'],
   ['smallplanet2', 'sprites/Planett3.png'],
+  ['healthpowerup', 'sprites/powerups/ruzovagulickapriesvitna.png'],
   ['bootlegpad', 'sprites/touchpad.png']
 
 ];

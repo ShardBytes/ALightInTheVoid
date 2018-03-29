@@ -4,7 +4,9 @@ class Orb extends Entity {
 
   // mode: 0 = energy, 1 = health
   constructor(mode, x, y) {
-    super('@orb', resources.safarik.texture);
+    super('@orb', mode == 0 ? resources.healthpowerup.texture : resources.healthpowerup.texture );
+    this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
+    this.sprite.scale.set(2,2);
     this.x = x;
     this.y = y;
 
