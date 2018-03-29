@@ -347,6 +347,11 @@ function setup() {
     if (plr) plr.shoot();
   });
 
+  socket.on('playerFlash', function(npos) {
+    let plr = getOtherPlayerById(npos.id);
+    if (plr) plr.flash(npos.x, npos.y);
+  });
+
   socket.on('playerSpawned', function(pid) {
     let plr = getOtherPlayerById(pid);
     if (plr) {

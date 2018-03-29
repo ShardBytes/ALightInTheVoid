@@ -229,6 +229,11 @@ class Player extends DirectionalEntity {
     camera.x = this.x;
     camera.y = this.y;
 
+    socket.emit('playerFlash', {
+      x: this.x,
+      y: this.y
+    });
+
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
   }
 

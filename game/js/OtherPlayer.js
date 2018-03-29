@@ -90,6 +90,17 @@ class OtherPlayer extends SegmentedTargetEntity {
     bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false));
   }
 
+  flash(tx, ty) {
+    this.visible = false;
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+
+    this.x = this.tx = tx;
+    this.y = this.ty = ty;
+
+    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+    this.visible = true;
+  }
+
   getDistanceToPlayer() {
     if (player) {
       return Math.sqrt(  Math.pow(player.x - this.x, 2) + Math.pow(player.y - this.y, 2) );
