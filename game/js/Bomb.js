@@ -20,6 +20,7 @@ class Bomb extends Entity {
 
     this.damage = 50;
     this.explosionRadius = 200;
+    this.exploded = false;
 
     this.collider = new CircleCollider(this);
     this.collider.r = 20;
@@ -47,7 +48,11 @@ class Bomb extends Entity {
   }
 
   explode() {
-    // clear timeout so it doesnt explode twice
+    if( this.exploded ) return; // !!! object can still exist after removing (GC hasn't arrived yet), forbid to explode twice !!!
+
+    this.exploded = true;
+
+    // clear timeout as exploding
     clearTimeout(this.explTimer);
 
     // remove and dereference after popping this function
