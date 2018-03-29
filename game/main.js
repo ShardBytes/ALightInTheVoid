@@ -19,8 +19,8 @@
 
 const DEVELOPMENT_MODE = true;
 const DEVMODE_MOBILE = false;
-const VERSION = '1.4 Ashley';
-const BUILDNAME = '280318/1945';
+const VERSION = '1.5 Daphne';
+const BUILDNAME = '290318/0123';
 const urlParams = new URLSearchParams(window.location.search);
 const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.102' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
@@ -90,7 +90,7 @@ let otherplayers = [];
 let bullets; // swarm of bullets
 
 // gui ( let them stay global for now )
-let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight;
+let playerBars, bigInfo, bottomTextLeft, bottomTextMid, bottomTextRight, scoreboard;
 
 // local spawn objects
 let spawn1, spawn2;
@@ -154,7 +154,8 @@ let animationsDef = [
   'sprites/anim/expl.json',
   'sprites/anim/fire.json',
   'sprites/anim/blueportal_particles.json',
-  'sprites/anim/orangeportal_rotating.json'
+  'sprites/anim/orangeportal_rotating.json',
+  'sprites/anim/boostparticles.json'
 ];
 
 // load animations
@@ -231,6 +232,9 @@ function setup() {
 
   bottomTextLeft = new BottomText(1, 'A Light in The Void\nv'+VERSION+' - '+(MOBILE?'MOBILE':'PC')+'\nBuild '+BUILDNAME+'\n(c) ShardBytes');
   gui.addChild(bottomTextLeft);
+
+  scoreboard = new Scoreboard();
+  gui.addChild(scoreboard);
 
   /*
   bottomTextMid = new BottomText(2, NAME);
@@ -377,10 +381,10 @@ function setup() {
       safarik.visible = false;
       new Apparition(world, 'expl_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
       resources.gameend.sound.play();
+      bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
     }, 3500);
 
     player.despawn();
-    bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
   });
 
   socket.on('gameReset', function() {
@@ -397,6 +401,29 @@ function setup() {
     setTimeout(() => {
       bigInfo.text = '';
     }, 1000);
+  });
+
+  socket.on('updateScore', function(data) {
+    if (data && data.length == 2) {
+      scoreboard.team1Points.text = '' + data[0];
+      scoreboard.team2Points.text = '' + data[1];
+    }
+  });
+
+  socket.on('apparitionChange', function(data) {
+    if (data) {
+      let plr = getOtherPlayerById(data.id);
+      if (plr) {
+        switch(data.app) {
+          case 'fireApparition':
+            plr.fireApparition.visible = data.visible;
+            break;
+          case 'boostApparition':
+            plr.boostApparition.visible = data.visible;
+            break;
+        }
+      }
+    }
   });
 
   //--- end events ----
@@ -468,5 +495,6 @@ window.addEventListener('resize', function() {
   if (bottomTextLeft) bottomTextLeft.align();
   if (bottomTextMid) bottomTextMid.align();
   if (bottomTextRight) bottomTextRight.align();
+  if (scoreboard) scoreboard.align();
   if (controller && controller.align) controller.align();
 });

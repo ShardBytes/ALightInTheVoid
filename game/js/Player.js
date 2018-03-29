@@ -64,6 +64,7 @@ class Player extends DirectionalEntity {
         resources.jet.sound.play();
         // show fire
         this.fireApparition.visible = true;
+        socket.emit('apparitionChange', { app: 'fireApparition', visible: true });
       }
     }).bind(this);
 
@@ -71,7 +72,6 @@ class Player extends DirectionalEntity {
       if(this.controlsActive) {
         this.speedtw.target = -this.maxSpeed/2; // half the speed when reverse
         resources.jet.sound.play();
-        this.fireApparition.visible = true;
       }
     }).bind(this);
 
@@ -114,10 +114,14 @@ class Player extends DirectionalEntity {
     };
 
     // add fire Apparition
-    this.fireApparition = new Apparition(this, 'fire_', '.png', 4, this.x, this.y, 0.08, 0.5, true);
-    this.fireApparition.y = -25;
-    this.fireApparition.x = 3;
+    this.fireApparition = new Apparition(this, 'fire_', '.png', 4, 3, -25, 0.08, 0.5, true);
     this.fireApparition.visible = false;
+
+    // add boost Apparition
+    this.boostApparition = new Apparition(this, 'boostparticles ', '.aseprite', 20, 0, 0, 2, 0.5, true, true);
+    this.boostApparition.rotation = Math.PI;
+    this.boostApparition.visible = false;
+
 
   } // end constructor
 
@@ -163,18 +167,25 @@ class Player extends DirectionalEntity {
     // stop sounds if playing
     resources.jet.sound.stop();
     resources.humming.sound.stop();
+
+    // stop unwanted apparitions
+    this.fireApparition.visible = false;
+    socket.emit('apparitionChange', { app: 'fireApparition', visible: false});
+    this.boostApparition.visible = false;
+    socket.emit('apparitionChange', { app: 'boostApparition', visible: false });
+
     // play despawn sound
     resources.explosionsound.sound.play();
 
     // target camera to safarik
     setTimeout(() => {
       cameraTarget = safarik;
+      bigInfo.text = 'RESPAWNING (5s)';
     }, 1000);
   }
 
   respawn() {
     this.despawn();
-    bigInfo.text = 'RESPAWNING (8s)';
     setTimeout(() => {
       bigInfo.text = '';
       this.spawn();
@@ -190,17 +201,21 @@ class Player extends DirectionalEntity {
     this.boostActive = active;
     if (active && this.energy >= 15) {
       this.energy -= 15; // eat 15 energy
-      this.energyDrain.boost = 30; // 30 more for each aditional second wasted in boost
+      this.energyDrain.boost = 40; // 40 more for each aditional second wasted in boost
       this.speedtw.target = 1000;
       this.speed = 1000;
       // play boost sound
       resources.boostsound.sound.play();
       resources.humming.sound.play();
+      this.boostApparition.visible = true;
+      socket.emit('apparitionChange', { app: 'boostApparition', visible: true });
     } else {
       resources.humming.sound.stop();
+      this.boostApparition.visible = false;
       this.energyDrain.boost = 0;
       this.speedtw.target = this.maxSpeed;
       this.speed = this.maxSpeed;
+      socket.emit('apparitionChange', { app: 'boostApparition', visible: false });
     }
   }
 
@@ -212,7 +227,10 @@ class Player extends DirectionalEntity {
     if (!this.cont.up.down && !this.cont.down.down && !this.boostActive) {
       this.speedtw.target = 0;
       resources.jet.sound.stop();
-      this.fireApparition.visible = false;
+      if (this.fireApparition.visible) {
+        this.fireApparition.visible = false;
+        socket.emit('apparitionChange', { app: 'fireApparition', visible: false });
+      }
     }
 
     // move sideways ( change direction )
