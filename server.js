@@ -54,9 +54,6 @@ app.get('/index.js', function(req, res) {
 app.get('/index.css', function(req, res) {
   res.sendFile(__dirname + '/index.css')
 })
-app.get('/pagestars.jpg', function(req, res) {
-  res.sendFile(__dirname + '/pagestars.jpg');
-});
 
 
 // --------- GAME ------------
