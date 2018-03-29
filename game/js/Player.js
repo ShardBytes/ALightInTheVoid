@@ -221,10 +221,10 @@ class Player extends DirectionalEntity {
     }
   }
 
-  // ABILITY: FLASH
+  // ABILITY: FLASH ( TIME WARP )
   flash() {
     let d = 500; // difference to flash
-    this.health -= 20;
+    this.health -= 19; // 3hp left after all flashes used
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
 
     // play flash sound
