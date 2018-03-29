@@ -114,12 +114,11 @@ class Player extends DirectionalEntity {
     };
 
     // add fire Apparition
-    this.fireApparition = new Apparition(this, 'fire_', '.png', 4, this.x, this.y, 0.08, 0.5, true);
-    this.fireApparition.y = -25;
-    this.fireApparition.x = 3;
+    this.fireApparition = new Apparition(this, 'fire_', '.png', 4, 3, -25, 0.08, 0.5, true);
     this.fireApparition.visible = false;
 
-    this.boostApparition = new Apparition(this, 'boostparticles ', '.aseprite', 20, this.x, this.y, 2, 0.5, true, true);
+    // add boost Apparition
+    this.boostApparition = new Apparition(this, 'boostparticles ', '.aseprite', 20, 0, 0, 2, 0.5, true, true);
     this.boostApparition.rotation = Math.PI;
     this.boostApparition.visible = false;
 
