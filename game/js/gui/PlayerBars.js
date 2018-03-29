@@ -13,11 +13,7 @@ class PlayerBars extends Container {
       fontSize: 20,
       fill : 0xff0063,
       fontWeight: 'bold',
-      align : 'center',
-      dropShadow : true,
-      dropShadowBlur: 4,
-      dropShadowColor : '#000000',
-      dropShadowDistance : 0
+      align : 'center'
     });
     this.playerNameText.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // sharp text at all cost
     this.playerNameText.anchor.set(0.5, 0.5);

@@ -59,8 +59,6 @@ app.get('/index.css', function(req, res) {
 // --------- GAME ------------
 
 let GAME_ACTIVE = true;
-let team1Points = 0;
-let team2Points = 0;
 
 // --- PROTO ---
 
@@ -239,23 +237,18 @@ function getPlayerById(id) {
 }
 
 function endGame(team) {
-  GAME_ACTIVE = false;
   io.emit('gameEnded', team);
-
+  GAME_ACTIVE = false;
   if (team == '1') {
-    team1Points++;
     safarik.xtw.target = spawn1.x;
     safarik.ytw.target = spawn1.y;
   } else {
-    team2Points++;
     safarik.xtw.target = spawn2.x;
-    safarik.ytw.target =  spawn2.y;
+    safarik.ytw.target=  spawn2.y;
   }
-  io.emit('updateScore', [team1Points, team2Points]);
 
   console.log('\n--- [ GAME ENDED ]---');
   console.log('WINNER : TEAM ' + team);
-  console.log('POINTS : ' + team1Points + ' : ' + team2Points);
   console.log();
 
   setTimeout(() => {
@@ -303,9 +296,6 @@ io.sockets.on('connection', function(socket) {
     // return all players list to socket
     socket.emit('allPlayers', players)
     console.log(players);
-
-    // return current score to socket
-    socket.emit('updateScore', [team1Points, team2Points]);
 
     // send the new ServerPlayer to other clients, parse them as spawns too
     socket.broadcast.emit('playerConnected', socket.player)
@@ -383,21 +373,6 @@ io.sockets.on('connection', function(socket) {
   // if unsets
   socket.on('removeSafarikTarget', function(plrId) {
     safarik.removeTarget(plrId);
-  });
-
-  // dev tool, not binded in game, just use console to reset the score
-  socket.on('@rscore', function() {
-    team1Points = 0;
-    team2Points = 0;
-    io.emit('updateScore', [team1Points, team2Points]);
-  });
-
-  // apparition change
-  // data -> app: apparition name, active: apparition active (bool)
-  socket.on('apparitionChange', function(data) {
-    // assign add id to data and broadcast
-    data.id = socket.player.id;
-    socket.broadcast.emit('apparitionChange', data);
   });
 
 });

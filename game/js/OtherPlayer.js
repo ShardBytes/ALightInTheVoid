@@ -37,16 +37,6 @@ class OtherPlayer extends SegmentedTargetEntity {
     this.deltaShoot = 0; // in seconds
     this.fireRate = 7; // bullets per second
 
-
-    // add fire Apparition
-    this.fireApparition = new Apparition(this, 'fire_', '.png', 4, 3, -25, 0.08, 0.5, true);
-    this.fireApparition.visible = false;
-
-    // add boost Apparition
-    this.boostApparition = new Apparition(this, 'boostparticles ', '.aseprite', 20, 0, 0, 2, 0.5, true, true);
-    this.boostApparition.rotation = Math.PI;
-    this.boostApparition.visible = false;
-
     // add name text
     this.nameText = new PlayerNameText(this);
 
