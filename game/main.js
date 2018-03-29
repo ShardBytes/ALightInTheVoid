@@ -341,9 +341,9 @@ function setup() {
     }
   });
 
-  socket.on('playerShooting', function(data) {
-    let plr = getOtherPlayerById(data.id);
-    if (plr) plr.shooting = data.shooting;
+  socket.on('playerShoot', function(id) {
+    let plr = getOtherPlayerById(id);
+    if (plr) plr.shoot();
   });
 
   socket.on('playerSpawned', function(pid) {

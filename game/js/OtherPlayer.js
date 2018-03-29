@@ -33,11 +33,6 @@ class OtherPlayer extends SegmentedTargetEntity {
 
     this.team = team;
 
-    this.shooting = false; // this is to be updated by socket
-    this.deltaShoot = 0; // in seconds
-    this.fireRate = 7; // bullets per second
-
-
     // add fire Apparition
     this.fireApparition = new Apparition(this, 'fire_', '.png', 4, 3, -25, 0.08, 0.5, true);
     this.fireApparition.visible = false;
@@ -84,21 +79,15 @@ class OtherPlayer extends SegmentedTargetEntity {
   update(dt) {
     if (this.alive) {
       super.update(dt); // update superclass
-
       this.nameText.update(); // update name text
-
-      // handle fake shooting
-      if (this.deltaShoot > 1.0/this.fireRate) {
-        this.deltaShoot = 0;
-        if (this.shooting && !this.inSpawn) {
-          // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
-          // some wild trigonometry so we can shoot 2 bullets, duh
-          bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false));
-          bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false));
-        }
-      }
-      this.deltaShoot += (dt/60);
     }
+  }
+
+  shoot() {
+    // shoot a damaging bullet, -rotation because of different logic between direction and rotation ( d=2pi-r)
+    // some wild trigonometry so we can shoot 2 bullets, duh
+    bullets.addChild(new Bullet(bullets, this, this.x + 10*Math.cos(-this.rotation), this.y - 10*Math.sin(-this.rotation), -this.rotation, false));
+    bullets.addChild(new Bullet(bullets, this, this.x - 10*Math.cos(-this.rotation), this.y + 10*Math.sin(-this.rotation), -this.rotation, false));
   }
 
   getDistanceToPlayer() {

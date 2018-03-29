@@ -79,14 +79,12 @@ class Player extends DirectionalEntity {
     this.cont.shoot.pressed = (() => {
       if(this.controlsActive) {
         this.shooting = true;
-        this.emitShooting();
       }
     }).bind(this);
 
     this.cont.shoot.released = (() => {
       if (this.controlsActive) {
         this.shooting = false;
-        this.emitShooting();
       }
     }).bind(this);
 
@@ -310,6 +308,8 @@ class Player extends DirectionalEntity {
         this.deltaShoot = 0;
         // if we have sufficient energy and not in spawn
         if (this.shooting && !this.inSpawn && this.energy >= 6) {
+          // emit shoot to other players
+          this.emitShoot();
           this.energy -= 6; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
           bullets.addChild(new Bullet(bullets, this, this.x + this.cannonsWidth *Math.cos(this.direction), this.y - this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
@@ -345,8 +345,8 @@ class Player extends DirectionalEntity {
     socket.emit('playerDir', this.direction);
   }
 
-  emitShooting() {
-    socket.emit('playerShooting', this.shooting);
+  emitShoot() {
+    socket.emit('playerShoot');
   }
 
   emitSpawned() {

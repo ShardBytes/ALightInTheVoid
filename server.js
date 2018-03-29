@@ -351,12 +351,9 @@ io.sockets.on('connection', function(socket) {
   });
 
   // on player action
-  socket.on('playerShooting', function(shooting) {
+  socket.on('playerShoot', function() {
     if (socket.player) {
-      socket.broadcast.emit('playerShooting', {
-        id: socket.player.id,
-        shooting: shooting
-      });
+      socket.broadcast.emit('playerShoot', socket.player.id);
     }
   });
 
