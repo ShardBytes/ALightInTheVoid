@@ -227,6 +227,9 @@ class Player extends DirectionalEntity {
     this.health -= 20;
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
 
+    // play flash sound
+    resources.timewarp.sound.play();
+
     this.x -= d*Math.sin(this.direction);
     this.y -= d*Math.cos(this.direction);
     // quickly flash camera too
