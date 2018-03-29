@@ -34,7 +34,6 @@ class Bomb extends Entity {
     });
 
     this.collider.collided = (t, dx, dy, ang) => {
-      clearTimeout(this.explTimer);
       this.explode();
     };
 
@@ -48,6 +47,8 @@ class Bomb extends Entity {
   }
 
   explode() {
+    // clear timeout so it doesnt explode twice
+    clearTimeout(this.explTimer);
 
     // remove and dereference after popping this function
     if (this.swarm.children.includes(this)) this.swarm.removeChild(this);

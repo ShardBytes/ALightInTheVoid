@@ -246,7 +246,7 @@ function setup() {
   gui.addChild(bottomTextMid);
   */
 
-  bottomTextRight = new BottomText(3, 'SHOOT-[R] BOOST-[Q]\nTIMEWARP-[W] BOMB-[E]');
+  bottomTextRight = new BottomText(3, 'LASERS-[R]  ION BOOST-[Q]\nTIME WARP-[W] PLASMABOMB-[E]');
   gui.addChild(bottomTextRight);
 
   safarik = new Safarik();
