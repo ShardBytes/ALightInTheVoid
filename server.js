@@ -304,6 +304,9 @@ io.sockets.on('connection', function(socket) {
     socket.emit('allPlayers', players)
     console.log(players);
 
+    // return current score to socket
+    socket.emit('updateScore', [team1Points, team2Points]);
+
     // send the new ServerPlayer to other clients, parse them as spawns too
     socket.broadcast.emit('playerConnected', socket.player)
 
