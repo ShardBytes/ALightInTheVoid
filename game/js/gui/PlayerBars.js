@@ -19,7 +19,6 @@ class PlayerBars extends Container {
       dropShadowColor : '#000000',
       dropShadowDistance : 0
     });
-    this.playerNameText.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // sharp text at all cost
     this.playerNameText.anchor.set(0.5, 0.5);
     this.playerNameText.position.y = -20;
     this.addChild(this.playerNameText);

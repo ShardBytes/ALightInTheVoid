@@ -20,10 +20,10 @@
 
 const DEVELOPMENT_MODE = true;
 const DEVMODE_MOBILE = false;
-const VERSION = '1.6.4 Nicole';
-const BUILDNAME = '290318/2339';
+const VERSION = '1.6.5 Nicole';
+const BUILDNAME = '300318/0118';
 const urlParams = new URLSearchParams(window.location.search);
-const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.102' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
+const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
 const COLLIDER_DEBUG = urlParams.has('cdebug') || false;
 let NAME, TEAM;
@@ -151,7 +151,8 @@ let resDef = [
   ['smallplanet2', 'sprites/Planett3.png'],
   ['healthpowerup', 'sprites/powerups/ruzovagulickapriesvitna.png'],
   ['energypowerup', 'sprites/powerups/modragulickapriesvitna.png'],
-  ['bootlegpad', 'sprites/touchpad.png']
+  ['touchpad', 'sprites/touchpad.png'],
+  ['touchbuttons', 'sprites/touchButtons.png']
 
 ];
 
