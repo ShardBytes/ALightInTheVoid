@@ -1,10 +1,13 @@
 // by Plasmoxy
 const DEVELOPMENT_MODE = true;
 
-(function (){
+$(function (){
 
   let start = (name, team) => {
-    window.location.href = (DEVELOPMENT_MODE ? '/game/game.html?' : '/game?') + 'name='+name + '&team='+team;
+    window.location.href = (DEVELOPMENT_MODE ? '/game/game.html?' : '/game?')
+      + 'name='+name
+      + '&team='+team
+      + ( $('#musicOff').prop('checked') ? '&nomusic' : '')
   };
 
   let getName = () => {
