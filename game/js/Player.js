@@ -171,7 +171,7 @@ class Player extends DirectionalEntity {
 
     // stop unwanted apparitions
     this.boostApparition.visible = false;
-    
+
     // play despawn sound
     resources.explosionsound.sound.play();
 
@@ -183,7 +183,7 @@ class Player extends DirectionalEntity {
 
   respawn() {
     this.despawn();
-    bigInfo.text = 'RESPAWNING (8s)';
+    bigInfo.text = 'RESPAWNING (5s)';
     setTimeout(() => {
       bigInfo.text = '';
       this.spawn();
