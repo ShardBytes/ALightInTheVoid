@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "our game",
   "dependencies": {
+    "pm2": "2.10.2",
     "express": "^4.15.2",
     "socket.io": "^1.7.3"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "pm2 start server.js"
   }
 }

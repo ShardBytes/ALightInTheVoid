@@ -407,6 +407,10 @@ io.sockets.on('connection', function(socket) {
     socket.broadcast.emit('apparitionChange', data);
   });
 
+  socket.on('@testServerError', function() {
+    throw new Error('TEST SERVER ERROR [' + (new Date).toString() + ']');
+  });
+
 });
 
 // internal server tick function
