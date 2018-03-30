@@ -294,7 +294,7 @@ function setup() {
       bigInfo.text = '';
     }, 3000);
 
-    if (!DEVELOPMENT_MODE && !urlParams.has('nomusic')) resources.music.sound.play(); // play music if not in devmode
+    if (!urlParams.has('nomusic')) resources.music.sound.play(); // play music if not in devmode
 
   });
 

@@ -1,6 +1,5 @@
 body {
   background: #000 url('assets/img/pagestars.jpg');
-  background-size: 20em;
 }
 
 .bg-blacc {
@@ -17,4 +16,10 @@ body {
 
 #errorText {
   display: none;
+}
+
+@media only screen and (max-width: 768px) {
+    body {
+      background-size: 40%;
+    }
 }
