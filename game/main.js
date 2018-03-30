@@ -132,10 +132,11 @@ let resDef = [
   ['jet', 'sounds/jet.mp3'],
   ['hit', 'sounds/hit.wav'],
   ['shoot', 'sounds/shoot.wav'],
-  ['nani', 'sounds/nani.mp3'],
+  ['safarikcontested', 'sounds/safarikcontested.mp3'],
   ['boostsound', 'sounds/boostsound.wav'],
   ['explosionsound', 'sounds/explosionsound.wav'],
-  ['powerup', 'sounds/powerup.mp3'],
+  ['healthorb', 'sounds/healthorb.mp3'],
+  ['energyorb', 'sounds/energyorb.mp3'],
   ['humming', 'sounds/humming.mp3'],
   ['helloworld', 'sounds/helloworld.mp3'],
   ['bombplace', 'sounds/bombplace.mp3'],
@@ -191,22 +192,23 @@ function setup() {
 
   clientlog('### INITIALIZING GAME ###');
 
-  /* setup sounds (like looping and stuff) */
+  /* setup sounds (like looping, volume and stuff) */
   resources.jet.sound.loop = true;
   resources.jet.sound.volume = 0.6;
 
   resources.music.sound.loop = true;
   resources.music.sound.volume = 0.9;
 
-  resources.nani.sound.volume = 0.15;
+  resources.safarikcontested.sound.volume = 0.5;
   resources.shoot.sound.volume = 0.2;
 
   resources.humming.sound.loop = true;
 
   resources.helloworld.sound.volume = 0.5;
-  resources.powerup.sound.volume = 0.5;
   resources.bombplace.sound.volume = 0.3;
   resources.timewarp.sound.volume = 0.5;
+  resources.healthorb.sound.volume = 0.5;
+  resources.energyorb.sound.volume = 0.5;
 
   /* INIT CONTAINERS - order is important ! */
   background = new GameBackground(); app.stage.addChild(background);
@@ -390,7 +392,7 @@ function setup() {
   });
 
   socket.on('safarikContested', function() {
-    resources.nani.sound.play();
+    resources.safarikcontested.sound.play();
   });
 
   socket.on('gameEnded', function(team) {
