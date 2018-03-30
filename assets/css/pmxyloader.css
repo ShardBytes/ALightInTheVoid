@@ -1,5 +1,6 @@
 
 .pmxyloader-root {
+  z-index: 10;
   position: fixed;
   height: 100%;
   width: 100%;
@@ -9,12 +10,11 @@
 }
 
 .pmxyloader {
-  z-index: -10;
 
   border: 7px solid rgba(0,0,0,0);
   border-radius: 50%;
-  border-left: 7px solid #ffc107; /* SET YOUR COLORS HERE */
-  border-right: 7px solid #ffc107;
+  border-left: 7px solid #00f0ff; /* SET YOUR COLORS HERE */
+  border-right: 7px solid #ffc106;
 
   width: 7em;
   height: 7em;

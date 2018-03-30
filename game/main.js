@@ -287,6 +287,7 @@ function setup() {
     // !!! -> hide loading and show pixi after the player is spawned
     $('#info').css('display', 'none');
     $('#pixi').css('display', 'block');
+    $('#loadingCircle').css('display', 'none');
 
     bigInfo.text = 'Welcome, ' + plr.id + '\nBring Šafárik to your base !';
     setTimeout(() => {

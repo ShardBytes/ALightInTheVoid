@@ -5,6 +5,7 @@
 <head>
   <title>A Light in The Void</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../assets/css/pmxyloader.css">
 
   <!-- assets -->
   <script src="../assets/jquery.min.js"></script>
@@ -12,8 +13,11 @@
 </head>
 
 <body>
-
-  <div id="info">LOADING ...</div>
+  <!-- loading circle, needs to be first so its sets the anchor right (also it is z-index 10 so no problem) -->
+  <div id="loadingCircle" class="pmxyloader-root">
+    <dic class="pmxyloader"></div>
+  </div>
+  <div id="info">LOADING ...</div><br>
   <div id="pixi"><div>
 
   <!-- load libs -->
