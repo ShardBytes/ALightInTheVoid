@@ -1,11 +1,11 @@
 
 /* Bomb by Plasmoxy */
-/* #idontknowaboutthis */
+/* this very nice aggressive bomb reacts to everything */
 
 class Bomb extends Entity {
 
   constructor(swarm, emmiter, x, y, direction, directionalOffset) {
-    super('@bomb', resources.healthpowerup.texture );
+    super('@bomb', resources.bomb.texture );
     this.sprite.texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST; // pixel mode
     this.sprite.scale.set(2,2);
     this.x = x;

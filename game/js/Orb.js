@@ -1,4 +1,5 @@
-// simple energy and health orb by Plasmoxy
+// energy and health orb by Plasmoxy
+/* this very nice amazing orb can be taken by all players */
 
 class Orb extends Entity {
 
