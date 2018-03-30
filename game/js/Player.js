@@ -225,7 +225,7 @@ class Player extends DirectionalEntity {
   flash() {
     let d = 500; // difference to flash
     this.health -= 19; // 3hp left after all flashes used
-    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+    new Apparition(world, 'explblue_', '.png', 6, this.x, this.y, 1, 0.2);
 
     // play flash sound
     resources.timewarp.sound.play();
@@ -241,7 +241,7 @@ class Player extends DirectionalEntity {
       y: this.y
     });
 
-    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+    new Apparition(world, 'explblue_', '.png', 6, this.x, this.y, 1, 0.2);
   }
 
   // ABILITY : BOMB

@@ -161,6 +161,7 @@ let resDef = [
 /* ANIMATIONS */
 let animationsDef = [
   'sprites/anim/expl.json',
+  'sprites/anim/explblue.json',
   'sprites/anim/fire.json',
   'sprites/anim/blueportal_particles.json',
   'sprites/anim/orangeportal_rotating.json',
@@ -405,7 +406,7 @@ function setup() {
     setTimeout(() => {
       safarik.collider.active = false;
       safarik.visible = false;
-      new Apparition(world, 'expl_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
+      new Apparition(world, 'explblue_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
       resources.gameend.sound.play();
       bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
     }, 3500);
