@@ -2,6 +2,7 @@
 /* (c) ShardBytes 2018-<end of the world>
 /* by Plasmoxy */
 /* [ A Light In The Void ] => simple mutiplayer game made just using pixi */
+/* http://alightinthevoid.fr.openode.io */
 /* Game engine by Plasmoxy based on PIXI.js, made in hurry*/
 /* uses my pixialiases.js snippet for shorter names */
 /* This game was made for a programming competition IHRA by UPJŠ Košice */
