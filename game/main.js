@@ -20,7 +20,7 @@
 
 const DEVELOPMENT_MODE = true;
 const DEVMODE_MOBILE = false;
-const VERSION = '1.6.5 Nicole';
+const VERSION = '1.6.6 Nicole';
 const BUILDNAME = '300318/0118';
 const urlParams = new URLSearchParams(window.location.search);
 const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
