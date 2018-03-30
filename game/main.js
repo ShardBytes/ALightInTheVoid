@@ -398,17 +398,25 @@ function setup() {
     resources.safarikcontested.sound.play();
   });
 
-  socket.on('gameEnded', function(team) {
-    console.log(' --- GAME ENDED --- : ' + team);
+  socket.on('gameEnded', function(data) {
+    console.log(' --- GAME ENDED --- : ' + data.team);
     safarik.collider.active = false;
 
     // hide safarik after some time, with STYLE !
     setTimeout(() => {
+
       safarik.collider.active = false;
       safarik.visible = false;
       new Apparition(world, 'explblue_', '.png', 6, safarik.x, safarik.y, 7, 0.2);
       resources.gameend.sound.play();
-      bigInfo.text = 'GAME ENDED\n' + (team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting in 10s)';
+
+      if (data.matchend) {
+        bigInfo.text = "MATCH ENDED\n" + (data.team=='1'?'BLUE':'ORANGE') + ' TEAM WON !' + '\n(restarting soon ...)';
+      } else {
+        bigInfo.text = 'Round ended' + '\n(starting new round ...)';
+      }
+
+
     }, 3500);
 
     player.despawn();

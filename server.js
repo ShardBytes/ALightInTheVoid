@@ -61,6 +61,7 @@ app.get('/index.css', function(req, res) {
 let GAME_ACTIVE = true;
 let team1Points = 0;
 let team2Points = 0;
+const MAX_POINTS = 5;
 
 // --- PROTO ---
 
@@ -240,7 +241,6 @@ function getPlayerById(id) {
 
 function endGame(team) {
   GAME_ACTIVE = false;
-  io.emit('gameEnded', team);
 
   if (team == '1') {
     team1Points++;
@@ -251,6 +251,21 @@ function endGame(team) {
     safarik.xtw.target = spawn2.x;
     safarik.ytw.target =  spawn2.y;
   }
+
+  let matchend = false;
+
+  if (team1Points >= MAX_POINTS || team2Points >= MAX_POINTS) {
+    matchend = true;
+    team1Points = 0;
+    team2Points = 0;
+  }
+
+  io.emit('gameEnded', {
+    team: team,
+    matchend: matchend
+  });
+
+  // update scoreboards
   io.emit('updateScore', [team1Points, team2Points]);
 
   console.log('\n--- [ GAME ENDED ]---');
@@ -260,7 +275,7 @@ function endGame(team) {
 
   setTimeout(() => {
     resetGame();
-  }, 10000);
+  }, matchend ? 15000 : 10000);
 }
 
 // chain from endGame

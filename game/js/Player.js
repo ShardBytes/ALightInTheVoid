@@ -181,14 +181,12 @@ class Player extends DirectionalEntity {
     // target camera to safarik
     setTimeout(() => {
       cameraTarget = safarik;
-      bigInfo.text = 'RESPAWNING (5s)';
     }, 1000);
   }
 
   respawn() {
     this.despawn();
     setTimeout(() => {
-      bigInfo.text = '';
       this.spawn();
     }, this.respawnTime);
   }
