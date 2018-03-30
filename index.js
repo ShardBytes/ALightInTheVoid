@@ -3,9 +3,6 @@ const DEVELOPMENT_MODE = true;
 
 $(function (){
 
-  /* resize logo on mobile (so pixels are fitted directly and not scaled that much) */
-  if ( $('#logoimgroot').width() < 1024) $('#logoimg').attr('src', '/assets/img/logo512.png');
-
   /* setup buttons and launch */
 
   let start = (name, team) => {

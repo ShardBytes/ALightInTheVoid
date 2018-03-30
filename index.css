@@ -21,7 +21,7 @@ body {
 .hover-glow:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 247, 255, 0.85), 0 6px 20px 0 rgba(0, 255, 255, 0.66);
   -webkit-transition: box-shadow ease 0.5s; /* Safari */
-  transition: box-shadow ease 0.5s;  
+  transition: box-shadow ease 0.5s;
 }
 
 .roundcorners {
@@ -30,6 +30,11 @@ body {
 
 #errorText {
   display: none;
+}
+
+#logoimg {
+  width: 100%;
+  max-width: 1024px;
 }
 
 
