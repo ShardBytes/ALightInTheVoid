@@ -20,8 +20,8 @@
 
 const DEVELOPMENT_MODE = true;
 const DEVMODE_MOBILE = false;
-const VERSION = '1.7.0 Lyra';
-const BUILDNAME = '300318/0118';
+const VERSION = '1.7.1 Lyra';
+const BUILDNAME = '300318/1953';
 const urlParams = new URLSearchParams(window.location.search);
 const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
 const MOBILE = window.mobileAndTabletCheck();
