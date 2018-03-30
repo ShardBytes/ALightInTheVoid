@@ -19,8 +19,8 @@
  */
 
 const DEVELOPMENT_MODE = true;
-const DEVMODE_MOBILE = false;
-const VERSION = '1.6.6 Nicole';
+const DEVMODE_MOBILE = true;
+const VERSION = '1.7.0 Lyra';
 const BUILDNAME = '300318/0118';
 const urlParams = new URLSearchParams(window.location.search);
 const GAME_SITE = DEVELOPMENT_MODE ? (DEVMODE_MOBILE ? '192.168.0.106' : 'https://localhost') : '/'; // change to '/' when on server, change to 'https://localhost' when developing ( need ssl certifs )
@@ -31,6 +31,7 @@ let INTERP_RATIO = 0.25;
 let CAMERA_SCALE_RATIO = MOBILE ? 1.1 : 0.7;
 let CAMERA_FOLLOW_RATIO = 0.2;
 let socket;
+let userInitialSoundEventTriggered = false;
 
 // parse login from url
 if (urlParams.has('name') && urlParams.has('team')) {
@@ -533,4 +534,12 @@ window.addEventListener('resize', function() {
   if (bottomTextRight) bottomTextRight.align();
   if (scoreboard) scoreboard.align();
   if (controller && controller.align) controller.align();
+});
+
+window.addEventListener('touchstart', function(e) {
+  if (!userInitialSoundEventTriggered || resources.helloworld) {
+    resources.helloworld.sound.play();
+    userInitialSoundEventTriggered = true;
+    console.log('< INITIAL TOUCH SOUND EVENT TRIGGERED ( this should enable sound on iphone) >');
+  }
 });
