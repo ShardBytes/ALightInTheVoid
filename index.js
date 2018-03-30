@@ -3,6 +3,12 @@ const DEVELOPMENT_MODE = true;
 
 $(function (){
 
+  /* resize logo on mobile */
+  let logo = $('#logoimg');
+  if (logo.width() < 1024) logo.attr('src', '/assets/img/logo512.png');
+
+  /* setup buttons and launch */
+
   let start = (name, team) => {
     window.location.href = (DEVELOPMENT_MODE ? '/game/game.html?' : '/game?')
       + 'name='+name
