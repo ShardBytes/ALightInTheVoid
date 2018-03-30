@@ -12,5 +12,8 @@ body {
 }
 
 #pixi {
+  position: absolute;
+  top: 0px;
+  right: 0px;
   display: none;
 }

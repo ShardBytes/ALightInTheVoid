@@ -7,18 +7,12 @@ class OrbSwarm extends EntitySwarm {
 
     this.orbs = [
       new Orb(1, 300, 100),
-      new Orb(1, 500, 200)
+      new Orb(0, 500, 200),
+      new Orb(0, 400, 100),
+      new Orb(0, 400, 200)
     ];
 
     this.orbs.forEach( (a,i)=>{this.addChild(a);} );
-  }
-
-  addPlayerDetection(plr) {
-    this.orbs.forEach( (a,i)=>{a.collider.addToDetectionPool(plr);} );
-  }
-
-  removePlayerDetection(plr) {
-    this.orbs.forEach( (a,i)=>{a.collider.removeFromDetectionPool(plr);} );
   }
 
 }

@@ -28,6 +28,14 @@ class Bullet extends Projectile {
       )this.collider.addToDetectionPool(a);
     });
 
+    // add this to current bombs colliders
+    bombs.children.forEach((a, i) => {
+      if (a instanceof Bomb) {
+        a.collider.addToDetectionPool(this);
+        this.collider.addToDetectionPool(a);
+      }
+    });
+
     this.sprite.scale.set(0.5, 0.5);
     this.collider.ro = 5; // radius offset
     this.collider.updateSize();

@@ -93,6 +93,8 @@ class Player extends DirectionalEntity {
 
     this.cont.flash.pressed = ( () => {if (this.controlsActive) this.flash(); } );
 
+    this.cont.bomb.pressed = ( () => { if (this.controlsActive) this.bomb(); });
+
     // --- setup collider ---
     this.collider = new CircleCollider(this, 5);
     this.collider.r = 15;
@@ -196,6 +198,7 @@ class Player extends DirectionalEntity {
     this.health -= damage; // dmg from bullet
   }
 
+  // ABILITY : BOOST
   boost(active) {
     this.boostActive = active;
     if (active && this.energy >= 15) {
@@ -218,10 +221,14 @@ class Player extends DirectionalEntity {
     }
   }
 
+  // ABILITY: FLASH ( TIME WARP )
   flash() {
-    let d = 700; // difference to flash
-    this.health -= 25;
+    let d = 500; // difference to flash
+    this.health -= 19; // 3hp left after all flashes used
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+
+    // play flash sound
+    resources.timewarp.sound.play();
 
     this.x -= d*Math.sin(this.direction);
     this.y -= d*Math.cos(this.direction);
@@ -229,7 +236,27 @@ class Player extends DirectionalEntity {
     camera.x = this.x;
     camera.y = this.y;
 
+    socket.emit('playerFlash', {
+      x: this.x,
+      y: this.y
+    });
+
     new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+  }
+
+  // ABILITY : BOMB
+  bomb() {
+    if (!this.inSpawn && this.energy >= 55) {
+      this.energy -= 55;
+      // create bomb behind player
+      let b = new Bomb(bombs, this, this.x, this.y, this.direction, -70);
+      socket.emit('playerBomb', {
+        x: b.x,
+        y: b.y
+      });
+      // play place sound
+      resources.bombplace.sound.play();
+    }
   }
 
   // controls which need to be updated with ticks
@@ -310,8 +337,8 @@ class Player extends DirectionalEntity {
           this.emitShoot();
           this.energy -= 6; // drain energy for each shot
           // some wild trigonometry to we can shoot 2 bullets, duh
-          bullets.addChild(new Bullet(bullets, this, this.x + this.cannonsWidth *Math.cos(this.direction), this.y - this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
-          bullets.addChild(new Bullet(bullets, this, this.x - this.cannonsWidth *Math.cos(this.direction), this.y + this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset));
+          new Bullet(bullets, this, this.x + this.cannonsWidth *Math.cos(this.direction), this.y - this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset);
+          new Bullet(bullets, this, this.x - this.cannonsWidth *Math.cos(this.direction), this.y + this.cannonsWidth *Math.sin(this.direction), this.direction, true, this.cannonsOffset);
           // play shoot sound ( i dont want to play it on both bullets)
           resources.shoot.sound.play();
         }

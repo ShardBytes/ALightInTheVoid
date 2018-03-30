@@ -44,7 +44,7 @@ app.get('/game', function(req, res) {
   res.sendFile(__dirname + '/game/game.html');
 })
 
-// page ->
+// page routing ->
 app.get('/', function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
@@ -370,6 +370,16 @@ io.sockets.on('connection', function(socket) {
     }
   });
 
+  socket.on('playerFlash', function(npos) {
+    npos.id = socket.player.id;
+    socket.broadcast.emit('playerFlash', npos);
+  });
+
+  socket.on('playerBomb', function(bpos) {
+    bpos.id = socket.player.id;
+    socket.broadcast.emit('playerBomb', bpos);
+  });
+
   // if client sets themselves as a target
   socket.on('addSafarikTarget', function(plrId) {
     safarik.addTarget(plrId);
@@ -395,6 +405,10 @@ io.sockets.on('connection', function(socket) {
     // assign add id to data and broadcast
     data.id = socket.player.id;
     socket.broadcast.emit('apparitionChange', data);
+  });
+
+  socket.on('@testServerError', function() {
+    throw new Error('TEST SERVER ERROR [' + (new Date).toString() + ']');
   });
 
 });

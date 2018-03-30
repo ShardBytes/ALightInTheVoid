@@ -19,6 +19,8 @@ class Projectile extends DirectionalEntity {
     this.deathTime = 2; // seconds, will destroy when reaching death ;_;
     this.lifeTime = 0; // seconds
 
+    this.sc.addChild(this);
+
   }
 
   destroy() {

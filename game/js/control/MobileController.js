@@ -13,12 +13,14 @@ class MobileController extends Container {
     this.right = {down: false, released: () => {}, pressed: () => {}};
     this.shoot = {down: false, released: () => {}, pressed: () => {}};
     this.boost = {down: false, released: () => {}, pressed: () => {}};
+    this.flash = {down: false, released: () => {}, pressed: () => {}};
+    this.bomb = {down: false, released: () => {}, pressed: () => {}};
 
-    this.leftPad = new Sprite(resources.bootlegpad.texture);
+    this.leftPad = new Sprite(resources.touchpad.texture);
     this.leftPad.anchor.set(0, 1); // bottom left corner, this is just to align the sprite
     this.addChild(this.leftPad);
 
-    this.rightPad = new Sprite(resources.bootlegpad.texture);
+    this.rightPad = new Sprite(resources.touchbuttons.texture);
     this.rightPad.anchor.set(0, 1);
     this.addChild(this.rightPad);
 
@@ -117,6 +119,10 @@ class MobileController extends Container {
         this.shoot.down = true; this.shoot.pressed();
       } else if (rpadb == '12' && !this.boost.down) { // LEFT BUTTON => boost
         this.boost.down = true; this.boost.pressed();
+      } else if (rpadb == '32' && !this.flash.down) { // RIGHT BUTTON => flash
+        this.flash.down = true; this.flash.pressed();
+      } else if (rpadb == '21' && !this.bomb.down) { // DOWN BUTTON => bomb
+        this.bomb.down = true; this.bomb.pressed();
       }
 
     }
@@ -134,9 +140,11 @@ class MobileController extends Container {
         this.left.down = false; this.left.released();
         this.right.down = false; this.right.released();
       }
-      if (rpadb != 'XX') { // if ended in right pad, release boost and shoot
+      if (rpadb != 'XX') { // if ended in right pad, release all abilities
         this.boost.down = false; this.boost.released();
         this.shoot.down = false; this.shoot.released();
+        this.flash.down = false; this.flash.released();
+        this.bomb.down = false; this.bomb.released();
       }
     }
   }
