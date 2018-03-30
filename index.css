@@ -14,6 +14,20 @@ body {
   color: #00ffe8;
 }
 
+.no-hover-decor:hover {
+  text-decoration: none;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 247, 255, 0.85), 0 6px 20px 0 rgba(0, 255, 255, 0.66);
+  -webkit-transition: box-shadow ease 0.5s; /* Safari */
+  transition: box-shadow ease 0.5s;  
+}
+
+.roundcorners {
+  border-radius: 10px;
+}
+
 #errorText {
   display: none;
 }
