@@ -3,20 +3,21 @@ body {
 }
 
 .bg-blacc {
-  background: #2a2f34;
+  background: #121212;
 }
 
-.bs-callout {
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #eee;
-    border-left-width: 5px;
-    border-radius: 3px;
+.bg-metalblacc {
+  background: #1a1b1f;
+}
+
+.text-cyan {
+  color: #00ffe8;
 }
 
 #errorText {
   display: none;
 }
+
 
 @media only screen and (max-width: 768px) {
     body {

@@ -1,5 +1,7 @@
 <html>
 
+<!-- A Light in The Void page -->
+<!-- manually written with love and Bootstrap 4-->
 <!-- by Plasmoxy -->
 
 <head>
@@ -7,7 +9,7 @@
   <title>A Light In The Void</title>
 
   <link rel="stylesheet" href="assets/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/materialSwitch.css">
+  <link rel="stylesheet" href="assets/css/bscallout.css">
   <link rel="stylesheet" href="index.css">
 
   <script src="assets/jquery.min.js"></script>
@@ -32,8 +34,22 @@
         <!-- text row -->
         <div class="row my-2">
           <div class="col-lg-12">
-            <div class="bs-callout">
-              A game by ShardBytes
+            <div class="bs-callout bg-metalblacc">
+
+              <blockquote class="blockquote text-center mb-5">
+                <p class="mb-0">
+                  The galaxy is coming to an end. The stars are dying and so the only
+                  source of energy is slowly disappearing. In lack of energy, the last
+                  two races explore the galaxy to find a new source. Suddenly,
+                  a light appears in the void. It is a mysterious ancient star called
+                  Šafárik star. But when both races find it, they find out that it
+                  can do a lot more than just provide energy and they want to get it just for themselves.
+                  This conflict ends in a war and only the winner can get the star and survive.
+                  How everything will end up is only up to you.
+                </p>
+                <footer class="blockquote-footer">the story</footer>
+              </blockquote>
+
             </div>
           </div>
         </div>
@@ -89,7 +105,123 @@
             </div>
           </div>
           <div class="col-lg-2"></div>
-        </div>
+        </div> <!-- end login row -->
+
+        <!-- about the game -->
+        <div class="row my-2">
+          <div class="col-lg-12">
+            <div class="bs-callout bg-metalblacc">
+
+              <h1 class="text-warning text-center">About the game</h1>
+              <p class="">
+                A Light in The void is a Javascript pvp multiplayer online game developed by <a href="https://github.com/ShardBytes">ShardBytes</a>.
+                It was created during March 2018 for a programming competition called <a href="http://ics.upjs.sk/ihra/">IHRA</a> by
+                <a href="https://upjs.sk">The University of Pavol Jozef Šafárik</a>.
+              </p>
+
+              <p>
+                After choosing a team, you will be assigned to it and are to fight the other team and bring the Šafárik
+                to your own spawn. To achieve this, you have 4 abilities available (see below). Each match consists of 5
+                rounds, each ending by bringing Šafárik to a team spawn. After the end of match, the name of team is displayed
+                and the match resets.
+              </p>
+
+            </div>
+          </div>
+        </div> <!-- end about -->
+
+        <!-- How to play -->
+        <div class="row my-2">
+          <div class="col-lg-12">
+            <div class="bs-callout bg-metalblacc">
+
+              <h1 class="text-warning text-center">How to play</h1>
+
+              <p>The ship is controlled using the arrow keys ( or left touch pad on mobile ).</p>
+              <p>
+                Each player has <span class="text-danger">100 health</span> and
+                <span class="text-cyan">100 energy</span>, which they can use for abilities :
+              </p>
+
+              <div class="bs-callout bs-callout-danger bg-metalblacc">
+                <h3 class="text-danger text-center">Abilites</h3>
+                <ul>
+                  <!-- abilities -->
+                  <li>
+                    <span class="text-primary">Laser</span> (R) [ <span class="text-cyan">6</span> ] :
+                    A pair light laser flashes that deal <span class="text-danger">5 damage</span> each on hit.
+                  </li>
+
+                  <li>
+                    <span class="text-warning">Ion Boost</span> (Q) [ <span class="text-cyan">30 -> 40/second</span> ] :
+                    An energic acceleration that allows you to fly fast but costs energy over time
+                  </li>
+
+                  <li>
+                    <span class="text-danger">Plasma Bomb</span> (R) [ <span class="text-cyan">6</span> ] :
+                    A hi-tech explosive that deals  <span class="text-danger">50 damage</span> on explosion to every player near it.
+                    (auto explodes after 10 seconds)
+                  </li>
+
+                  <li>
+                    <span class="text-cyan">Time Warp</span> (W) [ <span class="text-danger">19</span> ] :
+                    The ancient technology allows your ship to create a time rift that teleports you to the back but because of
+                    strong electromagnetic fields during the travel it damages the ship.
+                  </li>
+
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div> <!-- end htp -->
+
+        <!-- made this -->
+        <div class="row my-2">
+          <div class="col-lg-12">
+            <div class="bs-callout bg-metalblacc">
+
+              <h1 class="text-cyan text-center">We made this using</h1>
+
+              <!-- images -->
+              <div class="row my-2 d-flex justify-content-center align-items-center">
+                <div class="col-lg-4 p-2">
+                  <a href="http://www.pixijs.com/">
+                    <img src="/assets/img/tools/pixi.jpg" width="100%">
+                  </a>
+                </div>
+                <div class="col-lg-4 p-2">
+                  <a href="https://atom.io/">
+                    <img src="/assets/img/tools/atom.jpg" width="100%">
+                  </a>
+                </div>
+                <div class="col-lg-4 p-2">
+                  <a href="https://www.mozilla.org/sk/firefox/developer/">
+                    <img src="/assets/img/tools/fdev.jpg" width="100%">
+                  </a>
+                </div>
+              </div>
+
+              <div class="row my-2 d-flex justify-content-center align-items-center">
+                <div class="col-lg-4 p-2">
+                  <a href="https://www.aseprite.org/">
+                    <img src="/assets/img/tools/aseprite.jpg" width="100%">
+                  </a>
+                </div>
+                <div class="col-lg-4 p-2">
+                  <a href="https://nodejs.org/en/">
+                    <img src="/assets/img/tools/node.jpg" width="100%">
+                  </a>
+                </div>
+                <div class="col-lg-4 p-2">
+                  <a href="http://tytel.org/helm/">
+                    <img src="/assets/img/tools/helm.jpg" width="100%">
+                  </a>
+                </div>
+              </div>
+
+          </div>
+        </div> <!-- end made -->
 
       </div>
     </div>
