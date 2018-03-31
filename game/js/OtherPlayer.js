@@ -92,12 +92,12 @@ class OtherPlayer extends SegmentedTargetEntity {
 
   flash(tx, ty) {
     this.visible = false;
-    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+    new Apparition(world, 'explblue_', '.png', 6, this.x, this.y, 1, 0.2);
 
     this.x = this.tx = tx;
     this.y = this.ty = ty;
 
-    new Apparition(world, 'expl_', '.png', 6, this.x, this.y, 1, 0.2);
+    new Apparition(world, 'explblue_', '.png', 6, this.x, this.y, 1, 0.2);
     this.visible = true;
   }
 
