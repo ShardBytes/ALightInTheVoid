@@ -16,11 +16,13 @@ class EntitySwarm extends Container {
   }
 
   addEntityDetection(e) {
-    this.orbs.forEach( (a,i)=>{a.collider.addToDetectionPool(e);} );
+    if (e.collider)
+      this.children.forEach( (a,i)=>{if (a.collider) a.collider.addToDetectionPool(e);} );
   }
 
   removeEntityDetection(e) {
-    this.orbs.forEach( (a,i)=>{a.collider.removeFromDetectionPool(e);} );
+    if (e.collider)
+      this.children.forEach( (a,i)=>{if( a.collider) a.collider.removeFromDetectionPool(e);} );
   }
 
 }
