@@ -26,15 +26,15 @@ var redirectServer = http.createServer(redirectApp);
 var server = https.createServer(ssl_options, app);
 var io = socketio.listen(server);
 
+// ssl ->
+redirectApp.use('/.well-known', express.static(__dirname + '/.well-known', {dotfiles:'allow'}))
+
 // redirect all http requests to https
 redirectApp.get('*', function (req, res, next) {
   !req.secure ? res.redirect('https://alightinthevoid.fr.openode.io' + req.url) : next();
 })
 
 // manual routing
-
-// ssl ->
-app.use('/.well-known', express.static(__dirname + '/.well-known', {dotfiles:'allow'}))
 
 // game ->
 app.use('/game', express.static(__dirname + '/game'))
