@@ -6,35 +6,44 @@
 console.log('--- A Light In The Void SERVER by Plasmoxy ---')
 console.log('LOADING...');
 
+const SSL_ENABLED = false
+
 var express = require('express');
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
 var socketio = require('socket.io');
 
-var ssl_options = {
-  key: fs.readFileSync('ssl/private.key'),
-  cert: fs.readFileSync('ssl/certificate.crt'),
-  ca: fs.readFileSync('ssl/ca_bundle.crt')
-};
+var app = express();
 
-app = express();
-redirectApp = express();
+var server;
 
-// redirect from http
-var redirectServer = http.createServer(redirectApp);
-var server = https.createServer(ssl_options, app);
+if (SSL_ENABLED) {
+  let ssl_options = {
+    key: fs.readFileSync('ssl/private.key'),
+    cert: fs.readFileSync('ssl/certificate.crt'),
+    ca: fs.readFileSync('ssl/ca_bundle.crt')
+  }
+
+  server = https.createServer(ssl_options, app);
+
+  redirectApp = express();
+  var redirectServer = http.createServer(redirectApp);
+
+  // redirect all http requests to https
+  redirectApp.get('*', function (req, res, next) {
+    !req.secure ? res.redirect('https://alightinthevoid.fr.openode.io' + req.url) : next();
+  })
+
+
+} else {
+  server = http.createServer(app)
+}
+
 var io = socketio.listen(server);
 
-// ssl ->
-redirectApp.use('/.well-known', express.static(__dirname + '/.well-known', {dotfiles:'allow'}))
-
-// redirect all http requests to https
-redirectApp.get('*', function (req, res, next) {
-  !req.secure ? res.redirect('https://alightinthevoid.fr.openode.io' + req.url) : next();
-})
-
-// manual routing
+// CA
+app.use('/.well-known', express.static(__dirname + '/.well-known', {dotfiles:'allow'}))
 
 // game ->
 app.use('/game', express.static(__dirname + '/game'))
@@ -437,10 +446,17 @@ function serverTick() {
 console.log('starting server ticker ...');
 serverTicker = setInterval(serverTick, 16.66); // appx 60hz tick = 16.66 ms delay
 
-console.log('[ SERVER LOADED ]');
-redirectServer.listen(80, function() {
-  console.log('* redirect http server listening on port 80')
-})
-server.listen(443, function() {
-  console.log('[DONE] -> Https server listening on port 443')
-})
+console.log('[ SERVER LOADED, starting listening ]');
+
+if (SSL_ENABLED) {
+  redirectServer.listen(80, function() {
+    console.log('* redirect http server listening on port 80')
+  })
+  server.listen(443, function() {
+    console.log('[DONE] -> Https server listening on port 443')
+  })
+} else {
+  server.listen(80, function() {
+    console.log('[DONE] -> Http-only server listening on port 80')
+  })
+}
