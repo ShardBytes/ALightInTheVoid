@@ -19,7 +19,7 @@
  * ( also RIP javascript parser which had to read these unimportant lines of comments )
  */
 
-const DEVELOPMENT_MODE = true; // connects to http localhost (NON-SSL)
+const DEVELOPMENT_MODE = false; // connects to http localhost (NON-SSL)
 const DEVMODE_MOBILE = false;
 const VERSION = '1.7.1 Lyra';
 const BUILDNAME = '300318/1953';
