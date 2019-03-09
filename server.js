@@ -7,7 +7,6 @@ console.log('--- A Light In The Void SERVER by Plasmoxy ---')
 console.log('LOADING...');
 
 const SSL_ENABLED = false;
-const HOST = "alightinthevoid.fr.openode.io"
 
 var express = require('express');
 var http = require('http');
@@ -17,27 +16,29 @@ var socketio = require('socket.io');
 
 var app = express();
 
-var server = SSL_ENABLED ? (
-  https.createServer(
-    {
-      key: fs.readFileSync('ssl/private.key'),
-      cert: fs.readFileSync('ssl/certificate.crt'),
-      ca: fs.readFileSync('ssl/ca_bundle.crt')
-    },
-    app
-  )
-) : (
-  http.createServer(app)
-)
+var server;
 
-redirectApp = express();
-var redirectServer = http.createServer(redirectApp);
+if (SSL_ENABLED) {
+  let ssl_options = {
+    key: fs.readFileSync('ssl/private.key'),
+    cert: fs.readFileSync('ssl/certificate.crt'),
+    ca: fs.readFileSync('ssl/ca_bundle.crt')
+  }
 
-// redirect all http requests to https or the other way round
-redirectApp.get('*', function (req, res, next) {
-  !req.secure ? res.redirect((SSL_ENABLED ? 'https://'+HOST : 'http://'+HOST) + req.url) : next();
-})
+  server = https.createServer(ssl_options, app);
 
+  redirectApp = express();
+  var redirectServer = http.createServer(redirectApp);
+
+  // redirect all http requests to https
+  redirectApp.get('*', function (req, res, next) {
+    !req.secure ? res.redirect('https://alightinthevoid.fr.openode.io' + req.url) : next();
+  })
+
+
+} else {
+  server = http.createServer(app)
+}
 
 var io = socketio.listen(server);
 
@@ -457,8 +458,5 @@ if (SSL_ENABLED) {
 } else {
   server.listen(80, function() {
     console.log('[DONE] -> Http-only server listening on port 80')
-  })
-  redirectServer.listen(443, function() {
-    console.log('* redirect https back to http on port 443')
   })
 }
