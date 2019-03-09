@@ -6,7 +6,7 @@
 console.log('--- A Light In The Void SERVER by Plasmoxy ---')
 console.log('LOADING...');
 
-const SSL_ENABLED = true;
+const SSL_ENABLED = false;
 
 var express = require('express');
 var http = require('http');
