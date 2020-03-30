@@ -21,8 +21,8 @@ var server;
 if (SSL_ENABLED) {
   // custom key locations for VPS
   let ssl_options = {
-    key: readFileSync("/etc/letsencrypt/live/shardbytes.com/privkey.pem"),
-    cert: readFileSync("/etc/letsencrypt/live/shardbytes.com/cert.pem")
+    key: fs.readFileSync("/etc/letsencrypt/live/shardbytes.com/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/shardbytes.com/cert.pem")
   }
 
   server = https.createServer(ssl_options, app);
