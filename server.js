@@ -6,7 +6,7 @@
 console.log('--- A Light In The Void SERVER by Plasmoxy ---')
 console.log('LOADING...');
 
-const SSL_ENABLED = false;
+const SSL_ENABLED = true;
 
 var express = require('express');
 var http = require('http');
@@ -19,10 +19,10 @@ var app = express();
 var server;
 
 if (SSL_ENABLED) {
+  // custom key locations for VPS
   let ssl_options = {
-    key: fs.readFileSync('ssl/private.key'),
-    cert: fs.readFileSync('ssl/certificate.crt'),
-    ca: fs.readFileSync('ssl/ca_bundle.crt')
+    key: readFileSync("/etc/letsencrypt/live/shardbytes.com/privkey.pem"),
+    cert: readFileSync("/etc/letsencrypt/live/shardbytes.com/cert.pem")
   }
 
   server = https.createServer(ssl_options, app);
@@ -448,15 +448,18 @@ serverTicker = setInterval(serverTick, 16.66); // appx 60hz tick = 16.66 ms dela
 
 console.log('[ SERVER LOADED, starting listening ]');
 
-if (SSL_ENABLED) {
-  redirectServer.listen(80, function() {
-    console.log('* redirect http server listening on port 80')
-  })
-  server.listen(443, function() {
-    console.log('[DONE] -> Https server listening on port 443')
-  })
-} else {
-  server.listen(80, function() {
-    console.log('[DONE] -> Http-only server listening on port 80')
-  })
-}
+// if (SSL_ENABLED) {
+//   redirectServer.listen(80, function() {
+//     console.log('* redirect http server listening on port 80')
+//   })
+  
+// } else {
+//   server.listen(80, function() {
+//     console.log('[DONE] -> Http-only server listening on port 80')
+//   })
+// }
+
+
+server.listen(10012, function() {
+  console.log('[DONE] -> Https server listening on port 443')
+})
